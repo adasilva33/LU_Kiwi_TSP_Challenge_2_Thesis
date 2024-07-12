@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.7.6)  10 JUL 2024 22:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.7.6)  12 JUL 2024 06:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -565,7 +565,7 @@ Package hyperref Info: Link coloring ON on input line 34.
 \openout3 = `main.out'.
 
  (./First_Pages/TitlePage.tex
-<./Figures/LU.jpg, id=80, 156.585pt x 188.20313pt>
+<./Figures/LU.jpg, id=116, 156.585pt x 188.20313pt>
 File: ./Figures/LU.jpg Graphic file (type jpg)
 <use ./Figures/LU.jpg>
 Package pdftex.def Info: ./Figures/LU.jpg  used on input line 6.
@@ -595,15 +595,15 @@ Package pdftex.def Info: ./Figures/LU.jpg  used on input line 6.
  Table of Contents
 ------------------------------------------------------------------------------
 (./main.toc
-LaTeX Font Info:    Trying to load font information for U+msa on input line 17.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 13.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 17.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 13.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 17.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 13.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 ) [4
@@ -663,74 +663,35 @@ Chapter 2.
 ------------------------------------------------------------------------------
  2 Literature Review
 ------------------------------------------------------------------------------
-) (./Chapters/Chapter3.tex [2
+[2
 
-]
+]) (./Chapters/Chapter3.tex [3]
 Chapter 3.
 ------------------------------------------------------------------------------
  3 Problem Description
 ------------------------------------------------------------------------------
-) (./Chapters/Chapter4.tex [3
+) (./Chapters/Chapter4.tex [4
 
 ]
 Chapter 4.
 ------------------------------------------------------------------------------
- 4 Methodology
+ 4 Solving the 14 instances using a heuristic
 ------------------------------------------------------------------------------
-) (./Chapters/Chapter5.tex [4
+) (./Chapters/Chapter5.tex [5
 
 ]
 Chapter 5.
 ------------------------------------------------------------------------------
- 5 Results
+ 5 Results and performance
 ------------------------------------------------------------------------------
-) (./Chapters/Chapter6.tex [5
+) (./Chapters/Chapter6.tex [6
 
 ]
 Chapter 6.
 ------------------------------------------------------------------------------
  6 Conclusion
 ------------------------------------------------------------------------------
-) (./Appendices/AppendixA.tex [6
-
-]
-Appendix A.
-------------------------------------------------------------------------------
- A Code Listings
-------------------------------------------------------------------------------
-) (./Appendices/AppendixB.tex [7
-
-]
-Appendix B.
-------------------------------------------------------------------------------
- B Test Instances
-------------------------------------------------------------------------------
-) (./Appendices/AppendixC.tex [8
-
-]
-Appendix C.
-------------------------------------------------------------------------------
- C User Manuals
-------------------------------------------------------------------------------
-) (./Appendices/AppendixD.tex [9
-
-]
-Appendix D.
-------------------------------------------------------------------------------
- D Raw Data
-------------------------------------------------------------------------------
-) [10
-
-]
-------------------------------------------------------------------------------
- Bibliography
-------------------------------------------------------------------------------
-(./main.bbl
-
-Package natbib Warning: Empty `thebibliography' environment on input line 8.
-
-) [11
-
+) [7
 
 ] (./main.aux)
  ***********
@@ -738,21 +699,21 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 90738FE69120E084218B59F6614B5AA5;2332.
+(rerunfilecheck)             Checksum: F2EA8C08FCE05A5ECAC4DA90F65F6901;5138.
  ) 
 Here is how much of TeX's memory you used:
- 15718 strings out of 474116
- 243802 string characters out of 5743683
- 1936187 words of memory out of 5000000
- 37740 multiletter control sequences out of 15000+600000
- 568709 words of font info for 75 fonts, out of 8000000 for 9000
+ 15346 strings out of 474116
+ 240007 string characters out of 5743683
+ 1935187 words of memory out of 5000000
+ 37389 multiletter control sequences out of 15000+600000
+ 568541 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,11n,93p,608b,1242s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (21 pages, 174558 bytes).
+ 90i,11n,93p,608b,561s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on main.pdf (17 pages, 163426 bytes).
 PDF statistics:
- 273 PDF objects out of 1000 (max. 8388607)
- 226 compressed objects within 3 object streams
- 56 named destinations out of 1000 (max. 500000)
- 158 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 286 PDF objects out of 1000 (max. 8388607)
+ 245 compressed objects within 3 object streams
+ 52 named destinations out of 1000 (max. 500000)
+ 230 words of extra memory for PDF output out of 10000 (max. 10000000)
 
