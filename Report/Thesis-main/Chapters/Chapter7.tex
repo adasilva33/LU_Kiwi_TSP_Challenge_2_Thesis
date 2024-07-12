@@ -3,9 +3,80 @@
 \lhead{Chapter 7. \emph{Progress and next steps}}
 
 \section{Coding}
-\subsection{title}
+\subsection{class data preprocessing}
+Take the instance and create all the needed attributes and methods
 
-
+\subsubsection{The class}
+\begin{lstlisting}[language=Python]
+def __init__(self,instance_path):
+    self.instance_path=instance_path
+    
+    self.info, self.flights = self.read_file(f_name=self.instance_path)
+    self.number_of_areas,self.starting_airport=int(self.info[0][0]),self.info[0][1]
+    
+    
+    self.flights_by_day_dict = self.flights_by_day(flight_list=self.flights)
+    self.flights_by_day_dict=self.redistribute_day_zero(data=self.flights_by_day_dict,number_of_days=self.number_of_areas)
+    
+    self.flights_by_day_dict=self.remove_duplicate(flights_by_day=self.flights_by_day_dict)
+    
+    self.list_days= self.flights_by_day_dict.keys()
+    
+    self.airports_by_area = self.get_airports_by_areas()
+    self.area_by_airport=self.invert_dict(original_dict=self.airports_by_area)
+    
+    self.starting_area=self.associated_area_to_airport(airport=self.starting_airport)
+    self.list_airports=self.get_list_of_airports()
+    self.list_areas=list(self.airports_by_area.keys())
+    self.areas_connections_by_day=self.possible_flights_from_zone_to_zone_specific_day()
+\end{lstlisting}
+\subsubsection{What needs to be done}
 \begin{itemize}
-    \item 
+    \item For the big instances, it takes a lot of time to preprocess: solutions are directly eliminated because it runs out of time
+    \item The issue is because: self.redistribute day zero and self.remove duplicate
+    \item Should we improve the time complexity of these 2 functions to avoid this problem? Can we consider we only focus on the execution time of the heuristic algorithm?
 \end{itemize}
+
+\subsection{class heuristic operators}
+\begin{itemize}
+    \item Here we only define the classic low level heuristic operator like swap, reverse..
+\end{itemize}
+
+\subsection{class heuristics}
+
+\subsubsection{The class}
+\begin{lstlisting}
+class heuristics:
+def __init__(self, data_preprocessing_class):
+    self.data = data_preprocessing_class
+    
+    self.starting_airport = self.data.starting_airport
+    self.starting_area=self.data.starting_area
+    self.total_cost = 0    
+\end{lstlisting}
+
+
+\subsubsection{Errors and trials}
+\begin{itemize}
+    \item Tried to solve this problem using graphs: unsucessfull
+    \item I have tried to find LLH: unsucessfull because I did not have all the constraints of the problems
+    \item Works: for each instance I find the whole feasible area solutions: an area solution is considered feasible if all the areas are visited, starting=ending and at least it exists a flight between these areas
+\end{itemize}
+
+\subsubsection{What needs to be done}
+Redefine the exact scope of the dissertation: we want solve the KIWI problem using a heuristic.
+The question is which one. 
+Do we want to compare it with the Local Search results? If yes I'll need the code
+
+What Yaros did: Single point optimisation and RL
+
+Nested problems: first you have to find a feasible area solution and then in this feasible area solution you can find the optimal solution
+\\Problem: I don't really see known names of heuristics on my algo
+\\Question: how can we handle these two operations knowing that when we check if an area solution is feasible we check that there is at least one flight but we can also incorporate to pick the good flight at this change.
+
+What I plan: use some kind of GA. 
+
+I think we can try to use a population based algorithm 
+
+Target: first draft of the dissertation Friday 16th of August -> Is it okay for Ahmed?
+Goal: all the lecture review written - 80\% of the analysis done and my heuristic works - then time to do final comparison
