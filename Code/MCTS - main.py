@@ -1,6 +1,8 @@
 import numpy as np
 import random
 from copy import deepcopy
+import logging
+
 #random.seed(12)
 
 class data_preprocessing:
@@ -177,8 +179,7 @@ class data_preprocessing:
         return flights_from_airport
     
     def possible_flights_from_an_airport_at_a_specific_day_with_previous_areas(self,day,from_airport, visited_areas):
-        daily_flights = self.flights_by_day_dict.get(day, [])
-        
+        daily_flights = self.flights_by_day_dict.get(day, [])+ self.flights_by_day_dict.get(0, [])
         flights_from_airport = []
         for flight in daily_flights:
             #print(self.associated_area_to_airport(airport=flight[0]))
@@ -210,7 +211,7 @@ class Node:
         return len(self.children) > 0 and all(child.visit_count > 0 for child in self.children)
     
     def best_child(self, c_param=1.41):
-        epsilon = 1e-6
+        epsilon = 0
 
         visited_children = [child for child in self.children if (child.visit_count > 0)]
         unvisited_children = [child for child in self.children if child.visit_count == 0]
@@ -238,14 +239,28 @@ class Node:
         self.total_cost += result
         
 class MCTS(data_preprocessing):
-    def __init__(self, instance, iterations):
+    def __init__(self, instance):
         super().__init__(instance_path=instance)
+        self.logger = self.configure_logging()
         self.root=Node(self.initialise_root_node())
-        self.iterations = iterations
         self.best_leaf = None
         self.best_leaf_cost = float('inf')
         self.search()
         
+
+    def configure_logging(self):
+        log_file=f'{self.instance_path}.log'
+        # Configure the logger
+        logging.basicConfig(
+            level=logging.DEBUG,  # Set the log level to DEBUG to capture all types of logs
+            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            handlers=[
+                logging.FileHandler(log_file, mode='w'),  # 'w' to overwrite the log file each run, 'a' to append
+                logging.StreamHandler()  # Optional: to also print logs to the console
+            ]
+        )
+        logger = logging.getLogger(__name__)
+        return logger
 
     def initialise_root_node(self):
         return {
@@ -261,12 +276,13 @@ class MCTS(data_preprocessing):
         actions = self.possible_flights_from_an_airport_at_a_specific_day_with_previous_areas(
             node.state['current_day'], node.state['current_airport'], node.state['visited_zones'])
 
-        print('\nExpansion \n')
+        self.logger.debug('\nExpansion')
+
         for action in actions:
             new_state = self.transition_function(node.state, action)
             child_node = node.add_child(new_state)
-            print(f"Children: {child_node.state}, Visit count: {child_node.visit_count}, Total cost: {child_node.total_cost}")
-        print('\nEnd Expansion \n')
+            self.logger.info(f"Children: {child_node.state}, Visit count: {child_node.visit_count}, Total cost: {child_node.total_cost}")
+        self.logger.debug('\nEnd expansion')
         
     def transition_function(self, state, action):
         new_state = deepcopy(state)
@@ -290,10 +306,12 @@ class MCTS(data_preprocessing):
         actions = self.possible_flights_from_an_airport_at_a_specific_day_with_previous_areas(
             day=state['current_day'], from_airport=state['current_airport'], visited_areas=state['visited_zones']
         )
+        self.logger.info(f"Actions: {actions}")
         if not actions:
             return None
         # Select the action with the lowest cost
         best_action = min(actions, key=lambda x: x[1])
+        self.logger.info(f"Chosen action based on heuristic policy: {best_action}")
         return best_action
     
     def select(self, node):
@@ -307,10 +325,12 @@ class MCTS(data_preprocessing):
             
             unvisited_children = self.get_unvisited_children(node)
             if unvisited_children:
+                self.logger.info(f"Unvisited children picked randomly")
                 return random.choice(unvisited_children)
-            print('\nNo more unvisited children')
+            
             node = node.best_child()
-        return node
+            self.logger.info(f"The best node has been chosen on UCT {node.state}")
+
 
     def get_unvisited_children(self, node):
         queue = [node]
@@ -327,28 +347,28 @@ class MCTS(data_preprocessing):
 
     def simulate(self, node):
         current_simulation_state = deepcopy(node.state)
-        print(f"Selected node for simulation {current_simulation_state}")
+        self.logger.info(f"Selected node for simulation {current_simulation_state}")
         while current_simulation_state['current_day'] != self.number_of_areas:
-        #while current_simulation_state['current_day'] <= self.number_of_areas and current_simulation_state['remaining_zones']:
-            #action = self.random_policy(current_simulation_state)
             action = self.heuristic_policy(state=current_simulation_state)
             if action is None:  # No valid actions available
                 break
+
             current_simulation_state = self.transition_function(current_simulation_state, action)
+            self.logger.info(f'Current simulation state {current_simulation_state}')
         
         flights_to_go_back_initial_zone = self.possible_flights_from_an_airport_at_a_specific_day_with_previous_areas(
             day=current_simulation_state['current_day'], from_airport=current_simulation_state['current_airport'], 
             visited_areas=current_simulation_state['visited_zones'][1:])
         
-        min_price = 1000000
+        min_price = 100000
         final_airport = None
         
         for flight in flights_to_go_back_initial_zone:
             if flight[1] < min_price:
                 min_price = flight[1]
                 final_airport = flight[0]
-
-        #print(f"{min_price}, {final_airport}")
+        self.logger.info(f"Last flight to {final_airport} at the cost: {min_price}")
+        print(f"{min_price}, {final_airport}")
         current_simulation_state['total_cost'] += min_price
 
         if current_simulation_state['total_cost'] < self.best_leaf_cost:
@@ -360,8 +380,10 @@ class MCTS(data_preprocessing):
 
     def backpropagate(self, node, cost):
         while node is not None:
+ 
             node.update(cost)
-            print(f"Backpropagating Node: {node.state}, Visit Count: {node.visit_count}, Total Cost: {node.total_cost}")
+
+            self.logger.info(f"Backpropagating Node: {node.state}, Visit Count: {node.visit_count}, Total Cost: {node.total_cost}")
 
             node = node.parent
 
@@ -374,8 +396,15 @@ class MCTS(data_preprocessing):
         return node.best_child()
         
     def search(self):
-        for _ in range(self.iterations):
+        #for _ in range(self.iterations):
+        while True:
             node_to_explore = self.select(self.root)
+            if len(node_to_explore.state['remaining_zones'])==0:
+                node_to_explore = self.select(self.root)
+                cost = self.simulate(node_to_explore)
+                self.backpropagate(node_to_explore, cost)
+                return
+                
             if node_to_explore.is_fully_expanded():
                 node_to_explore = self.expand_and_select(node_to_explore)
             cost = self.simulate(node_to_explore)
@@ -393,12 +422,15 @@ class MCTS(data_preprocessing):
     def display_all_nodes(self, nodes):
         for node in nodes:
             print(f"State: {node.state}, Visit Count: {node.visit_count}, Total Cost: {node.total_cost}")
+        
+            
+            self.logger.info(f"State: {node.state}, Visit Count: {node.visit_count}, Total Cost: {node.total_cost}")
 
-instance_path = 'Code/Flight connections dataset/1.in'
-data_processor = data_preprocessing(instance_path=instance_path)
+instance_path = '/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Flight connections dataset/3.in'
+#data_processor = data_preprocessing(instance_path=instance_path)
 
-mcts = MCTS(instance=instance_path, iterations=100)
-
+mcts = MCTS(instance=instance_path)
+print(mcts.best_leaf)
 print('\n')
-mcts.display_all_nodes(nodes=mcts.collect_all_nodes())
+#mcts.display_all_nodes(nodes=mcts.collect_all_nodes())
 
