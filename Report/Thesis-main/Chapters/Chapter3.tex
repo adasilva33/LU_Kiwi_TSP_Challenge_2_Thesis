@@ -1,7 +1,123 @@
 \chapter{Problem Description}
 \label{Chapter3}
 \lhead{Chapter 3. \emph{Problem Description}}
+\todo{Present and explain your problem AHA in detail Assumptions should be stated clearly}
+
 \section{Overview}
+
+Kiwi's traveler wants to travel in n different areas in n days, let's denote $Areas$ the set of areas the traveler wants to visit: $Areas = \{ \text{Area}_1, \text{Area}_2, \ldots, \text{Area}_n \}$.
+
+For every existing areas, there is at least one airport that belongs to this area:
+
+\begin{equation}
+    \forall i \in \text{Areas}, \, \exists \, j \in \text{Airports} \, \text{such that} \, j \in i
+\end{equation}
+
+Without considering the order, we can say that the traveler is in \( \text{Area}_1 \) at \( \text{day}_1 \) at \( \text{Airport}_1 \).
+
+The traveler has to visit one and only one area per day, no matter what airport he visits but he leaves from the starting airport and has to come back to the starting area (not necessarly the startinga airport).
+There are flight connections between different airports, with different prices depending on the day of the travel:
+we can write $c^{d}_{ij}$ the cost to travel from $city_i$ to $city_j$ at day $d$. We do not necessarly have $c^{d}_{ij}=c^{d}_{ji}$ neither $c^{d_1}_{ij}=c^{d_2}_{ij}$ if $d_1 \neq d_2$. The problem can hence be characterised as asymetric and time dependant.
+
+The aim of the problem is to minimise the overall cost of the travel that can be formulate as follow:
+
+\begin{equation}
+    \min f = \sum_{d=1}^{n} c^d_{ij}
+\end{equation}   
+
+Subject to:
+
+1. Traveler leaves each area exactly once on each day:
+\begin{equation}
+    \sum_{j \in \text{Airports}} x^d_{ij} = 1, \quad \forall i \in \text{Areas}, \, \forall d \in \{1, 2, \ldots, n\}
+\end{equation}
+
+2. Traveler arrives at each area exactly once on each day:
+\begin{equation}
+    \sum_{i \in \text{Airports}} x^d_{ij} = 1, \quad \forall j \in \text{Areas}, \, \forall d \in \{1, 2, \ldots, n\}
+\end{equation}
+
+3. Binary decision variable indicating whether the traveler travels from area \(i\) to area \(j\) on day \(d\):
+\begin{equation}
+    x^d_{ij} \in \{0, 1\}, \quad \forall i, j \in \text{Areas}, \, \forall d \in \{1, 2, \ldots, n\}
+\end{equation}
+
+4. Traveler must depart from the starting area on the first day:
+\begin{equation}
+    \sum_{i \in \text{Areas}} x^1_{0i} = 1
+\end{equation}
+
+5. Traveler must return to the starting area on the last day:
+\begin{equation}
+    \sum_{j \in \text{Areas}} x^n_{j0} = 1
+\end{equation}
+
+6. Traveler visits exactly \( n \) airports:
+\begin{equation}
+    \sum_{d=1}^{n} \sum_{i \in \text{Areas}} \sum_{j \in \text{Areas}} x^d_{ij} = n
+\end{equation}
+
+7. If the traveler goes from airport \( i \) to airport \( j \) on day \( d \), they must leave from airport \( j \) on day \( d+1 \):**
+\begin{equation}
+    x^d_{ij} = x^{d+1}_{jk}, \quad \forall i, j, k \in \text{Areas}, \, \forall d \in \{1, 2, \ldots, n-1\}
+\end{equation}
+
+
+where:
+
+\begin{itemize}
+    \item \( x^d_{ij} = 1 \) if the traveler travels from \( \text{Area}_i \) to \( \text{Area}_j \) on day \( d \), otherwise \( x^d_{ij} = 0 \).
+    \item \( c^d_{ij} \) is the cost of traveling from \( \text{Area}_i \) to \( \text{Area}_j \) on day \( d \).
+\end{itemize}
+
+
+
+
 \section{Instances Description}
 
-\todo{Present and explain your problem AHA in detail Assumptions should be stated clearly}
+We are given a set of 14 Instances $I_{n}={I_1,I_2,...,I_3,I_4}$ that we have to solve.
+Every instances has the same overall structure.
+
+For example if we take instance $I_4$, the first few lines are:
+
+\begin{verbatim}
+    13 GDN
+    first
+    WRO DL1
+    second
+    BZG KJ1
+    third
+    BXP LB1
+\end{verbatim}
+
+That means that the Traveller starts from airport GDN, that belongs to the starting area.
+Then we are given the list of airports that are in every zones.
+For example the second zone names second have two airports: WRO and DL1.
+
+Each instances named differently the zones but the format is the same. For $I_14$:
+\begin{verbatim}
+    fltbhfhwbn
+    FSE
+    twykgmcoll
+    SYY
+\end{verbatim}
+
+
+That means that the first zone is fltbhfhwbn and has the airport FSE, twykgmcoll is zone 2 and so on.
+
+
+\dots
+LWO KBP 0 515
+LWO DOK 0 1032
+LWO ODS 0 585
+LWO ESB 0 1106
+LWO IST 0 880
+
+
+\begin{center}
+    \begin{tabular}{||c c c c||} 
+        a & b & c & d\\
+       1 & 2 & 3 & 4\\
+       5 & 6 & 7\\
+    \end{tabular}
+\end{center}
