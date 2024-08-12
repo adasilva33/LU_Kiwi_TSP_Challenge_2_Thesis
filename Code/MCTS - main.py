@@ -2,6 +2,7 @@ import numpy as np
 import random
 from copy import deepcopy
 import logging
+import time
 
 #random.seed(12)
 
@@ -162,7 +163,7 @@ class data_preprocessing:
                     unique_flights[flight_key] = flight
                 else:
                     if flight[2] < unique_flights[flight_key][2]:
-                        #print(flight[2],unique_flights[flight_key][2])
+                        #print(flight[0],flight[1],flight[2],flight_key,unique_flights[flight_key][2])
                         unique_flights[flight_key] = flight
                 flights_by_day[day] = list(unique_flights.values())
         return flights_by_day
@@ -192,6 +193,7 @@ class data_preprocessing:
     def which_area_to_explore(self,airports_by_area):
         return list({key: len(value) for key, value in airports_by_area.items() if len(value) > 1})
     
+
 class Node:
     def __init__(self, state, parent=None):
         self.state = state  # State is a dictionary representing the current situation
@@ -210,7 +212,7 @@ class Node:
             return False
         return len(self.children) > 0 and all(child.visit_count > 0 for child in self.children)
     
-    def best_child(self, c_param=1.2):
+    def best_child(self, c_param=2):
         epsilon = 0
 
         visited_children = [child for child in self.children if (child.visit_count > 0)]
@@ -240,12 +242,16 @@ class Node:
         
 class MCTS(data_preprocessing):
     def __init__(self, instance):
+        start_time=time.time()
         super().__init__(instance_path=instance)
+        self.end_time_data_preprocessing=time.time()-start_time
         self.logger = self.configure_logging()
         self.root=Node(self.initialise_root_node())
         self.best_leaf = None
         self.best_leaf_cost = float('inf')
         self.search()
+        self.end_search_time=time.time()-start_time
+        self.print_execution_times()
         
 
     def configure_logging(self):
@@ -378,8 +384,8 @@ class MCTS(data_preprocessing):
         current_simulation_state = deepcopy(node.state)
         self.logger.info(f"Selected node for simulation {current_simulation_state}")
         while current_simulation_state['current_day'] != self.number_of_areas:
-            action = self.heuristic_policy(state=current_simulation_state)
-            #action=self.random_policy(state=current_simulation_state)
+            #action = self.heuristic_policy(state=current_simulation_state)
+            action=self.random_policy(state=current_simulation_state)
             #action = self.tolerance_heuristic_policy(state=current_simulation_state)
             
             if action is None:  # No valid actions available
@@ -452,6 +458,7 @@ class MCTS(data_preprocessing):
         self.logger.info(f"Best node: {self.best_leaf}")
         self.logger.info(f"Associated cost: {self.best_leaf_cost}")
         
+        
     def collect_all_nodes(self):
         nodes = []
         queue = [self.root]
@@ -464,12 +471,17 @@ class MCTS(data_preprocessing):
     def display_all_nodes(self, nodes):
         for node in nodes:
             print(f"State: {node.state}, Visit Count: {node.visit_count}, Total Cost: {node.total_cost}")
-        
-            
             self.logger.info(f"State: {node.state}, Visit Count: {node.visit_count}, Total Cost: {node.total_cost}")
+            
+    def print_execution_times(self):
+        self.logger.info(f"\n\n\n Time to preprocess the data: {self.end_time_data_preprocessing:.4f} seconds")
+        self.logger.info(f"\n\n\n Time to find the solution: {self.end_search_time:.4f} seconds")
+        self.logger.info(f"\n\n\n Total time: {self.end_time_data_preprocessing+self.end_search_time:.4f} seconds \n\n")
+        
 
-instance_path = '/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Flight connections dataset/1.in'
+instance_path = '/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Flight connections dataset/14.in'
 
+#DP=data_preprocessing(instance_path=instance_path)
 mcts = MCTS(instance=instance_path)
 print(mcts.best_leaf)
 print('\n')

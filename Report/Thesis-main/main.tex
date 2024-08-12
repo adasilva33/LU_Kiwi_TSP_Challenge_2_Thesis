@@ -1,10 +1,20 @@
 \documentclass[11pt, a4paper, oneside]{Thesis}
 \graphicspath{{./Figures/}}
+
 \usepackage[square, numbers, comma, sort&compress]{natbib} 
 \usepackage{array, booktabs, multirow, longtable}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{amsmath}
+\usepackage{blindtext}
+\usepackage{tabularx}
+\usepackage{makecell, amsmath, amssymb}
+\usepackage{tikz, bookmark, tcolorbox, qtree, tikz-qtree}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage[x11names]{xcolor}
+\usetikzlibrary{positioning, shapes, arrows.meta,decorations.pathmorphing}
+
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -59,14 +69,11 @@
 %	LIST OF CONTENTS/FIGURES/TABLES PAGES
 %-------------------------------------------
 
-\pagestyle{fancy} % The page style headers have been "empty" all this time, now use the "fancy" headers as defined before to bring them back
-
-\lhead{\emph{Contents}} % Set the left side page header to "Contents"
-\tableofcontents % Write out the Table of Contents
-
+%\pagestyle{fancy} % The page style headers have been "empty" all this time, now use the "fancy" headers as defined before to bring them back
+%\lhead{\emph{Contents}} % Set the left side page header to "Contents"
+%\tableofcontents % Write out the Table of Contents
 %\lhead{\emph{List of Figures}} % Set the left side page header to "List of Figures"
 %\listoffigures % Write out the List of Figures
-
 %\lhead{\emph{List of Tables}} % Set the left side page header to "List of Tables"
 %\listoftables % Write out the List of Tables
 
@@ -87,27 +94,26 @@
 \input{./Chapters/Chapter1}
 \input{./Chapters/Chapter2}
 \input{./Chapters/Chapter3}
-\input{./Chapters/Chapter4}
+%\input{./Chapters/Chapter4}
 \input{./Chapters/Chapter5}
 \input{./Chapters/Chapter6}
-\input{./Chapters/Chapter7}
+%\input{./Chapters/Chapter7}
 
 %-----------------
 %	APPENDICES
 %-----------------
-
 %\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
 %\appendix
 %\input{./Appendices/AppendixA}
 %\input{./Appendices/AppendixB}
 %\input{./Appendices/AppendixC}
 %\input{./Appendices/AppendixD}
-
 %\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
 %\backmatter
-%\label{Bibliography}
-%\lhead{\emph{Bibliography}}
-%\bibliographystyle{unsrtnat}
-%\bibliography{Ref}
+
+\label{Bibliography}
+\lhead{\emph{Bibliography}}
+\bibliographystyle{unsrtnat}
+\bibliography{Ref}
 
 \end{document}
