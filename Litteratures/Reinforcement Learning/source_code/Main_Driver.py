@@ -20,9 +20,9 @@ import RL_OI as Method
 
 start_time = time.time()
 #Type below the maximum time allowed (i.e. 2.99, 4.99, 14.99)
-run_time = 4.99 
+run_time = 14.99
 #Type below the problem instance (i.e. "1.in", "2.in", etc.)
-File = Read_File.ReadFile("/Users/adslv/Documents/LU/Term 3/Dissertation/Litteratures/Reinforcement Learning/source_code/Flight connections dataset/2.in") 
+File = Read_File.ReadFile("/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Litteratures/Reinforcement Learning/source_code/Flight connections dataset/6.in") 
 
 areas_n = int(File[0][0][0])
 start_air = File[0][0][1]
