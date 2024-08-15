@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 
 class Node:
@@ -10,6 +11,7 @@ class Node:
         self.children = []  # List of child nodes
         self.visit_count = 0  # Number of times this node has been visited
         self.total_cost = 0  # Total cost accumulated in simulations from this node
+        self.scores = []
 
     def add_child(self, child_state):
         child_node = Node(
@@ -28,7 +30,12 @@ class Node:
             child.visit_count > 0 for child in self.children
         )
 
-    def UCB(self):
+    def update(self, result):
+        self.visit_count += 1
+        self.total_cost += result
+        self.scores.append(result)
+
+    def UCB(self, c_param):
         epsilon = 0
 
         visited_children = [child for child in self.children if (child.visit_count > 0)]
@@ -48,27 +55,60 @@ class Node:
 
         choices_weights = [
             normalized_score(child)
-            + self.cp
+            + c_param
             * (2 * np.log(self.visit_count) / (child.visit_count + epsilon)) ** 0.5
             for child in visited_children
         ]
 
-        print(f"UCB_{self.cp} score {choices_weights}")
+        # print(f"UCB_{c_param} score {choices_weights}")
         best_child_node = self.children[np.argmin(choices_weights)]
-        print(
-            f"Selected Node: {best_child_node.state}, , Visit Count: {best_child_node.visit_count}, Total Cost: {best_child_node.total_cost}"
-        )
-        print("Children picked on UCT critera")
+        # print(
+        #    f"Selected Node: {best_child_node.state}, , Visit Count: {best_child_node.visit_count}, Total Cost: {best_child_node.total_cost}"
+        # )
+        # print("Children picked on UCT critera")
         return best_child_node
 
-    def update(self, result):
-        self.visit_count += 1
-        self.total_cost += result
+    def SP(self):
+        pass
+
+    def Bayesian(self):
+        pass
+
+    def UCB1_tuned(self, c_param):
+        visited_children = [child for child in self.children if child.visit_count > 0]
+
+        if not visited_children:
+            return random.choice(self.children)
+
+        def ucb1_tuned_score(child):
+            mean_cost = np.mean(child.scores) if len(self.scores) > 1 else 0
+            variance = np.var(self.scores) if len(self.scores) > 1 else 0
+            # UCB1-Tuned formula
+            exploration_term = np.sqrt(
+                (np.log(self.visit_count) / child.visit_count)
+                * min(
+                    0.25,
+                    variance
+                    + np.sqrt(2 * np.log(self.visit_count) / child.visit_count),
+                )
+            )
+            return mean_cost + c_param * exploration_term
+
+        choices_weights = [ucb1_tuned_score(child) for child in visited_children]
+        best_child_node = visited_children[np.argmin(choices_weights)]
+        return best_child_node
 
     def best_child(self):
         if self.desired_selection_policy == "UCB":
-            return self.UCB()
+            return self.UCB(c_param=self.cp)
+        if self.desired_selection_policy == "UCB1_T":
+            return self.UCB1_tuned(c_param=self.cp)
         else:
             raise ValueError(
                 f"Unknown Selection policy: {self.desired_selection_policy}"
             )
+
+    def delete_node(self):
+        self.parent.children = [
+            child for child in self.parent.children if child != self
+        ]

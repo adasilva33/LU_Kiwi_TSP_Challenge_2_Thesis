@@ -1,0 +1,230 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 Menlo-Bold;
+}
+{\colortbl;\red255\green255\blue255;\red193\green193\blue193;\red212\green214\blue154;\red24\green24\blue24;
+\red140\green211\blue254;\red67\green192\blue160;\red167\green197\blue152;\red183\green111\blue179;\red205\green173\blue106;
+\red70\green137\blue204;}
+{\*\expandedcolortbl;;\cssrgb\c80000\c80000\c80000;\cssrgb\c86275\c86275\c66667;\cssrgb\c12157\c12157\c12157;
+\cssrgb\c61176\c86275\c99608;\cssrgb\c30588\c78824\c69020;\cssrgb\c70980\c80784\c65882;\cssrgb\c77255\c52549\c75294;\cssrgb\c84314\c72941\c49020;
+\cssrgb\c33725\c61176\c83922;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Based on this graph:\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb4 \strokec3 \\begin\cf2 \strokec2 \{\cf5 \strokec5 figure\cf2 \strokec2 \}[!ht]\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb4     \cf3 \strokec3 \\centering\cf2 \strokec2     \cb1 \
+\cb4     \cf3 \strokec3 \\begin\cf2 \strokec2 \{\cf5 \strokec5 tikzpicture\cf2 \strokec2 \}[\cb1 \
+\cb4         startstop/.style=\{ellipse, minimum width=3cm, minimum height=1cm, text centered, draw=black\},\cb1 \
+\cb4         process/.style=\{rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black\},\cb1 \
+\cb4         decision/.style=\{rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, decorate, decoration=\{zigzag,segment length=2,amplitude=1\}\},\cb1 \
+\cb4         arrow/.style=\{thick,->,>=stealth\},\cb1 \
+\cb4         node distance=2cm\cb1 \
+\cb4         ]\cb1 \
+\cb4     \cb1 \
+\cb4     \cf3 \strokec3 \\node\cf2 \strokec2  (start) [startstop] \{start\};\cb1 \
+\cb4     \cf3 \strokec3 \\node\cf2 \strokec2  (current) [process, below of=start] \{current = \cf6 \strokec6 $S_\cf7 \strokec7 0\cf6 \strokec6 $\cf2 \strokec2 \};\cb1 \
+\cb4     \cf3 \strokec3 \\node\cf2 \strokec2  (decision1) [decision, below of=current, yshift=-0.5cm] \{is current a leaf node?\};\cb1 \
+\cb4     \cf3 \strokec3 \\node\cf2 \strokec2  (ucb1) [process, below of=decision1, yshift=-1cm, align=center] \{current = child node of current \cf8 \strokec8 \\\\\cf2 \strokec2  that maximizes \cf6 \strokec6 $UCB\cf7 \strokec7 1\cf6 \strokec6 (S^\{n_i,t_i\}_i)$\cf2 \strokec2 \};\cb1 \
+\cb4     \cf3 \strokec3 \\node\cf2 \strokec2  (decision2) [decision, right of=decision1, xshift=4cm] \{is the \cf6 \strokec6 $n_i$\cf2 \strokec2  value for current 0?\};\cb1 \
+\cb4     \cf3 \strokec3 \\node\cf2 \strokec2  (expand) [process, below of=decision2, yshift=-1cm, align=center] \{For each available action\cf8 \strokec8 \\\\\cf2 \strokec2  from current, add a new \cf8 \strokec8 \\\\\cf2 \strokec2  state to the tree\};\cb1 \
+\cb4     \cf3 \strokec3 \\node\cf2 \strokec2  (firstChild) [process, below of=expand] \{current = first new child node\};\cb1 \
+\cb4     \cf3 \strokec3 \\node\cf2 \strokec2  (rollout1) [process, below of=firstChild] \{ROLLOUT\};\cb1 \
+\cb4     \cf3 \strokec3 \\node\cf2 \strokec2  (rollout2) [process, above of=decision2] \{ROLLOUT\};\cb1 \
+\cb4     \cb1 \
+\cb4     \cb1 \
+\cb4     \cf3 \strokec3 \\draw\cf2 \strokec2  [arrow] (start) -- (current);\cb1 \
+\cb4     \cf3 \strokec3 \\draw\cf2 \strokec2  [arrow] (current) -- (decision1);\cb1 \
+\cb4     \cf3 \strokec3 \\draw\cf2 \strokec2  [arrow] (decision1) -- node[anchor=east] \{no\} (ucb1);\cb1 \
+\cb4     \cf9 \strokec9 \\%\cf2 \strokec2 draw [arrow] (ucb1) -- (decision1);\cb1 \
+\cb4     \cf3 \strokec3 \\draw\cf2 \strokec2  [arrow] (decision1) -- node[anchor=south] \{yes\} (decision2);\cb1 \
+\cb4     \cf3 \strokec3 \\draw\cf2 \strokec2  [arrow] (decision2) -- node[anchor=east] \{no\} (expand);\cb1 \
+\cb4     \cf3 \strokec3 \\draw\cf2 \strokec2  [arrow] (decision2) -- node[anchor=east] \{yes\} (rollout2);\cb1 \
+\cb4     \cf3 \strokec3 \\draw\cf2 \strokec2  [arrow] (expand) -- (firstChild);\cb1 \
+\cb4     \cf3 \strokec3 \\draw\cf2 \strokec2  [arrow] (ucb1.west) -- ++(-1,0) |- (decision1.west);\cb1 \
+\cb4     \cf3 \strokec3 \\draw\cf2 \strokec2  [arrow] (firstChild) -- (rollout1);\cb1 \
+\cb4     \cb1 \
+\cb4     \cf3 \strokec3 \\end\cf2 \strokec2 \{\cf5 \strokec5 tikzpicture\cf2 \strokec2 \}\cb1 \
+\cb4     \cf3 \strokec3 \\caption\cf2 \strokec2 \{Flow MCTS\}\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb4 \strokec3 \\end\cf2 \strokec2 \{\cf5 \strokec5 figure\cf2 \strokec2 \}\cb1 \
+\
+\
+And all my text:\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb4 Let's say we are given a maximisation problem. When starting the game, you have two possible actions \cf6 \strokec6 $a_\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2  and \cf6 \strokec6 $a_\cf7 \strokec7 2\cf6 \strokec6 $\cf2 \strokec2  from \cf6 \strokec6 $S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\cf7 \strokec7 0\cf6 \strokec6 $\cf2 \strokec2  in the tree \cf6 \strokec6 $\\mathcal\{T\}$\cf2 \strokec2 .\cb1 \
+\cb4 Every node is defined like so: \cf6 \strokec6 $S^\{n_i,t_i\}_i$\cf2 \strokec2  where \cf6 \strokec6 $n_i$\cf2 \strokec2  represents the number of times node \cf6 \strokec6 $i$\cf2 \strokec2  has been visited, \cf6 \strokec6 $t_i$\cf2 \strokec2  the total score of this node.\cb1 \
+\cb4 Furthermore, for every node - we can compute the \cf6 \strokec6 $UCB\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2  value: \cf6 \strokec6 $UCB\cf7 \strokec7 1\cf6 \strokec6 (S^\{n_i,t_i\}_i)=\\bar\{V_i\} + \cf7 \strokec7 2\cf6 \strokec6  \\sqrt\{\\frac\{\\ln N\}\{n_i\}\}$\cf2 \strokec2  where \cf6 \strokec6 $\\bar\{V_i\}=\\frac\{n_i\}\{t_i\}$\cf2 \strokec2  represents the average value of the node, \cf6 \strokec6 $n_i$\cf2 \strokec2  the number of times node \cf6 \strokec6 $i$\cf2 \strokec2  has been visited, \cf6 \strokec6 $N=n_\cf7 \strokec7 0\cf6 \strokec6 $\cf2 \strokec2  the number of times the root node has been visited/ the number of iterations.\cb1 \
+\
+\cb4 Before the first iteration, none node have been visited - \cf6 \strokec6 $\cf10 \cb4 \strokec10 \\forall\cf6 \cb4 \strokec6  i \cf10 \cb4 \strokec10 \\in\cf6 \cb4 \strokec6  \\mathcal\{T\}, S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\{i\}$\cf2 \strokec2 .\cb1 \
+\
+\
+\cb4 At the beginning of \cf6 \strokec6 $I\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2 , we then have to choose between these two child nodes (or choose between taking \cf6 \strokec6 $a_\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2  or \cf6 \strokec6 $a_\cf7 \strokec7 2\cf6 \strokec6 $\cf2 \strokec2 ). We then have to calculate the \cf6 \strokec6 $UCB\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2  value for these two nodes and pick the node that maximises the \cf6 \strokec6 $UCB\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2  value (as we are dealing with a maximisation problem).\cb1 \
+\cb4 In Figure \cf8 \strokec8 \\ref\cf2 \strokec2 \{fig:Expansion of the tree from the root node\}, neither of these have been visited yet so \cf6 \strokec6 $USB(S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\cf7 \strokec7 1\cf6 \strokec6 )=UCB\cf7 \strokec7 1\cf6 \strokec6 (S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\cf7 \strokec7 2\cf6 \strokec6 )=\cf10 \cb4 \strokec10 \\infty\cf6 \cb4 \strokec6 $\cf2 \strokec2 . Hence we decide to choose randomly \cf6 \strokec6 $S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2 .\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb4 \strokec6 $S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2  is a leaf node that has not been visited - then we can simulate from this node i.e.\cf9 \strokec9 \\ \cf2 \strokec2 taking random actions from this node to a terminal state as shown on Figure \cf8 \strokec8 \\ref\cf2 \strokec2 \{fig:Simulation - $I1$\}:\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb4 The terminal state has a value of 20, we can write that the rollout/simulation from node \cf6 \strokec6 $S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2  node is \cf6 \strokec6 $\\mathcal\{R\}(S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\cf7 \strokec7 1\cf6 \strokec6 )=\cf7 \strokec7 20\cf6 \strokec6 $\cf2 \strokec2  . The final step of \cf6 \strokec6 $I\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2  is backpropagation. Every node that has been visited in the iteration is updated.\cb1 \
+\cb4 Let \cf6 \strokec6 $\\mathcal\{N\}_\{\\mathcal\{R\},j\}$\cf2 \strokec2  be the indexes of the nodes visited during the \cf6 \strokec6 $j-th$\cf2 \strokec2  iteration of the MCTS:\cb1 \
+\
+\
+\cb4 We can then define a Backpropagate function: \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb4 \strokec3 \\begin\cf2 \strokec2 \{\cf5 \strokec5 center\cf2 \strokec2 \}\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb4     \cf3 \strokec3 \\centering\cf2 \cb1 \strokec2 \
+\cb4     \cf6 \strokec6 $\cf3 \strokec3 \\begin\cf6 \strokec6 \{array\}\{ccccc\}\cf2 \cb1 \strokec2 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb4 \strokec6     \\mathcal\{B\} & : & \\mathcal\{N\}_\{\\mathcal\{R\},j\} & \\to & \\mathcal\{N\}_\{\\mathcal\{R\},j\} \cf8 \strokec8 \\\\\cf2 \cb1 \strokec2 \
+\cf6 \cb4 \strokec6     & & S^\{n_i,t_i\}_\{i\} & \cf10 \cb4 \strokec10 \\mapsto\cf6 \cb4 \strokec6  & S^\{n_i+\cf7 \strokec7 1\cf6 \strokec6 ,t_i+\\mathcal\{R\}(S^\{n_i,t_i\}_\{i\})\}_\{i\} \cf8 \strokec8 \\\\\cf2 \cb1 \strokec2 \
+\cf6 \cb4 \strokec6     \\end\{array\}$\cf2 \cb1 \strokec2 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb4 \strokec3 \\end\cf2 \strokec2 \{\cf5 \strokec5 center\cf2 \strokec2 \}\cb1 \
+\
+\
+\
+\cf3 \cb4 \strokec3 \\newpage\cf2 \cb1 \strokec2 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb4 Then, back to our example in Figure \cf8 \strokec8 \\ref\cf2 \strokec2 \{fig:Backpropagation - $I1$\} we update the nodes \cf6 \strokec6 $\\mathcal\{B\}(S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\cf7 \strokec7 1\cf6 \strokec6 )=S^\{\\mathbf\{\cf7 \strokec7 1\cf6 \strokec6 \},\\mathbf\{\cf7 \strokec7 20\cf6 \strokec6 \}\}_\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2  and \cf6 \strokec6 $\\mathcal\{B\}(S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\cf7 \strokec7 0\cf6 \strokec6 )=S^\{\\mathbf\{\cf7 \strokec7 1\cf6 \strokec6 \},\\mathbf\{\cf7 \strokec7 20\cf6 \strokec6 \}\}_\cf7 \strokec7 0\cf6 \strokec6 $\cf2 \strokec2 .\cb1 \
+\
+\
+\cb4 The fourth phase of the algorithm have been done for \cf6 \strokec6 $I\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2 . We can then start the \cf6 \strokec6 $\cf7 \strokec7 2\cf6 \strokec6 ^\{nd\}$\cf2 \strokec2  iteration \cf6 \strokec6 $I\cf7 \strokec7 2\cf6 \strokec6 $\cf2 \strokec2 .\cb1 \
+\
+\cb4 On Figure \cf8 \strokec8 \\ref\cf2 \strokec2 \{fig:Selection - $I2$\}, we can either choose \cf6 \strokec6 $a_\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2  or \cf6 \strokec6 $a_\cf7 \strokec7 2\cf6 \strokec6 $\cf2 \strokec2 . When a child node has not been visited yet, you pick this node for the Selection or you can compute the \cf6 \strokec6 $UCB\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2  value, it leads to the same conclusion.\cb1 \
+\
+\cb4 We can then simulate (Figure \cf8 \strokec8 \\ref\cf2 \strokec2 \{fig:Simulation and Backpropagation - $I2$\}) from the chosen node \cf6 \strokec6 $S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\{\cf7 \strokec7 2\cf6 \strokec6 \}$\cf2 \strokec2  and \cf6 \strokec6 $\\mathcal\{R\}(S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\{\cf7 \strokec7 2\cf6 \strokec6 \})=\cf7 \strokec7 10\cf6 \strokec6 $\cf2 \strokec2  and backpropagate all the visited nodes: \cf6 \strokec6 $\\mathcal\{B\}(S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\{\cf7 \strokec7 2\cf6 \strokec6 \})=S^\{\cf7 \strokec7 1\cf6 \strokec6 ,\cf7 \strokec7 10\cf6 \strokec6 \}_\{\cf7 \strokec7 2\cf6 \strokec6 \}$\cf2 \strokec2  and \cf6 \strokec6 $\\mathcal\{B\}(S^\{\cf7 \strokec7 1\cf6 \strokec6 ,\cf7 \strokec7 20\cf6 \strokec6 \}_\{\cf7 \strokec7 0\cf6 \strokec6 \})=S^\{\cf7 \strokec7 2\cf6 \strokec6 ,\cf7 \strokec7 30\cf6 \strokec6 \}_\{\cf7 \strokec7 0\cf6 \strokec6 \}$\cf2 \strokec2 .\cb1 \
+\cb4 We now start the \cf6 \strokec6 $\cf7 \strokec7 3\cf6 \strokec6 ^\{rd\}$\cf2 \strokec2  iteration, based on the \cf6 \strokec6 $UCB\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2  score we decide to choose \cf6 \strokec6 $a_\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2 . \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb4 \strokec6 $S^\{\cf7 \strokec7 1\cf6 \strokec6 ,\cf7 \strokec7 20\cf6 \strokec6 \}_\{\cf7 \strokec7 1\cf6 \strokec6 \}$\cf2 \strokec2  is a leaf node and has been visited so you can expand it.\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb4 Based on \cf6 \strokec6 $UCB\cf7 \strokec7 1\cf6 \strokec6 $\cf2 \strokec2  score we decide to simulate from \cf6 \strokec6 $S^\{\cf7 \strokec7 0\cf6 \strokec6 ,\cf7 \strokec7 0\cf6 \strokec6 \}_\cf7 \strokec7 3\cf6 \strokec6 $\cf2 \strokec2  on Figure \cf8 \strokec8 \\ref\cf2 \strokec2 \{fig:Simulation and Backpropagation - I3\}\cb1 \
+\
+\cb4 If we were to stop at this stage of the algortihm, the best action to undertake is \cf6 \strokec6 $a_\cf7 \strokec7 2\cf6 \strokec6 $\cf2 \strokec2  because it has the higher average value: \cf6 \strokec6 $\\bar\{V_\cf7 \strokec7 1\cf6 \strokec6 \}=\\frac\{\cf7 \strokec7 20\cf6 \strokec6 \}\{\cf7 \strokec7 2\cf6 \strokec6 \} \\le \\bar\{V_\cf7 \strokec7 2\cf6 \strokec6 \}=\\frac\{\cf7 \strokec7 24\cf6 \strokec6 \}\{\cf7 \strokec7 2\cf6 \strokec6 \}$\cf2 \strokec2 .\cb1 \
+\
+\
+That\'92s all I have written then I explained the classes I created to compute the algorithm:\
+\
+\
+\cb4 In every iteration of this algorithm - there are four different phases:\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb4 \strokec3 \\begin\cf2 \strokec2 \{\cf5 \strokec5 enumerate\cf2 \strokec2 \}\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb4     \cf10 \cb4 \strokec10 \\item\cf2 \cb4 \strokec2  \cf3 \strokec3 \\textbf\cf2 \strokec2 \{
+\f2\b \cf10 \cb4 \strokec10 Selection:
+\f1\b0 \cf2 \cb4 \strokec2 \} Starting from the root node, select successive child nodes until a leaf node is reached. Use the Upper Confidence Bound for Trees (UCB1) formula to balance exploration and exploitation.\cb1 \
+\cb4     \cb1 \
+\cb4     \cf3 \strokec3 \\begin\cf2 \strokec2 \{\cf5 \strokec5 equation\cf2 \strokec2 \}\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb4 \strokec6         UCB\cf7 \strokec7 1\cf6 \strokec6 (S^\{n_i,t_i\}_i) = \\bar\{V_i\} + \cf7 \strokec7 2\cf6 \strokec6  \\sqrt\{\\frac\{\\ln N\}\{n_i\}\}\cf2 \cb1 \strokec2 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb4     \cf3 \strokec3 \\end\cf2 \strokec2 \{\cf5 \strokec5 equation\cf2 \strokec2 \}\cb1 \
+\cb4     \cb1 \
+\cb4     where:\cb1 \
+\cb4     \cf3 \strokec3 \\begin\cf2 \strokec2 \{\cf5 \strokec5 itemize\cf2 \strokec2 \}\cb1 \
+\cb4         \cf10 \cb4 \strokec10 \\item\cf2 \cb4 \strokec2  \cf6 \strokec6 $\\bar\{V_i\} = \\frac\{t_i\}\{n_i\}$\cf2 \strokec2  is the average value of the node.\cb1 \
+\cb4         \cf10 \cb4 \strokec10 \\item\cf2 \cb4 \strokec2  \cf6 \strokec6 $n_i$\cf2 \strokec2  is the number of times node \cf6 \strokec6 $i$\cf2 \strokec2  has been visited.\cb1 \
+\cb4         \cf10 \cb4 \strokec10 \\item\cf2 \cb4 \strokec2  \cf6 \strokec6 $N$\cf2 \strokec2  is the total number of visits for the root node.\cb1 \
+\cb4     \cf3 \strokec3 \\end\cf2 \strokec2 \{\cf5 \strokec5 itemize\cf2 \strokec2 \}\cb1 \
+\cb4     \cb1 \
+\cb4     \cf10 \cb4 \strokec10 \\item\cf2 \cb4 \strokec2  \cf3 \strokec3 \\textbf\cf2 \strokec2 \{
+\f2\b \cf10 \cb4 \strokec10 Expansion:
+\f1\b0 \cf2 \cb4 \strokec2 \} If the selected node is not a terminal node, expand the tree by adding all possible child nodes.\cb1 \
+\cb4     \cb1 \
+\cb4     \cf10 \cb4 \strokec10 \\item\cf2 \cb4 \strokec2  \cf3 \strokec3 \\textbf\cf2 \strokec2 \{
+\f2\b \cf10 \cb4 \strokec10 Simulation:
+\f1\b0 \cf2 \cb4 \strokec2 \} From the newly added node, perform a simulation (i.e., play random moves until a terminal state is reached).\cb1 \
+\cb4     \cb1 \
+\cb4     \cf10 \cb4 \strokec10 \\item\cf2 \cb4 \strokec2  \cf3 \strokec3 \\textbf\cf2 \strokec2 \{
+\f2\b \cf10 \cb4 \strokec10 Backpropagation:
+\f1\b0 \cf2 \cb4 \strokec2 \} Update the values of the nodes along the path from the newly added node to the root based on the result of the simulation.\cb1 \
+\cb4     \cb1 \
+\cb4     \cf3 \strokec3 \\begin\cf2 \strokec2 \{\cf5 \strokec5 equation\cf2 \strokec2 \}\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb4 \strokec6         \\mathcal\{B\}(S^\{n_i,t_i\}_i) = S^\{n_i+\cf7 \strokec7 1\cf6 \strokec6 ,t_i+\\mathcal\{R\}(S^\{n_i,t_i\}_i)\}_i\cf2 \cb1 \strokec2 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb4     \cf3 \strokec3 \\end\cf2 \strokec2 \{\cf5 \strokec5 equation\cf2 \strokec2 \}\cb1 \
+\cb4     \cb1 \
+\cb4     where \cf6 \strokec6 $\\mathcal\{R\}(S^\{n_i,t_i\}_i)$\cf2 \strokec2  is the result of the simulation starting from node \cf6 \strokec6 $S^\{n_i,t_i\}_i$\cf2 \strokec2 .\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb4 \strokec3 \\end\cf2 \strokec2 \{\cf5 \strokec5 enumerate\cf2 \strokec2 \}\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb4 In order to implement our solution, the first thing to implement was a data\cf9 \strokec9 \\_\cf2 \strokec2 preprocessing class. All our Python code is oriented-object programmed. We have represented our class on Figure \cf8 \strokec8 \\ref\cf2 \strokec2 \{fig:data_preprocessing_class\}.\cb1 \
+\cb4 The input is an instance \cf6 \strokec6 $I_i$\cf2 \strokec2 , as defined in Chapter \cf8 \strokec8 \\ref\cf2 \strokec2 \{Chapter3\}:\cb1 \
+\
+\
+\cb4 Different useful methods are implemented to compute data preprocessing attributes'. For example remove\cf9 \strokec9 \\_\cf2 \strokec2 duplicate consider the cheapest flight connections if multiple flight connections between two airports exist at different prices on the same day.\cb1 \
+\cb4 Thanks to the different methods we can then compute data preprocessing's attributes such as flights\cf9 \strokec9 \\_\cf2 \strokec2 by\cf9 \strokec9 \\_\cf2 \strokec2 day\cf9 \strokec9 \\_\cf2 \strokec2 dict that group all the flights by day, airports\cf9 \strokec9 \\_\cf2 \strokec2 by\cf9 \strokec9 \\_\cf2 \strokec2 area group all the airports per area.\cb1 \
+\cb4 Other methods are also defined like flights\cf9 \strokec9 \\_\cf2 \strokec2 from\cf9 \strokec9 \\_\cf2 \strokec2 airport\cf9 \strokec9 \\_\cf2 \strokec2 at\cf9 \strokec9 \\_\cf2 \strokec2 a\cf9 \strokec9 \\_\cf2 \strokec2 specific\cf9 \strokec9 \\_\cf2 \strokec2 day with\cf9 \strokec9 \\_\cf2 \strokec2 previous\cf9 \strokec9 \\_\cf2 \strokec2 area that will be helpful later and gives you all the possible flight connections from a specific airport on a specific day considering the visited\cf9 \strokec9 \\_\cf2 \strokec2 areas.\cb1 \
+\
+\
+\cb4 It is known that Python is relatively slow in terms of computation, so we decided to use as much as possible hasmaps.\cb1 \
+\cb4 Hashmaps allow to retrieve data efficiently based on a key - the time complexity is O(1).\cb1 \
+\
+\cb4 As already mentionned during the example, we use Node in our algorithm, we hence defined a Node class.\cb1 \
+\cb4 A node has parent (if it is not the root node) or children (if it is not a leaf node), they also have a number of times they have been visited - visit\cf9 \strokec9 \\_\cf2 \strokec2 count and the total\cf9 \strokec9 \\_\cf2 \strokec2 cost.\cb1 \
+\cb4 We also add a state which is a dictionnary where we keep track of the current\cf9 \strokec9 \\_\cf2 \strokec2 airport and the current\cf9 \strokec9 \\_\cf2 \strokec2 day, the remaining\cf9 \strokec9 \\_\cf2 \strokec2 zones we have to visit from this node to end the traveler's journey, the visited\cf9 \strokec9 \\_\cf2 \strokec2 zones so far, and the total\cf9 \strokec9 \\_\cf2 \strokec2 cost of the undertaken flight connections that is going to evolve for the simulation and then be backpropagated to the total\cf9 \strokec9 \\_\cf2 \strokec2 cost of the node if a terminal node is reached.\cb1 \
+\
+\
+I now wants the pseudo code for the MCTS algorithm.\
+\
+Structure like so: \\begin\{algorithm\}\
+\\caption\{CVRP code\}\
+\\begin\{algorithmic\}[1]\
+\\Function\{cvrp\}\{$K, Q, \\text\{bool\\_exact\\_trucks\}, \\text\{distance\\_matrix\}, \\text\{demand\\_matrix\}$\}\
+    \\\\\
+    \\State $n\\_cities \\gets \\text\{length of \} \\text\{distance\\_matrix\}$\
+    \\State $model \\gets \\text\{Create a new minimisation problem\}$\
+    \\\\\
+    \\State $x \\gets \\text\{binary decision variables for routes between cities\}$\
+    \\State $y \\gets \\text\{integer decision variables for quantities delivered\}$\
+    \\\\\
+    \\State $\\text\{Set the objective function of \} model \\text\{ to minimise total distance\}$\
+    \\\\\
+    \\For\{$j \\in \\\{1, \\ldots, n\\_cities-1\\\}$\}\
+        \\State $\\text\{Ensure each customer \} j \\text\{ is visited once\}$\
+    \\EndFor\
+    \\\\\
+    \\For\{$i \\in \\\{1, \\ldots, n\\_cities-1\\\}$\}\
+        \\State $\\text\{Ensure each customer \} i \\text\{ is exited once\}$\
+    \\EndFor\
+    \\\\\
+    \\If\{$\\text\{bool\\_exact\\_trucks\} = \\text\{False\}$\}\
+        \\State $\\text\{Set constraints for at most \} K \\text\{ trucks returning to depot\}$\
+        \\State $\\text\{Set constraints for at most \} K \\text\{ trucks leaving depot\}$\
+    \\\\\
+    \\ElsIf\{$\\text\{bool\\_exact\\_trucks\} = \\text\{True\}$\}\
+        \\State $\\text\{Set constraints for exactly \} K \\text\{ trucks returning to depot\}$\
+        \\State $\\text\{Set constraints for exactly \} K \\text\{ trucks leaving depot\}$\
+    \\EndIf\
+    \\\\\
+    \\ForAll\{$i, j \\text\{ where \} i \\neq j \\text\{ and \} i, j \\in \\\{1, \\ldots, n\\_cities-1\\\}$\}\
+        \\State $\\text\{Add flow balance constraints to \} model$\
+    \\EndFor\
+    \\\\\
+    \\For\{$i \\in \\\{1, \\ldots, n\\_cities-1\\\}$\}\
+        \\State $\\text\{Add capacity constraints to \} model$\
+    \\EndFor\
+    \\\\\
+    \\State $\\text\{Solve \} model$\
+    \\\\\
+    \\State $\\text\{Extract routes, objective value, number of trucks\}$\
+    \\\\\
+\\EndFunction\
+\\end\{algorithmic\}\
+\\end\{algorithm\}\
+\
+\
+You really have to focus on the code I provided}

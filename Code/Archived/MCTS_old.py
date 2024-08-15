@@ -41,12 +41,8 @@ class MCTS(data_preprocessing):
         self.collect_all_nodes()
 
     def configure_logging(self):
-        log_file = f"{self.instance_path}_{self.number_childrens}_{self.desired_simulation_policy}_{self.desired_expansion_policy}_{self.ratio_expansion}_{self.number_simulation}_{self.desired_selection_policy}_{self.cp}.log"
+        log_file = f"{self.instance_path}_{self.number_childrens}_{self.desired_simulation_policy}.log"
         log_file = self.get_unique_log_file(log_file)
-
-        # Clear any existing handlers
-        for handler in logging.root.handlers[:]:
-            logging.root.removeHandler(handler)
 
         # Configure the logger
         logging.basicConfig(
@@ -56,7 +52,7 @@ class MCTS(data_preprocessing):
                 logging.FileHandler(
                     log_file, mode="w"
                 ),  # 'w' to overwrite the log file each run, 'a' to append
-                # logging.StreamHandler(),  # Optional: to also print logs to the console
+                logging.StreamHandler(),  # Optional: to also print logs to the console
             ],
         )
         logger = logging.getLogger(__name__)
@@ -116,12 +112,9 @@ class MCTS(data_preprocessing):
                     for file in matching_files:
                         shutil.move(file, folder_name)
 
-                    # print(
-                    #    f"Moved files with base '{base_name}' into folder: {folder_name}"
-                    # )
-
-    def organise_in_simulation_folders(self):
-        pass
+                    print(
+                        f"Moved files with base '{base_name}' into folder: {folder_name}"
+                    )
 
     def initialise_root_node(self):
         return {
@@ -143,19 +136,13 @@ class MCTS(data_preprocessing):
                 node.state["visited_zones"],
             )
         )
-        if not actions:
-            self.logger.info("Reached a root un-expandable")
-            node.delete_node()
-            return
-
-        # self.logger.info(f"Action 1: {actions}")
 
         expansion_policy = self.get_expansion_policy()
-        actions = expansion_policy(actions)
+        actions = expansion_policy(actions=actions)
 
-        # self.logger.info(f"Actions 2: {actions}")
+        self.logger.debug(actions)
         self.logger.debug("\nExpansion")
-
+        # for action in actions:
         for action in actions:
             new_state = self.transition_function(node.state, action)
             child_node = node.add_child(new_state)
@@ -170,11 +157,8 @@ class MCTS(data_preprocessing):
         new_state["current_airport"] = action[0]
         new_state["total_cost"] += action[1]
         new_state["path"].append(action[0])
-        # self.logger.info(
-        #    f"Airport {action[0]}, {self.associated_area_to_airport(airport=action[0])} to remove in {new_state['remaining_zones']}"
-        # )
         new_state["remaining_zones"].remove(
-            self.associated_area_to_airport(airport=action[0])
+            self.associated_area_to_airport(airport=new_state["current_airport"])
         )
         new_state["visited_zones"].append(
             self.associated_area_to_airport(airport=action[0])
@@ -223,33 +207,22 @@ class MCTS(data_preprocessing):
 
     def select(self, node):
         while True:
+            if not node.children:
+                self.expand_node(node)
+
+                if not node.children:  # No more children can be expanded
+                    return node
+                return random.choice(node.children)
+
             unvisited_children = self.get_unvisited_children(node)
             if unvisited_children:
                 self.logger.info(f"Unvisited children picked randomly")
                 return random.choice(unvisited_children)
 
-            if not node.children:
-                self.expand_node(node)
-
-                if not node.children:
-                    self.logger.info("Not a node to explore")
-                    node.delete_node()
-                    return None
-
-                    break
-                    self.logger.info("Delete node")
-                    return node.delete_node()
-                return random.choice(node.children)
-
             node = node.best_child()
-
             self.logger.info(
                 f"Best node has been chosen on {self.desired_selection_policy}: {node.state}"
             )
-
-            if node is None:
-                self.logger.info("node is None")
-                return None
 
     def get_unvisited_children(self, node):
         queue = [node]
@@ -327,43 +300,33 @@ class MCTS(data_preprocessing):
             node.update(cost)
 
             self.logger.info(
-                f"Backpropagating Node: {node.state}, Visit Count: {node.visit_count}, Total Cost: {node.total_cost}, Scores: {node.scores}"
+                f"Backpropagating Node: {node.state}, Visit Count: {node.visit_count}, Total Cost: {node.total_cost}"
             )
 
             node = node.parent
 
     def expand_and_select(self, node):
-        # if not node.is_fully_expanded():
-        #    self.expand_node(node)
+        if not node.is_fully_expanded():
+            self.expand_node(node)
         unvisited_children = self.get_unvisited_children(node)
         if unvisited_children:
             return random.choice(unvisited_children)
-        else:
-            self.logger.info("Expand and select but nothing to expand nor select")
-        # return node.best_child()
+        return node.best_child()
 
     def search(self):
         while True:
             node_to_explore = self.select(self.root)
-            # if len(node_to_explore.state["remaining_zones"]) == 0:
-            #    cost = self.simulate(node_to_explore)
-            #    self.backpropagate(node_to_explore, cost)
-            #    if len(self.get_unvisited_children(node_to_explore.parent)) == 0:
-            #        self.logger.info("Return starting area")
-            #        break
-            if not node_to_explore:
-                self.logger.info("Not node to explore")
-                break
+            if len(node_to_explore.state["remaining_zones"]) == 0:
+                cost = self.simulate(node_to_explore)
+                self.backpropagate(node_to_explore, cost)
+                if len(self.get_unvisited_children(node_to_explore.parent)) == 0:
 
-            self.logger.info(f"node to explore {node_to_explore}")
+                    self.logger.info("Children reached")
+                    break
+
             if node_to_explore.is_fully_expanded():
                 node_to_explore = self.expand_and_select(node_to_explore)
             cost = self.simulate(node_to_explore)
-
-            if not cost:
-                # node_to_explore.delete_node()
-                self.logger.info(f"{node_to_explore.state} to be killed")
-            # else:
             self.backpropagate(node_to_explore, cost)
 
         self.logger.info(f"Best node: {self.best_leaf}")
@@ -377,74 +340,6 @@ class MCTS(data_preprocessing):
             nodes.append(node)
             queue.extend(node.children)
         return nodes
-
-    def get_final_nodes(self):
-
-        day = self.number_of_areas + 1
-        # Filter nodes by the current day
-        nodes = [
-            node
-            for node in self.collect_all_nodes()
-            if node.state.get("current_day") == day
-        ]
-
-        # Initialize variables to track the best nodes for this day
-        min_cost_child = None
-        robust_child = None
-        min_cost_robust_child = None
-        secure_child = None
-
-        # Values to compare against
-        min_cost = float("inf")
-        max_visit_count = -float("inf")
-        max_secure_value = -float("inf")
-
-        for node in nodes:
-            # Min-Cost Child: Select the root child with the lowest total_cost
-            if node.total_cost < min_cost:
-                min_cost = node.total_cost
-                min_cost_child = node
-
-            # Robust Child: Select the most visited root child (visit_count)
-            if node.visit_count > max_visit_count:
-                max_visit_count = node.visit_count
-                robust_child = node
-
-            # Min-Cost-Robust Child: Among the nodes with the lowest total_cost, select the one with the highest visit_count
-            if node.total_cost == min_cost and node.visit_count >= max_visit_count:
-                min_cost_robust_child = node
-
-            # Secure Child: Select the child that minimizes a lower confidence bound
-            if (
-                node.visit_count > 0
-                and node.parent is not None
-                and node.parent.visit_count > 0
-            ):
-                secure_value = (node.total_cost / node.visit_count) - self.cp * (
-                    (node.parent.visit_count / node.visit_count) ** 0.5
-                )
-                if secure_value > max_secure_value:
-                    max_secure_value = secure_value
-                    secure_child = node
-
-        # Logging the results for the current day
-        if min_cost_child:
-            self.logger.info("\n\n")
-            self.logger.info(
-                f"Min-Cost Child (Day {day}): State={min_cost_child.state}, Cost={min_cost}"
-            )
-        if robust_child:
-            self.logger.info(
-                f"Robust Child (Day {day}): State={robust_child.state}, Visit Count={max_visit_count}"
-            )
-        if min_cost_robust_child:
-            self.logger.info(
-                f"Min-Cost-Robust Child (Day {day}): State={min_cost_robust_child.state}, Cost={min_cost}, Visit Count={min_cost_robust_child.visit_count}"
-            )
-        if secure_child:
-            self.logger.info(
-                f"Secure Child (Day {day}): State={secure_child.state}, Secure Value={max_secure_value}"
-            )
 
     def display_all_nodes(self, nodes):
         for node in nodes:
@@ -471,7 +366,7 @@ class MCTS(data_preprocessing):
             return self.heuristic_policy
         elif self.desired_simulation_policy == "random_policy":
             return self.random_policy
-        elif self.desired_simulation_policy == "tolerance_policy":
+        elif self.desired_simulation_policy == "tolerance_heuristic_policy":
             return self.tolerance_heuristic_policy
         else:
             raise ValueError(
@@ -483,7 +378,7 @@ class MCTS(data_preprocessing):
             return self.top_k_actions
 
         if self.desired_expansion_policy == "ratio_k":
-            return self.ratio_best_random
+            return self.ration_best_random
 
         else:
             raise ValueError(
@@ -494,7 +389,7 @@ class MCTS(data_preprocessing):
         sorted_actions = sorted(actions, key=lambda x: x[1])
         return sorted_actions[: self.number_childrens]
 
-    def ratio_best_random(self, actions):
+    def ration_best_random(self, actions):
         # Determine the number of best actions to take based on the ratio
         ratio = self.ratio_expansion
         num_best = int(self.number_childrens * ratio)
@@ -524,7 +419,6 @@ class MCTS(data_preprocessing):
 
     def simulation(self):
         for _ in range(self.number_simulation):
-            self.logger = None
             self.logger = self.configure_logging()
             self.root = Node(
                 self.initialise_root_node(),
@@ -536,4 +430,3 @@ class MCTS(data_preprocessing):
             self.search()
             self.end_search_time = time.time() - self.start_time
             self.print_execution_times()
-            self.get_final_nodes()
