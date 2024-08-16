@@ -24,8 +24,8 @@ class Node:
         return child_node
 
     def is_fully_expanded(self):
-        if self.parent is None:
-            return False
+        # if self.parent is None:
+        #    return False
         return len(self.children) > 0 and all(
             child.visit_count > 0 for child in self.children
         )

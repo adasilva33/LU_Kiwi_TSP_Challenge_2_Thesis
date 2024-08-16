@@ -1,4 +1,3 @@
-# from MCTS_old import MCTS
 from MCTS import MCTS
 from Node import Node
 from Data_Preprocessing import data_preprocessing
@@ -10,18 +9,17 @@ import shutil
 
 root_dir = "/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Flight connections dataset"
 
-instances = range(1, 3)
-number_childrens_options = [8, 10, 15]
+instances = range(8, 13)
+number_childrens_options = [10]
 desired_expansion_policy_options = ["ratio_k", "top_k"]
-ratio_expansion_options = [0.1, 0.5, 1]
+ratio_expansion_options = [0.5]
 desired_simulation_policy_options = [
     "random_policy",
     "heuristic_policy",
 ]
 number_simulation_options = [10]
 desired_selection_policy_options = ["UCB"]
-cp_options = [0, 1, 5]
-
+cp_options = [1.41]
 
 # Calculate the total number of simulations
 total_iterations = (
@@ -38,6 +36,7 @@ total_iterations = (
     * len(desired_selection_policy_options)
     * len(cp_options)
 )
+
 
 # Initialize counters and lists for plotting
 iteration = 0
@@ -86,41 +85,3 @@ for instance_number in instances:
                                     desired_selection_policy=desired_selection_policy,
                                     cp=cp,
                                 )
-
-
-items = os.listdir(root_dir)
-for item in items:
-    if os.path.isdir(os.path.join(root_dir, item)) and item.startswith(
-        (
-            "1.in_",
-            "2.in_",
-            "3.in_",
-            "4.in_",
-            "5.in_",
-            "6.in_",
-            "7.in_",
-            "8.in_",
-            "9.in_",
-            "10.in_",
-            "11.in_",
-            "12.in_",
-            "13.in_",
-            "14.in_",
-        )
-    ):
-        prefix = item.split("_")[0]
-        destination_folder = os.path.join(root_dir, f"{prefix}_simulations")
-
-        if not os.path.exists(destination_folder):
-            os.makedirs(destination_folder)
-
-        if not os.path.exists(os.path.join(destination_folder, item)):
-            shutil.move(
-                os.path.join(root_dir, item), os.path.join(destination_folder, item)
-            )
-        else:
-            print(
-                f"Folder '{item}' already exists in '{destination_folder}', skipping move."
-            )
-
-print("Folders have been successfully organized!")

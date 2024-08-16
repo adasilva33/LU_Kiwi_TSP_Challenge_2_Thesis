@@ -18,10 +18,10 @@ selection_polic = ["UCB", "UCB1T"]
 mcts = MCTS(
     instance=instance_path,
     number_childrens=10,
-    desired_expansion_policy="top_k",
+    desired_expansion_policy="ratio_k",
     ratio_expansion=0.6,
     desired_simulation_policy="heuristic_policy",
-    number_simulation=5,
+    number_simulation=1,
     desired_selection_policy="UCB",
-    cp=1,
+    cp=1.41,
 )
