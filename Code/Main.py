@@ -1,4 +1,3 @@
-# from MCTS_old import MCTS
 from MCTS import MCTS
 from Node import Node
 from Data_Preprocessing import data_preprocessing
@@ -13,15 +12,17 @@ simulation_policies = [
     "tolerance_policy",
 ]
 
-selection_polic = ["UCB", "UCB1T"]
+selection_policy = ["UCB", "UCB1T", "SP", "Bayesian"]
 
 mcts = MCTS(
     instance=instance_path,
     number_childrens=10,
     desired_expansion_policy="ratio_k",
-    ratio_expansion=0.6,
+    ratio_expansion=0.5,
     desired_simulation_policy="heuristic_policy",
-    number_simulation=1,
+    number_simulation=30,
     desired_selection_policy="UCB",
     cp=1.41,
 )
+
+import Clean

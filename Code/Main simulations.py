@@ -1,25 +1,26 @@
 from MCTS import MCTS
 from Node import Node
-from Data_Preprocessing import data_preprocessing
 
 import time
-import matplotlib.pyplot as plt
-import os
-import shutil
+
 
 root_dir = "/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Flight connections dataset"
 
-instances = range(8, 13)
+instances = range(1, 2)
 number_childrens_options = [10]
-desired_expansion_policy_options = ["ratio_k", "top_k"]
-ratio_expansion_options = [0.5]
+desired_expansion_policy_options = [
+    "ratio_k"
+    # , "top_k"
+]
+ratio_expansion_options = [0, 0.5, 1]
 desired_simulation_policy_options = [
-    "random_policy",
     "heuristic_policy",
+    "random_policy",
+    "tolerance_policy",
 ]
 number_simulation_options = [10]
-desired_selection_policy_options = ["UCB"]
-cp_options = [1.41]
+desired_selection_policy_options = ["UCB", "UCB1T", "SP", "Bayesian"]
+cp_options = [0, 1.41, 2]
 
 # Calculate the total number of simulations
 total_iterations = (
@@ -69,9 +70,7 @@ for instance_number in instances:
                                 percentages.append(percentage_completed)
                                 times.append(current_time)
 
-                                print(
-                                    f"Iteration {iteration}/{total_iterations} ({percentage_completed:.2f}%) completed."
-                                )
+                                print(f"Iteration {iteration} started.")
 
                                 instance_path = f"{root_dir}/{instance_number}.in"
 
@@ -85,3 +84,9 @@ for instance_number in instances:
                                     desired_selection_policy=desired_selection_policy,
                                     cp=cp,
                                 )
+
+                                print(
+                                    f"Iteration {iteration}/{total_iterations} ({percentage_completed:.2f}%) completed."
+                                )
+
+import Clean

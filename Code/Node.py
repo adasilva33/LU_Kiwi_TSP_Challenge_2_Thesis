@@ -39,9 +39,6 @@ class Node:
         epsilon = 0
 
         visited_children = [child for child in self.children if (child.visit_count > 0)]
-        unvisited_children = [
-            child for child in self.children if child.visit_count == 0
-        ]
 
         sorted_children = sorted(
             visited_children,
@@ -60,25 +57,51 @@ class Node:
             for child in visited_children
         ]
 
-        # print(f"UCB_{c_param} score {choices_weights}")
         best_child_node = self.children[np.argmin(choices_weights)]
-        # print(
-        #    f"Selected Node: {best_child_node.state}, , Visit Count: {best_child_node.visit_count}, Total Cost: {best_child_node.total_cost}"
-        # )
-        # print("Children picked on UCT critera")
+
         return best_child_node
 
     def SP(self):
-        pass
+        visited_children = [child for child in self.children if child.visit_count > 0]
+        D = 1
+
+        def sp_mcts_score(child):
+            mean_cost = np.mean(child.scores) if len(child.scores) > 0 else 0
+            variance = np.var(child.scores) if len(child.scores) > 0 else 0
+            possible_deviation = np.sqrt(variance + (D / child.visit_count))
+            return mean_cost - self.cp * possible_deviation
+
+        choices_weights = [sp_mcts_score(child) for child in visited_children]
+
+        best_child_node = self.children[np.argmin(choices_weights)]
+        return best_child_node
 
     def Bayesian(self):
-        pass
+        visited_children = [child for child in self.children if child.visit_count > 0]
+        N = self.visit_count
+
+        def bayesian_uct_score(child, use_variance=False):
+            mean_cost = np.mean(child.scores) if len(child.scores) > 0 else 0
+            exploration_term = np.sqrt(2 * np.log(N) / child.visit_count)
+
+            if use_variance:
+                variance = np.sqrt(np.var(child.scores)) if len(child.scores) > 0 else 0
+                exploration_term *= variance
+
+            return mean_cost + exploration_term
+
+        # Select which Bayesian UCT formula to use
+        use_variance = True  # Change this to `False` to use the first formula
+        choices_weights = [
+            bayesian_uct_score(child, use_variance=use_variance)
+            for child in visited_children
+        ]
+
+        best_child_node = self.children[np.argmin(choices_weights)]
+        return best_child_node
 
     def UCB1_tuned(self, c_param):
         visited_children = [child for child in self.children if child.visit_count > 0]
-
-        if not visited_children:
-            return random.choice(self.children)
 
         def ucb1_tuned_score(child):
             mean_cost = np.mean(child.scores) if len(self.scores) > 1 else 0
@@ -95,14 +118,20 @@ class Node:
             return mean_cost + c_param * exploration_term
 
         choices_weights = [ucb1_tuned_score(child) for child in visited_children]
-        best_child_node = visited_children[np.argmin(choices_weights)]
+
+        best_child_node = self.children[np.argmin(choices_weights)]
         return best_child_node
 
     def best_child(self):
         if self.desired_selection_policy == "UCB":
             return self.UCB(c_param=self.cp)
-        if self.desired_selection_policy == "UCB1_T":
+        if self.desired_selection_policy == "UCB1T":
             return self.UCB1_tuned(c_param=self.cp)
+        if self.desired_selection_policy == "SP":
+            return self.SP()
+        if self.desired_selection_policy == "Bayesian":
+            return self.Bayesian()
+
         else:
             raise ValueError(
                 f"Unknown Selection policy: {self.desired_selection_policy}"
