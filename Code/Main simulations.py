@@ -6,8 +6,8 @@ import time
 
 root_dir = "/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Flight connections dataset"
 
-instances = range(1, 2)
-number_childrens_options = [10]
+instances = range(4, 5)
+number_childrens_options = [5, 10, 15]
 desired_expansion_policy_options = ["ratio_k", "top_k"]
 ratio_expansion_options = [0, 0.5, 1]
 desired_simulation_policy_options = [

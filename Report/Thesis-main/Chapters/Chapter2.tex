@@ -4,29 +4,37 @@
 
 \section{Optimisation in Air Travel}
 
-\subsection{Airline Scheduling Optimisation}
+In this section, some of the most common optimisation problems in the airline industry are discussed, such as the crew management, diruption handling, airlines' adapation to new demand and the flight connection.
 
-In \cite{airline_fleet_assignement}, airline scheduling optimisation is highlighted as a critical driver of revenue for airlines. A significant challenge of airline scheduling optimisation toThis is primarily cause by improper aircraft assignment, one major particularly regarding capacity, can lead to significant inefficiencies. The complexity of this problem is further compounded by the extensive number of daily flights that an airline must manage.
+These topics are discussed to illustrate the crucial role of optimisation in enhancing airline operational efficiency, reducing costs, and boosting passenger satisfaction.
+The goal is to provide insight into some of the most important optimisation problems, underscoring their importance for the success and competitiveness of airline companies.
 
-Traditionally, airline scheduling has been approached as a standalone problem with simplified assumptions, such as fixed daily flight times and point forecasts for passenger demand. However, this traditional approach has significant limitations. The modern approach, in contrast, integrates the Fleet Assignment Problem (FAP) with other airline processes, such as maintenance and crew scheduling, leading to more accurate and flexible scheduling that better optimises resources and improves operational efficiency.
-
-\subsection{crew scheduling problem} % (fold)
-
-The Crew Scheduling Problem (CSP), as discussed in \cite{crew_scheduling_problem}, is distinct from the broader set covering and partitioning problems. CSP involves assigning crews to a sequence of tasks, each with defined start and end times, with the primary objective of ensuring that all tasks are covered while adhering to regulations on maximum working hours for crew members.
-
-This problem is particularly critical for low-cost carriers, which rely heavily on optimised crew schedules to maintain competitiveness. Efficient crew scheduling is essential not only for cost minimisation but also for ensuring operational reliability and flexibility in response to unexpected disruptions \cite{ryanair_youtube_report}.
+\subsection{Fleet Assignment Problem}
 
 
-\subsection{disruption management} % (fold)
+The Fleet Assignment Problem (FAP), as discussed in \cite{airline_fleet_assignement} involves assigning different types of aircraft, each with specific capacities, to flights based on their capabilities, operational costs, and revenue potential. This decision greatly influences airline revenues and is a vital part of the overall scheduling process. The complexity of FAP is driven by the large number of flights an airline manages daily and its interdependencies with other processes like maintenance and crew scheduling.
+
+
+\subsection{Crew Scheduling Problem} % (fold)
+
+The Crew Scheduling Problem (CSP), as discussed in \cite{crew_scheduling_problem}, involves assigning crews to a sequence of tasks, each with defined start and end times, with the primary objective of ensuring that all tasks are covered while adhering to regulations on maximum working hours for crew members.
+
+This problem is particularly critical for low-cost carriers, for instance in the United Kingdom in 2023, the low-cost carriers comprise 48\% of the scheduled capacity (total number of seats offered) \cite{lcc_new_norm}, which rely heavily on optimised crew schedules to maintain competitiveness. Efficient crew scheduling is essential not only for low cost carriers and for cost minimisation but also for ensuring operational reliability and flexibility in response to unexpected disruptions.  \cite{ryanair_youtube_report}
+
+
+\subsection{Disruption Management} % (fold)
 \label{sub:disruption management}
 
-Disruptions in airline operations, as noted in \cite{disruption_management}, can occur due to various factors, including crew unavailability, delays from air traffic control, adverse weather conditions, or mechanical failures. Given that flight schedules are typically planned months in advance \cite{flight_scheduling}, effective disruption management is crucial to minimise the impact on passengers and overall airline operations.
+Disruptions in airline operations, as noted in %\cite{disruption_management}, 
+can occur due to various factors, including crew unavailability, delays from air traffic control, adverse weather conditions, or mechanical failures. Given that flight schedules are typically planned months in advance \cite{flight_scheduling}, effective disruption management is crucial to minimise the impact on passengers and overall airline operations.
 
 The two mains drivers of disruption management are aircraft recovery and crew recovery.
 \begin{itemize}
-    \item Aircraft recovery: Reassigning aircraft to flights after disruption by taking care of schedules, airports availibility, maintenance
-    \item Crew recovery: reassigning crew members to flights by respecting all flights are staffed appropriattely
+    \item Aircraft recovery: Reassigning aircraft to flights after disruption by taking care of schedules, airports availibility and maintenance. Optimisation tools help manage the complex logistics of matching available aircraft with rescheduled flights, considering factors like airport availability and maintenance requirements. This ensures that the revised schedules are as efficient and practical as possible. %\cite{inform_software}
+    \item Crew recovery: reassigning crew members to flights by respecting all flights are staffed appropriattely. Optimisation tools are used to adjust crew schedules, taking into account factors such as legal working hours, crew availability, and the need to cover all flights efficiently. These tools help in developing feasible and compliant crew rosters that adapt to the new flight schedules. %\cite{ibs_software}
 \end{itemize}
+
+These optimization strategies, supported by advanced software from INFORM and IBS Software, are crucial for reducing the impact of disruptions and boosting operational resilience in the airline industry.
 
 \subsection{Airline adaptation to new demand} % (fold)
 \label{sub:Airline adaptation to new demand}
