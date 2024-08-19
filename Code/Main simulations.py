@@ -8,10 +8,7 @@ root_dir = "/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Flight conn
 
 instances = range(1, 2)
 number_childrens_options = [10]
-desired_expansion_policy_options = [
-    "ratio_k"
-    # , "top_k"
-]
+desired_expansion_policy_options = ["ratio_k", "top_k"]
 ratio_expansion_options = [0, 0.5, 1]
 desired_simulation_policy_options = [
     "heuristic_policy",
