@@ -1,13 +1,14 @@
 \chapter{Literature Review}
 \label{Chapter2}
 \lhead{Chapter 2. \emph{Literature Review}}
+\todo{Present a survey of your main approach and an overview of the approaches proposed previously for solving the problem dealt with in this work}
 
+\todo{Identify the practical and research motivation of this work and the literature gaps}
+
+\todo{How convincing is the authors' argument? (Critical response - comparisons with other research, strengths or weaknesses but in relation to your research)}
 \section{Optimisation in Air Travel}
 
-In this section, some of the most common optimisation problems in the airline industry are discussed, such as the crew management, diruption handling, airlines' adapation to new demand and the flight connection.
-
-These topics are discussed to illustrate the crucial role of optimisation in enhancing airline operational efficiency, reducing costs, and boosting passenger satisfaction.
-The goal is to provide insight into some of the most important optimisation problems, underscoring their importance for the success and competitiveness of airline companies.
+In this section, we discuss some common challenges faced by airline companies and demonstrate the importance of optimisation in decision-making. The goal is to provide insight into some important optimisation problems, underscoring their importance for the success and competitiveness of airline companies.
 
 \subsection{Fleet Assignment Problem}
 
@@ -25,60 +26,45 @@ This problem is particularly critical for low-cost carriers, for instance in the
 \subsection{Disruption Management} % (fold)
 \label{sub:disruption management}
 
-Disruptions in airline operations, as noted in %\cite{disruption_management}, 
-can occur due to various factors, including crew unavailability, delays from air traffic control, adverse weather conditions, or mechanical failures. Given that flight schedules are typically planned months in advance \cite{flight_scheduling}, effective disruption management is crucial to minimise the impact on passengers and overall airline operations.
+Disruptions in airline operations, as noted in \cite{disruption_management}, can occur due to various factors, including crew unavailability, delays from air traffic control, weather conditions, or mechanical failures. Given that flight schedules are typically planned months in advance \cite{flight_scheduling}, effective disruption management is crucial to minimise the impact on passengers and overall airline operations.
 
-The two mains drivers of disruption management are aircraft recovery and crew recovery.
+The two mains drivers of disruption management are aircraft and crew recovery.
 \begin{itemize}
-    \item Aircraft recovery: Reassigning aircraft to flights after disruption by taking care of schedules, airports availibility and maintenance. Optimisation tools help manage the complex logistics of matching available aircraft with rescheduled flights, considering factors like airport availability and maintenance requirements. This ensures that the revised schedules are as efficient and practical as possible. %\cite{inform_software}
-    \item Crew recovery: reassigning crew members to flights by respecting all flights are staffed appropriattely. Optimisation tools are used to adjust crew schedules, taking into account factors such as legal working hours, crew availability, and the need to cover all flights efficiently. These tools help in developing feasible and compliant crew rosters that adapt to the new flight schedules. %\cite{ibs_software}
+    \item Aircraft recovery: Reassigning aircraft to flights after disruption by taking care of schedules, airports availibility and maintenance. Optimisation tools help manage the complex logistics of matching available aircraft with rescheduled flights, considering factors like airport availability and maintenance requirements. This ensures that the revised schedules are as efficient and practical as possible.
+    \item Crew recovery: reassigning crew members to flights by respecting all flights are staffed appropriattely. Optimisation tools are used to adjust crew schedules, taking into account factors such as legal working hours, crew availability, and the need to cover all flights efficiently. These tools help in developing feasible and compliant crew rosters that adapt to the new flight schedules.
 \end{itemize}
 
-These optimization strategies, supported by advanced software from INFORM and IBS Software, are crucial for reducing the impact of disruptions and boosting operational resilience in the airline industry.
+These optimisation strategies, supported by advanced software, for instance \cite{inform_software} and \cite{ibs_software}, are crucial for reducing the impact of disruptions and boosting operational resilience in the airline industry.
 
 \subsection{Airline adaptation to new demand} % (fold)
 \label{sub:Airline adaptation to new demand}
-%\cite{flight_seasonnality_challenges}
 
-Airlines must continuously adapt their schedules to meet evolving market demands, particularly with the growing dominance of leisure travel over business travel, which has introduced new patterns of demand seasonality, especially in Europe. This seasonality poses a challenge for airlines as they balance high demand during peak seasons with the risk of underutilisation during off-peak times.
+
+Airlines companies must continuously adapt their schedules to meet evolving market demands, particularly with the growing dominance of leisure travel over business travel, which has introduced new patterns of demand seasonality, especially in Europe as shown on Figure \ref{fig:European_demand_seasonality}. This seasonality poses a challenge for airlines as they have to balance high demand during peak seasons with the risk of underutilisation during off-peak times.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=.3\textwidth]{Figures/European Demand.png}
+    \caption{European demand seasonality \cite{flight_seasonnality_challenges}}
+    \label{fig:European_demand_seasonality}
 \end{figure}
 
-The following are key strategies used by airlines to adapt to seasonal demand:
-\begin{itemize}
-    \item \textbf{Summer Peak}: Airlines schedule 65\% more seats in August than in February, deploying additional aircraft and crew to meet the heightened demand. Optimisation models help determine which routes to prioritise, the number of additional flights to add, and how to manage crew rotations to ensure smooth operations under high resource pressure.
-    \item \textbf{Winter Through}: During winter, airlines face low demand, with many aircraft potentially sitting idle. To optimise operations, airlines may engage in ACMI leasing, temporarily reducing their owned fleet, and outsourcing capacity to adjust dynamically to lower demand. Maintenance activities are ramped up, and crew members are encouraged to take vacations or attend training, thereby optimising overall productivity.
-    \item \textbf{Revenue Management}: Dynamic pricing algorithms adjust fares in real-time based on demand patterns. In summer, prices are optimised to capture the maximum willingness to pay from tourists, while in winter, prices might be adjusted to stimulate demand, filling otherwise empty seats and ensuring higher aircraft utilisation.
-\end{itemize}
 
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=1\textwidth]{Figures/Seasonal margin analysis.png}
-    \caption{Compared with other sectors, airlines exhibit a significant and growing link between margins and seasons.}
-    \label{fig:airline_seasonnality_margin}
-\end{figure}
+Since travel demand varies throughout the year, seasonal-wise, airlines use a variety of techniques to achieve operational efficiency while maximising revenue \cite{flight_seasonnality_challenges}. The seats that airlines book are nearly 65\% more in August than they do in February when summer peak demand skyrocketed. They make the required allowance for additional aircraft and crew by optimisation models that specify priority routes and requirements for additional flights, alongside effective crew rotation management to have everything go smoothly due to the heightened demand of resources.
+\\In contrast, winter months pose a different type of problem: demand drops, meaning potential underutilisation of aircraft. To do this, airlines are known to turn to ACMI leasing (agreement between two airlines, where the lessor agrees to provide an aircraft, crew, maintenance and insurance \cite{acmi_def}) during periods of low demand to temporarily reduce fleet size by outsourcing their capacity. Parallel to this, they also increase maintenance activities and incentivise crews to take holidays or undergo training to maximise productivity across the operation. Equally, on a year-round basis, airlines apply dynamic pricing algorithms to vary fares in reaction to real-time demand patterns. In high-demand summer months, fares are tactically set so as to maximise revenues from travelers willing to pay more, while in winter, pricing strategies are aimed at stimulating demand with fare reductions to fill seats that otherwise would have gone empty and improve overall aircraft utilisation. Such adaptive strategies are critical to the airlines for effectively beating the seasonal ebbs and flows in the travel industry.
 
-\subsection{Flight connection challenges} % (fold)
-\label{sub:Flight connection challenges}
-
-The problems of flight connections have been in the limelight for the past two years owing to the apparent difficulties of coming up with fast, inexpensive multi-city itinerary solutions. Air travel being a significant mode of locomotion for most of the world's population, travelers are using online avenues to find the best options in flights.
-
-One of the well-known challenges in this respect is the Flying Tourist Problem, which aims at constructing the best multicity journey, given user-defined criteria such as minimal cost and travel time and maximal convenience. It is not just a matter of finding the cheapest flights, but working out an itinerary that efficiently joins a number of destinations, considering a variety of travel constraints.
-
-The other major problem when dealing with the constraint of time-bound travel concerns travelers who need to adhere to certain schedules, such as spending some stipulated time at each or following the order of visits in some particular sequence. This adds a little complexity into planning, as it involves making sure that proper flight connections and timing are in place.
-
-The more elaborate complications in the case of planning optimal flight routes have to do with the Air-Travelling Salesman Project. Here, it is required to find out the best possible sequence of flights between a set of airports with the constraint that most cases are there where there are no direct links from one arbitrary airport to another. That makes the problem hard to solve due to the requirement of intermediate stops, while the total traveling distance is at the same time desirable to be as small as possible.
-
-These challenges underline the growing need for sophisticated methods of optimization to cope with the growing complexity of flight connections. With an increased number of airlines, destinations, and flights, efficient and user-friendly solutions for multi-city travel will certainly remain some of the most focused areas by researchers and the travel industry.
+%\begin{figure}[!ht]
+%    \centering
+%    \includegraphics[width=1\textwidth]{Figures/Seasonal margin analysis.png}
+%    \caption{Compared with other sectors, airlines exhibit a significant and growing link between margins and seasons.}
+%    \label{fig:airline_seasonnality_margin}
+%\end{figure}
 
 
 
 \newpage
 \section{Traveling Salesman problem and its adapation}
-
+\label{sec:TSP}
 
 The Traveling Salesman Problem is a well known problem in the Operational Research and Computer Science area. The basic version of the TSP is to find the best roundtrip for a saleman that has to travel around a given number of cities while minimising the overall journey's distance.
 This problem is characterised as $\mathcal{NP}$-Hard \cite{np_hardness}. This means that there is no known polynomial-time algorithm that can solve all instances of the problem efficiently . In terms of time complexity, if we were to solve it explorating all the possible solutions the time complexity would have been $\mathcal{O}(\frac{(n-1)!}{2})$ where $n$ represents the number of cities.
@@ -92,7 +78,7 @@ This problem is characterised as $\mathcal{NP}$-Hard \cite{np_hardness}. This me
 
 On Figure \ref{fig:time_complexity_comparisons}, different time complexity are compared and the factorial time complexity is the worst. That means that these kinds of $\mathcal{NP}$-Hard problem are typically not solved exploiting all the search area but using heuristics algorithms. Heuristics solutions do not guarantee to find the absolute optimal solution but can find near-optimal solutions in a much more reasonnable times.
 
-The TSP has been studied a lot, especially because from the TSP il découle de nombreux variantes:
+The TSP has been studied extensively, not least because many variants can be derived from it:
 
 \begin{itemize}
     \item Symmetric TSP (STSP): The distance between cities are symmetric, meaning that the distance to travel from city A to city B is the same as from city B to city A. %\cite{STSP}
@@ -129,12 +115,10 @@ Some TSP problems (or its variants) have been solved using other algorithms, hen
 \newpage
 \section{The Monte Carlo Tree Search algorithm}
 
-The Monte Carlo Tree Search (MCTS) algorithm can be characterised less traditionnal than the previously enounced method in the previous subsection to solve TSP because MCTS is typically used in games. MCTS' (and its variants)
+The Monte Carlo Tree Search (MCTS) algorithm can be characterised less traditionnal than the previously enounced method in Section \ref{sec:TSP} to solve TSP because MCTS is typically used in games. MCTS' (and its variants)
 have been successfully implemented across a range of games, such as Havannah \cite{wiki:board_game},  Amazons \cite{wiki:Game_of_the_Amazons}, Lines of Actions \cite{wiki:Lines_of_Action}, Go, chess, and Shogi \cite{wiki:Shogi}, establishing it as the state-of-the-art method for many of these games \cite{havannah}, \cite{amazons}, \cite{lines_of_actions}. It is widely use in board games and has been really popular when Google DeepMind developed AlphaGo. AlphaGo is a software that was created to beat the best Go's player in the world.
 
-Go is an ancient board game from China where two players take turns placing black or white stones on a grid. The goal is to capture territory by surrounding empty spaces or the opponent’s stones. Despite its simple rules, Go is incredibly deep and complex, with countless possible moves and strategies. It is known for its balance between intuition and logic, hence it has been a significant focus of artificial intelligence research. \cite{wiki:Go}
-
-In 2016, Lee Sedol \cite{wiki:Lee_Sedol} - the best Go's player in the world has been beaten by AlphaGo 4-1 \cite{alpha_go_documentary}.
+Go is an ancient board game from China where two players take turns placing black or white stones on a grid. The goal is to capture territory by surrounding empty spaces or the opponent’s stones. Despite its simple rules, Go is incredibly deep and complex, with countless possible moves and strategies. It is known for its balance between intuition and logic, hence it has been a significant focus of artificial intelligence research ,\cite{wiki:Go}. In 2016, Lee Sedol \cite{wiki:Lee_Sedol} - the best Go's player in the world has been beaten by AlphaGo 4-1 \cite{alpha_go_documentary}.
 
 MCTS with policy and value networks are at the heart of AlphaGo's decision-making process, enabling AlphaGo's to pick the optimal moves in the complex search of Go. \cite{mcts_alpha_go_algorithm}
 
@@ -143,7 +127,7 @@ MCTS with policy and value networks are at the heart of AlphaGo's decision-makin
 \subsection{Overview}
 The MCTS' process is conceptually straightforward. A tree is built in an incremental and assymatric manner (Figure \ref{fig:Assymetrical_growth_MCTS}).
 For every iteration, a selection policy is used to determine which node we have to select in the tree to perform simulations.
-The selection policy balances the exploration  i.e.\ look into part of the tree that have not been visited yet and the exploitation i.e.\ look into part of the trees that appear to be promising.
+The selection policy, typically balances the exploration  i.e.\ look into part of the tree that have not been visited yet and the exploitation i.e.\ look into part of the trees that appear to be promising.
 Once the node is selected, a simulation i.e.\ a sequence of available actions, based on a simulation policy, are applied from this node until a terminal condition is reached e.g\ no further actions are possible. \cite{mcts_various_policies}
 
 \begin{figure}[!ht]
@@ -153,14 +137,13 @@ Once the node is selected, a simulation i.e.\ a sequence of available actions, b
     \label{fig:Assymetrical_growth_MCTS}
 \end{figure}
 To ensure that the reader understands the various stages of the Monte Carlo Tree Search Algorithm, we will begin by looking at a detailed example. This example will illustrate each component of the algorithm in action. We will then generalise the principles discussed, as the basic methodology of this paper is based on the application of the MCTS algorithm.
-\newpage
 
 
-\subsection{Example }
+\subsection{Example}
 \label{Example}
 Let's say we are given a maximisation problem. When starting the game, you have two possible actions $a_1$ and $a_2$ from $S^{0,0}_0$ in the tree $\mathcal{T}$.
 Every node is defined like so: $S^{n_i,t_i}_i$ where $n_i$ represents the number of times node $i$ has been visited, $t_i$ the total score of this node.
-Furthermore, for every node - we can compute a selection metric, here the $UCB1$ value: $UCB1(S^{n_i,t_i}_i)=\bar{V_i} + 2 \sqrt{\frac{\ln N}{n_i}}$ where $\bar{V_i}=\frac{n_i}{t_i}$ represents the average value of the node, $n_i$ the number of times node $i$ has been visited, $N=n_0$ the number of times the root node has been visited/the number of iterations.
+Furthermore, for every node - we can compute a selection metric, for instance the $UCB1$ value: $UCB1(S^{n_i,t_i}_i)=\bar{V_i} + 2 \sqrt{\frac{\ln N}{n_i}}$ where $\bar{V_i}=\frac{n_i}{t_i}$ represents the average value of the node, $n_i$ the number of times node $i$ has been visited, $N=n_0$ the number of times the root node has been visited (which is also equal to the number of iterations).
 
 Before the first iteration, none node have been visited - $\forall i \in \mathcal{T}, S^{0,0}_{i}$.
 \begin{figure}[!ht]
@@ -437,7 +420,7 @@ Let's do the fourth iteration $I4$ represented on Figure \ref{fig:Selection - Si
     \label{fig:Selection - Simulation - Backpropagation - I4}
 \end{figure}
 
-If we were to stop at this stage of the algortihm, the best action to undertake is $a_2$ because it has the higher average value: $\bar{V_1}=\frac{20}{2} \le \bar{V_2}=\frac{24}{2}$.
+The MCTS algoirthm can be either stopped because you are running out of time or because you have no more available actions. For instance, if we were to stop at this stage of the algorithm, the best action to undertake is $a_2$ because it has the higher average value: $\bar{V_1}=\frac{20}{2} \le \bar{V_2}=\frac{24}{2}$.
 
 \subsection{The different parameters in the MCTS}
 

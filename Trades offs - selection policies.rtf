@@ -1,0 +1,162 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 .SFNS-Regular;\f1\fnil\fcharset0 .SFNS-Bold;}
+{\colortbl;\red255\green255\blue255;\red14\green14\blue14;}
+{\*\expandedcolortbl;;\cssrgb\c6700\c6700\c6700;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf2 Choosing the \'93best\'94 selection method among UCB, UCB1-Tuned, SP-MCTS, and Bayesian UCT depends on various factors related to your specific problem context, such as the nature of the task, the computational resources available, and the specific trade-offs you are willing to make between exploration and exploitation. Here\'92s an overview of each method and the scenarios in which they might be most effective:\
+\
+
+\f1\b\fs30 1. Upper Confidence Bound (UCB)
+\f0\b0\fs28 \
+\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b Overview
+\f0\b0 : UCB is a popular method that balances exploration and exploitation by adding a term to encourage the selection of less-visited nodes.\
+	\'95	
+\f1\b Advantages
+\f0\b0 :\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\partightenfactor0
+\cf2 	\'95	Simple and computationally efficient.\
+	\'95	Provides a good balance between exploration (trying less-visited nodes) and exploitation (selecting nodes with good historical performance).\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b Disadvantages
+\f0\b0 :\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\partightenfactor0
+\cf2 	\'95	Can sometimes be too aggressive in exploration, particularly in environments with high variance, leading to suboptimal performance in noisy settings.\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b When to Use
+\f0\b0 :\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\partightenfactor0
+\cf2 	\'95	When computational simplicity and speed are priorities.\
+	\'95	In environments where the variance of rewards is relatively low.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+\cf2 \
+
+\f1\b\fs30 2. UCB1-Tuned
+\f0\b0\fs28 \
+\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b Overview
+\f0\b0 : UCB1-Tuned improves upon UCB by considering the variance of the rewards, adjusting the exploration term based on the observed variance.\
+	\'95	
+\f1\b Advantages
+\f0\b0 :\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\partightenfactor0
+\cf2 	\'95	Better handling of environments with high variance.\
+	\'95	More adaptive to the actual distribution of rewards, reducing unnecessary exploration when the variance is low.\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b Disadvantages
+\f0\b0 :\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\partightenfactor0
+\cf2 	\'95	Slightly more complex and computationally intensive than standard UCB.\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b When to Use
+\f0\b0 :\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\partightenfactor0
+\cf2 	\'95	When dealing with noisy environments where the reward variance is high.\
+	\'95	When you need a more refined balance between exploration and exploitation.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+\cf2 \
+
+\f1\b\fs30 3. Single-Player MCTS (SP-MCTS)
+\f0\b0\fs28 \
+\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b Overview
+\f0\b0 : SP-MCTS adds an additional term representing the \'93possible deviation\'94 of the node, which could be advantageous in single-player or deterministic games.\
+	\'95	
+\f1\b Advantages
+\f0\b0 :\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\partightenfactor0
+\cf2 	\'95	Useful in single-player settings where you want to minimize the impact of bad decisions by considering the deviation.\
+	\'95	Can reduce the risk of over-exploration in highly deterministic scenarios.\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b Disadvantages
+\f0\b0 :\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\partightenfactor0
+\cf2 	\'95	The additional term can make the method more complex and potentially slower, especially in non-deterministic environments.\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b When to Use
+\f0\b0 :\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\partightenfactor0
+\cf2 	\'95	In single-player games or deterministic environments where reducing the potential deviation in decision-making is critical.\
+	\'95	When you need a method that accounts for the variance in outcomes more explicitly.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+\cf2 \
+
+\f1\b\fs30 4. Bayesian UCT
+\f0\b0\fs28 \
+\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b Overview
+\f0\b0 : Bayesian UCT uses a Bayesian approach to model the uncertainty of node values, which can potentially lead to more accurate decision-making.\
+	\'95	
+\f1\b Advantages
+\f0\b0 :\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\partightenfactor0
+\cf2 	\'95	Handles uncertainty in node values more effectively, leading to better long-term decisions in environments with limited data.\
+	\'95	Two variations: one more suitable for independent random variables, and another for settings where variance needs to be accounted for.\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b Disadvantages
+\f0\b0 :\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\partightenfactor0
+\cf2 	\'95	Computationally intensive due to the Bayesian inference process.\
+	\'95	Requires careful tuning of the Bayesian parameters and assumptions.\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b When to Use
+\f0\b0 :\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\partightenfactor0
+\cf2 	\'95	When dealing with environments where uncertainty and limited data are major concerns.\
+	\'95	In scenarios where you can afford the computational overhead and need more precise control over exploration versus exploitation.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+\cf2 \
+
+\f1\b\fs30 Trade-offs and Recommendations
+\f0\b0\fs28 \
+\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b Computational Resources
+\f0\b0 : If you\'92re limited by computational resources, UCB or UCB1-Tuned are preferable due to their simplicity and efficiency.\
+	\'95	
+\f1\b Environment Variability
+\f0\b0 : In environments with high variability (noisy settings), UCB1-Tuned or Bayesian UCT (with variance consideration) would be more effective.\
+	\'95	
+\f1\b Exploration vs. Exploitation
+\f0\b0 :\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b UCB
+\f0\b0  is more exploration-prone, making it suitable when you want to ensure broad coverage of possible actions.\
+	\'95	
+\f1\b UCB1-Tuned
+\f0\b0  and 
+\f1\b Bayesian UCT
+\f0\b0  are more balanced and suitable for environments where you need to be more cautious about exploration due to high variability.\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\partightenfactor0
+\cf2 	\'95	
+\f1\b Deterministic vs. Stochastic Environments
+\f0\b0 : SP-MCTS is more suitable for deterministic or single-player scenarios where you want to minimize the impact of potential deviation.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+\cf2 \
+
+\f1\b\fs30 Final Recommendation
+\f0\b0\fs28 \
+\
+If your environment is highly uncertain with limited data and you can afford the computational overhead, 
+\f1\b Bayesian UCT
+\f0\b0  offers the most }

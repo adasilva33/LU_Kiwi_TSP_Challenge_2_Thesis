@@ -8,14 +8,14 @@
 Kiwi's traveler wants to travel in $N$ different areas in $N$ days, let's denote $A$ the set of areas the traveler wants to visit: \[A=\{A_{1}, A_{2}, \ldots A_{{N}}\}\]
 where each \(A_{j}\) is a set of airports in area \(j\):
 \[
-A_{j} = \{ a_{j,1}, a_{j,2}, \ldots, a_{j,k_j} \}
+    A_{j} = \{ a_{j,1}, a_{j,2}, \ldots, a_{j,k_j} \}
 \]
 where \( a_{j,k_j} \) being airports in area \(j\) and \(k_j\) is the number of airports in area \(j\).
 
 The traveler has to visit one area per day. He has to leave this area to visit a new area by flying from the airport he flew in.
-He leaves from a known starting airport and has to do his journey and come back to the starting area, not necessarly the starting airport. 
+He leaves from a known starting airport and has to do his journey and come back to the starting area, not necessarly the starting airport.
 There are flight connections between different airports, with different prices depending on the day of the travel:
-we can write $c^{d}_{ij}$ the cost to travel from $city_i$ to $city_j$ on day $d$. We do not necessarly have $c^{d}_{ij}=c^{d}_{ji}$ neither $c^{d_1}_{ij}=c^{d_2}_{ij}$ if $d_1 \neq d_2$. The problem can hence be characterised as assymetric and time dependant.
+we can write $c^{d}_{ij}$ the cost to travel from $city_i$ to $city_j$ on day $d$. We do not necessarly have $c^{d}_{ij}=c^{d}_{ji}$ neither $c^{d_1}_{ij}=c^{d_2}_{ij}$ if $d_1 \neq d_2$. The problem can hence be characterised as assymetric and time dependant as discussed in Section \ref{sec:TSP}.
 
 The aim of the problem is to find the cheapest route for the traveler's journey.
 
@@ -41,56 +41,56 @@ Variables
 
 \subsection*{Constraints}
 1. Starting and Ending Constraints:
-   \begin{itemize}
-       \item The traveler starts at the known starting airport $S_{0}$.
-       \item The traveler must return to an airport in the starting area on the final day N.
-   \end{itemize}
+\begin{itemize}
+    \item The traveler starts at the known starting airport $S_{0}$.
+    \item The traveler must return to an airport in the starting area on the final day N.
+\end{itemize}
 
 2. Flow Constraints:
-   \begin{itemize}
-       \item The traveler must leave each area and arrive at the next area on consecutive days, the next area has not been visited yet.
-       \item Ensure that the traveler can only fly into and out of the same airport within an area.
-       \item Ensure each area is visited exactly once.
-       \item Update the unvisited list as areas are visited.
-   \end{itemize}
+\begin{itemize}
+    \item The traveler must leave each area and arrive at the next area on consecutive days, the next area has not been visited yet.
+    \item Ensure that the traveler can only fly into and out of the same airport within an area.
+    \item Ensure each area is visited exactly once.
+    \item Update the unvisited list as areas are visited.
+\end{itemize}
 
 \subsection*{Objective Function}
 The goal is to minimise the journey's total travel cost:
 \[\min \left( \sum_{d=2}^{N-1} \sum_{i \in \bigcup\limits_{k=2}^{N-1} A_k} \sum_{j \in \bigcup\limits_{k=3}^{N} A_k} c_{ij}^d x_{ij}^d + \sum_{j \in A_1} c_{S_0,j}^1 x_{S_0,j}^1 + \sum_{i \in A_N} \sum_{j \in A_1} c_{ij}^N x_{ij}^N \right)\]
 
 \subsection*{Constraints}
-    \begin{itemize}        
-        \item Starting at the known starting airport $S_{0}$ at take an existing flight connection:
-        \[ \sum_{j \in A_1} x_{S_{0},j}^1 = 1 \] 
-        \[ \forall d \in \mathcal{D}, c_{S_0,j}^{d} \in \mathbb{R^{+*}}\] 
-        
-        \item Visit exactly one airport in each area each day:
-        \[ \sum_{i \in A_{d}} \sum_{j \in A_{d+1}} x_{ij}^d = 1 \quad \forall d \in \{1, 2, \ldots, N-1\} \]
+\begin{itemize}
+    \item Starting at the known starting airport $S_{0}$ at take an existing flight connection:
+          \[ \sum_{j \in A_1} x_{S_{0},j}^1 = 1 \]
+          \[ \forall d \in \mathcal{D}, c_{S_0,j}^{d} \in \mathbb{R^{+*}}\]
 
-        \item Ensure the traveler leaves from the same airport they arrived at the previous day:
-        \[ \sum_{k \in A_d} x_{ik}^d = \sum_{k \in A_{d-1}} x_{ki}^{d-1} \quad \forall i \in \bigcup_{j=1}^N A_j, \forall d \in \{2, 3, \ldots, N\} \]
+    \item Visit exactly one airport in each area each day:
+          \[ \sum_{i \in A_{d}} \sum_{j \in A_{d+1}} x_{ij}^d = 1 \quad \forall d \in \{1, 2, \ldots, N-1\} \]
 
-        \item Return to an airport in the starting area on the final day with an existing flight connection:
-        \[ \sum_{i \in A_N} \sum_{j \in A_1} x_{ij}^N = 1 \]
-        \[ \forall (i,j) \in A_N \times A_1, c_{i,j}^{N} \in \mathbb{R^{+*}}\] 
+    \item Ensure the traveler leaves from the same airport they arrived at the previous day:
+          \[ \sum_{k \in A_d} x_{ik}^d = \sum_{k \in A_{d-1}} x_{ki}^{d-1} \quad \forall i \in \bigcup_{j=1}^N A_j, \forall d \in \{2, 3, \ldots, N\} \]
 
-        \item Ensure each area is visited exactly once:
-        \[ \sum_{d \in \mathcal{D}} v_j^d = 1 \quad \forall j \in \mathcal{A} \]
+    \item Return to an airport in the starting area on the final day with an existing flight connection:
+          \[ \sum_{i \in A_N} \sum_{j \in A_1} x_{ij}^N = 1 \]
+          \[ \forall (i,j) \in A_N \times A_1, c_{i,j}^{N} \in \mathbb{R^{+*}}\]
 
-        \item Update the unvisited list:
-        \[ v_j^d = 1 \implies j \notin U_d \quad \forall j \in \mathcal{A}, \forall d \in \mathcal{D} \]
+    \item Ensure each area is visited exactly once:
+          \[ \sum_{d \in \mathcal{D}} v_j^d = 1 \quad \forall j \in \mathcal{A} \]
 
-        \item Ensure a flight on day $d$ between $i$ and $j$ exists only if the cost exists and $j$ is in the unvisited areas on day $d$:
-        \[ x_{ij}^d \leq c_{ij}^d \cdot v_j^d \quad \forall i, j \in (\bigcup_{j=1}^N A_j)^2, \forall d \in \mathcal{D} \]
-        \[ x_{ij}^d \leq v_j^d \quad \forall j \in \bigcup_{j=1}^N A_j, \forall d \in \mathcal{D} \]
+    \item Update the unvisited list:
+          \[ v_j^d = 1 \implies j \notin U_d \quad \forall j \in \mathcal{A}, \forall d \in \mathcal{D} \]
 
-        
+    \item Ensure a flight on day $d$ between $i$ and $j$ exists only if the cost exists and $j$ is in the unvisited areas on day $d$:
+          \[ x_{ij}^d \leq c_{ij}^d \cdot v_j^d \quad \forall i, j \in (\bigcup_{j=1}^N A_j)^2, \forall d \in \mathcal{D} \]
+          \[ x_{ij}^d \leq v_j^d \quad \forall j \in \bigcup_{j=1}^N A_j, \forall d \in \mathcal{D} \]
 
-        \item Binary variable constraints:
-        \[x_{ij}^d \in \{0, 1\} \quad \forall (i, j) \in (\bigcup_{j=1}^N A_j)^2, \forall d \in \mathcal{D}\]
-        \[ v_j^d \in \{0, 1\} \quad \forall j \in \mathcal{A}, \forall d \in \mathcal{D} \]
 
-    \end{itemize}
+
+    \item Binary variable constraints:
+          \[x_{ij}^d \in \{0, 1\} \quad \forall (i, j) \in (\bigcup_{j=1}^N A_j)^2, \forall d \in \mathcal{D}\]
+          \[ v_j^d \in \{0, 1\} \quad \forall j \in \mathcal{A}, \forall d \in \mathcal{D} \]
+
+\end{itemize}
 
 \section{Instances}
 \subsection{Description}
@@ -102,16 +102,16 @@ For example, the first few lines of $I_4$ are:
 
 \begin{center}
     \begin{tabular}{l}
-    \textcolor{gray}{13} \textcolor{blue}{GDN} \\
-    first \\
-    \textcolor{orange}{WRO} \textcolor{purple}{DL1} \\
-    \textcolor{red}{second} \\
-    BZG KJ1 \\
-    third \\
-    BXP LB1 \\
+        \textcolor{gray}{13} \textcolor{blue}{GDN}      \\
+        first                                           \\
+        \textcolor{orange}{WRO} \textcolor{purple}{DL1} \\
+        \textcolor{red}{second}                         \\
+        BZG KJ1                                         \\
+        third                                           \\
+        BXP LB1                                         \\
     \end{tabular}
 \end{center}
-    
+
 That means that the Traveller will visit \textcolor{gray}{13} different areas, he starts from airport \textcolor{blue}{GDN}, that belongs to the starting area.
 Then we are given the list of airports that are in every zone.
 For example, the second zone is named \textcolor{red}{second} and has two airports: \textcolor{orange}{WRO} and \textcolor{purple}{DL1}.
@@ -119,18 +119,18 @@ For example, the second zone is named \textcolor{red}{second} and has two airpor
 After all the information regarding the areas and the airports we have the flight connections informations. In Table \ref{table:Flight connections sample I6}, few flights are displayed from $I_6$ for illustrative purpose.
 \begin{table}[!ht]
     \centering
-    \begin{tabular}{||cccc||} 
-     \toprule
-     Departure from & Arrival & Day & Cost \\ [1ex] 
-     \midrule
-     KKE & BIL & 1  & 19  \\ 
-     UAX & NKE & 73 & 16  \\
-     UXA & BCT & 0  & 141 \\
-     UXA & DBD & 0  & 112 \\
-     UXA & DBD & 0  & 128 \\
-     UXA & DBD & 0  & 110 \\
-     [1ex] 
-     \bottomrule
+    \begin{tabular}{||cccc||}
+        \toprule
+        Departure from & Arrival & Day & Cost \\ [1ex]
+        \midrule
+        KKE            & BIL     & 1   & 19   \\
+        UAX            & NKE     & 73  & 16   \\
+        UXA            & BCT     & 0   & 141  \\
+        UXA            & DBD     & 0   & 112  \\
+        UXA            & DBD     & 0   & 128  \\
+        UXA            & DBD     & 0   & 110  \\
+        [1ex]
+        \bottomrule
     \end{tabular}
     \caption{Flight connections sample I6}
     \label{table:Flight connections sample I6}
@@ -146,58 +146,58 @@ There might be in some instances flights connections at day 0, this means these 
 An instance \(I_i\) can be mathematically defined as follows:
 
 \[
-I_i = (N_i, S_{i0}, A_{i}, F_{i})
+    I_i = (N_i, S_{i0}, A_{i}, F_{i})
 \]
 
 where:
 
 \begin{itemize}
     \item \textbf{Number of Areas} \(N_i\):
-    \[
-    N_i \in \mathbb{N}
-    \]
-    The total number of distinct areas in instance \(I_i\).
-    
-    \item \textbf{Starting Airport} \(S_{i0}\):
-    \[
-    S_{i0} \in \text{Airports}
-    \]
-    The starting airport of the traveller.
-    
-    \item \textbf{Airports in Each Area}:
-    \[A_{i}=
-    \{A_{i,1}, A_{i,2}, \ldots A_{i,{N_i}}\}
-    \]
-    where each \(A_{i,j}\) is a set of airports in area \(j\) for instance \(i\):
-    \[
-    A_{i,j} = \{ a_{i,j,1}, a_{i,j,2}, \ldots, a_{i,j,k_j} \}
-    \]
-    with \( a_{i,j,k_j} \) being airports in area \(j\) and \(k_j\) is the number of airports in area \(j\).
-    
-    \item \textbf{Flight Connections}:
-    \[F_{i}=
-    \{F_{i,0},F_{i,1}, F_{i,2}, \ldots, F_{i,N_i}\}
-    \]
-    where each flight matrix \( F_{i,k} \) represents the flight information of instance $i$ on day \(k\):
-    \[
-    F_{i,k} = \begin{pmatrix}
-    a_{i,k,1}^d & a_{i,k,1}^a & f_{i,k,1} \\
-    a_{i,k,2}^d & a_{i,k,2}^a & f_{i,k,2} \\
-    \vdots & \vdots & \vdots \\
-    a_{i,k,l_{k,i}}^d & a_{i,k,l_{k,i}}^a & f_{i,k,l_{k,i}}
-    \end{pmatrix}
-    \]
+          \[
+              N_i \in \mathbb{N}
+          \]
+          The total number of distinct areas in instance \(I_i\).
 
-    \begin{itemize}
-        \item \textbf{Columns}:
-        \begin{itemize}
-            \item Departure Airport: \( a_{i,k,j}^d \) (Departure airport for the \(j\)-th flight on day \(k\))
-            \item Arrival Airport: \( a_{i,k,j}^a \) (Arrival airport for the \(j\)-th flight on day \(k\))
-            \item Cost: \( f_{i,k,j} \) (Cost of the \(j\)-th flight on day \(k\)), where \( j \in [1, l_{k,i}] \)
-            \end{itemize}
-        \item \textbf{Rows}: 
-        Each row corresponds to a specific flight on day \(k\). The number of rows \(l_{k,i}\) depends on the number of flights available on that day.
-    \end{itemize}
+    \item \textbf{Starting Airport} \(S_{i0}\):
+          \[
+              S_{i0} \in \text{Airports}
+          \]
+          The starting airport of the traveller.
+
+    \item \textbf{Airports in Each Area}:
+          \[A_{i}=
+              \{A_{i,1}, A_{i,2}, \ldots A_{i,{N_i}}\}
+          \]
+          where each \(A_{i,j}\) is a set of airports in area \(j\) for instance \(i\):
+          \[
+              A_{i,j} = \{ a_{i,j,1}, a_{i,j,2}, \ldots, a_{i,j,k_j} \}
+          \]
+          with \( a_{i,j,k_j} \) being airports in area \(j\) and \(k_j\) is the number of airports in area \(j\).
+
+    \item \textbf{Flight Connections}:
+          \[F_{i}=
+              \{F_{i,0},F_{i,1}, F_{i,2}, \ldots, F_{i,N_i}\}
+          \]
+          where each flight matrix \( F_{i,k} \) represents the flight information of instance $i$ on day \(k\):
+          \[
+              F_{i,k} = \begin{pmatrix}
+                  a_{i,k,1}^d       & a_{i,k,1}^a       & f_{i,k,1}       \\
+                  a_{i,k,2}^d       & a_{i,k,2}^a       & f_{i,k,2}       \\
+                  \vdots            & \vdots            & \vdots          \\
+                  a_{i,k,l_{k,i}}^d & a_{i,k,l_{k,i}}^a & f_{i,k,l_{k,i}}
+              \end{pmatrix}
+          \]
+
+          \begin{itemize}
+              \item \textbf{Columns}:
+                    \begin{itemize}
+                        \item Departure Airport: \( a_{i,k,j}^d \) (Departure airport for the \(j\)-th flight on day \(k\))
+                        \item Arrival Airport: \( a_{i,k,j}^a \) (Arrival airport for the \(j\)-th flight on day \(k\))
+                        \item Cost: \( f_{i,k,j} \) (Cost of the \(j\)-th flight on day \(k\)), where \( j \in [1, l_{k,i}] \)
+                    \end{itemize}
+              \item \textbf{Rows}:
+                    Each row corresponds to a specific flight on day \(k\). The number of rows \(l_{k,i}\) depends on the number of flights available on that day.
+          \end{itemize}
 
 \end{itemize}
 
@@ -206,14 +206,14 @@ where:
 When solving all the instances, Kiwi's defined time limits constraints based on the nature of the instance. We can summarise these constraints in the Table above:
 \begin{table}[!ht]
     \centering
-    \begin{tabular}{||cccc||} 
-     \toprule
-     Instance & nb areas & Nb Airports & Time limit (s) \\ [1ex] 
-     \midrule
-     Small  & $\leq 20$  & $<50$  & 3  \\ 
-     Medium & $\leq 100$ & $<200$ & 5  \\
-     Large  & $>100$     &        & 15 \\ [1ex] 
-     \bottomrule
+    \begin{tabular}{||cccc||}
+        \toprule
+        Instance & nb areas   & Nb Airports & Time limit (s) \\ [1ex]
+        \midrule
+        Small    & $\leq 20$  & $<50$       & 3              \\
+        Medium   & $\leq 100$ & $<200$      & 5              \\
+        Large    & $>100$     &             & 15             \\ [1ex]
+        \bottomrule
     \end{tabular}
     \caption{Time limits based on the number of areas and airports}
     \label{table:Time limit constraints}
@@ -224,31 +224,31 @@ All the useful information about the instances such as the starting airport, the
 \begin{table}[!ht]
     \centering
     \resizebox{\textwidth}{!}{ % Resize the table to fit the text width
-    \begin{tabular}{||>{\centering\arraybackslash}p{2.2cm} 
-                        >{\centering\arraybackslash}p{4cm} 
-                        >{\centering\arraybackslash}p{1.8cm} 
-                        >{\centering\arraybackslash}p{3.2cm} 
-                        >{\centering\arraybackslash}p{2.2cm} 
-                        >{\centering\arraybackslash}p{2.2cm} ||} 
-     \toprule
-     Instances & \makecell{Starting \\ Area - Airport} & \makecell{N° \\ areas} & \makecell{Min - Max \\ airport per area} & \makecell{N° \\ Airports} & \makecell{Time \\ Limit (s)} \\ [1ex] 
-     \midrule
-     I1  & Zona\_0 - AB0 & 10  & 1 - 1 & 10   &  3  \\  
-     I2  & Area\_0 - EBJ & 10  & 1 - 2 & 15   &  3  \\  
-     I3  & ninth - GDN & 13  & 1 - 6 & 38   &  3  \\  
-     I4  & Poland - GDN & 40  & 1 - 5 & 99   &  5  \\  
-     I5  & zone0 - RCF & 46  & 3 - 3 & 138  &  5  \\ 
-     I6  & zone0 - VHK & 96  & 2 - 2 & 192  &  5  \\ 
-     I7  & abfuidmorz - AHG & 150 & 1 - 6 & 300  &  15 \\ 
-     I8  & atrdruwkbz - AEW & 200 & 1 - 4 & 300  &  15 \\ 
-     I9  & fcjsqtmccq - GVT & 250 & 1 - 1 & 250  &  15 \\ 
-     I10 & eqlfrvhlwu - ECB & 300 & 1 - 1 & 300  &  15 \\ 
-     I11 & pbggaefrjv - LIJ & 150 & 1 - 4 & 200  &  15 \\ 
-     I12 & unnwaxhnoq - PJE & 200 & 1 - 4 & 250  &  15 \\ 
-     I13 & hpvkogdfpf - GKU & 250 & 1 - 3 & 275  &  15 \\ 
-     I14 & jjewssxvsc - IXG & 300 & 1 - 1 & 300  &  15 \\ [1ex] 
-     \bottomrule
-    \end{tabular}
+        \begin{tabular}{||>{\centering\arraybackslash}p{2.2cm}
+            >{\centering\arraybackslash}p{4cm}
+            >{\centering\arraybackslash}p{1.8cm}
+            >{\centering\arraybackslash}p{3.2cm}
+            >{\centering\arraybackslash}p{2.2cm}
+            >{\centering\arraybackslash}p{2.2cm} ||}
+            \toprule
+            Instances & \makecell{Starting                          \\ Area - Airport} & \makecell{N° \\ areas} & \makecell{Min - Max \\ airport per area} & \makecell{N° \\ Airports} & \makecell{Time \\ Limit (s)} \\ [1ex]
+            \midrule
+            I1        & Zona\_0 - AB0      & 10  & 1 - 1 & 10  & 3  \\
+            I2        & Area\_0 - EBJ      & 10  & 1 - 2 & 15  & 3  \\
+            I3        & ninth - GDN        & 13  & 1 - 6 & 38  & 3  \\
+            I4        & Poland - GDN       & 40  & 1 - 5 & 99  & 5  \\
+            I5        & zone0 - RCF        & 46  & 3 - 3 & 138 & 5  \\
+            I6        & zone0 - VHK        & 96  & 2 - 2 & 192 & 5  \\
+            I7        & abfuidmorz - AHG   & 150 & 1 - 6 & 300 & 15 \\
+            I8        & atrdruwkbz - AEW   & 200 & 1 - 4 & 300 & 15 \\
+            I9        & fcjsqtmccq - GVT   & 250 & 1 - 1 & 250 & 15 \\
+            I10       & eqlfrvhlwu - ECB   & 300 & 1 - 1 & 300 & 15 \\
+            I11       & pbggaefrjv - LIJ   & 150 & 1 - 4 & 200 & 15 \\
+            I12       & unnwaxhnoq - PJE   & 200 & 1 - 4 & 250 & 15 \\
+            I13       & hpvkogdfpf - GKU   & 250 & 1 - 3 & 275 & 15 \\
+            I14       & jjewssxvsc - IXG   & 300 & 1 - 1 & 300 & 15 \\ [1ex]
+            \bottomrule
+        \end{tabular}
     }
     \caption{Instances and their respective parameters}
     \label{table:Instances presentation}
