@@ -141,7 +141,7 @@ To ensure that the reader understands the various stages of the Monte Carlo Tree
 
 \subsection{Example}
 \label{Example}
-Let's say we are given a maximisation problem. When starting the game, you have two possible actions $a_1$ and $a_2$ from $S^{0,0}_0$ in the tree $\mathcal{T}$.
+Let's say we are given a maximisation problem. When starting the game, you have two possible actions $a_1$ and $a_2$ from the node $S^{0,0}_0$ in the tree $\mathcal{T}$.
 Every node is defined like so: $S^{n_i,t_i}_i$ where $n_i$ represents the number of times node $i$ has been visited, $t_i$ the total score of this node.
 Furthermore, for every node - we can compute a selection metric, for instance the $UCB1$ value: $UCB1(S^{n_i,t_i}_i)=\bar{V_i} + 2 \sqrt{\frac{\ln N}{n_i}}$ where $\bar{V_i}=\frac{n_i}{t_i}$ represents the average value of the node, $n_i$ the number of times node $i$ has been visited, $N=n_0$ the number of times the root node has been visited (which is also equal to the number of iterations).
 
@@ -420,7 +420,7 @@ Let's do the fourth iteration $I4$ represented on Figure \ref{fig:Selection - Si
     \label{fig:Selection - Simulation - Backpropagation - I4}
 \end{figure}
 
-The MCTS algoirthm can be either stopped because you are running out of time or because you have no more available actions. For instance, if we were to stop at this stage of the algorithm, the best action to undertake is $a_2$ because it has the higher average value: $\bar{V_1}=\frac{20}{2} \le \bar{V_2}=\frac{24}{2}$.
+The MCTS algorithm can be either stopped because you are running out of time or because you have no more available actions. For instance, if we were to stop at this stage of the algorithm, the best action to undertake is $a_2$ because it has the higher average value: $\bar{V_1}=\frac{20}{2} \le \bar{V_2}=\frac{24}{2}$.
 
 \subsection{The different parameters in the MCTS}
 
