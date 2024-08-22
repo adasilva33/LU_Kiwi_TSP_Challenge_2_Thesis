@@ -309,7 +309,7 @@ class MCTS(data_preprocessing):
 
     def get_simulation_policy(self):
         if self.desired_simulation_policy == "greedy_policy":
-            return self.heuristic_policy
+            return self.greedy_policy
         elif self.desired_simulation_policy == "random_policy":
             return self.random_policy
         elif self.desired_simulation_policy == "tolerance_policy":

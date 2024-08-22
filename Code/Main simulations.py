@@ -6,12 +6,12 @@ import time
 
 root_dir = "/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Flight connections dataset"
 
-instances = range(4, 5)
+instances = range(1, 2)
 number_childrens_options = [5, 10, 15]
 desired_expansion_policy_options = ["ratio_k", "top_k"]
 ratio_expansion_options = [0, 0.5, 1]
 desired_simulation_policy_options = [
-    "heuristic_policy",
+    "greedy_policy",
     "random_policy",
     "tolerance_policy",
 ]
@@ -28,7 +28,7 @@ total_iterations = (
     * len(desired_simulation_policy_options)
     * (
         1
-        if "heuristic_policy" in desired_simulation_policy_options
+        if "greedy_policy" in desired_simulation_policy_options
         else len(number_simulation_options)
     )
     * len(desired_selection_policy_options)
@@ -48,7 +48,7 @@ for instance_number in instances:
         for desired_expansion_policy in desired_expansion_policy_options:
             for ratio_expansion in ratio_expansion_options:
                 for desired_simulation_policy in desired_simulation_policy_options:
-                    if desired_simulation_policy == "heuristic_policy":
+                    if desired_simulation_policy == "greedy_policy":
                         number_simulation_options_current = [1]
                     else:
                         number_simulation_options_current = number_simulation_options
