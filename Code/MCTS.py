@@ -271,9 +271,7 @@ class MCTS(data_preprocessing):
         # Logging the results for the current day
         if min_cost_child:
             self.logger.info("\n\n")
-            self.logger.info(
-                f"Min-Cost Child (Day {day}): State={min_cost_child.state}, Cost={min_cost}"
-            )
+            self.logger.info(f"Best Node: {min_cost_child.state}")
         if robust_child:
             self.logger.info(
                 f"Robust Child (Day {day}): State={robust_child.state}, Visit Count={max_visit_count}"
@@ -495,7 +493,6 @@ class MCTS(data_preprocessing):
                         airport=node_to_explore[1].state["path"][-1]
                     )
                 )
-                self.logger.info(f"\n\nBest node: {node_to_explore[1].state}")
                 return
 
             if not node_to_explore[0]:
@@ -555,21 +552,24 @@ class MCTS(data_preprocessing):
             # self.logger.info(f"Current simulation state {current_simulation_state}")
 
         if current_simulation_state["current_day"] == self.number_of_areas:
-            flights_to_go_back_initial_zone = self.possible_flights_from_an_airport_at_a_specific_day_with_previous_areas(
-                day=current_simulation_state["current_day"],
-                from_airport=current_simulation_state["current_airport"],
-                visited_areas=current_simulation_state["visited_zones"][1:],
-            )
-
+            current_simulation_state["visited_zones"] = current_simulation_state[
+                "visited_zones"
+            ][1:]
             current_simulation_state["remaining_zones"].append(
                 self.associated_area_to_airport(self.starting_airport)
             )
 
-            if not flights_to_go_back_initial_zone:
+            actions = self.possible_flights_from_an_airport_at_a_specific_day_with_previous_areas(
+                day=current_simulation_state["current_day"],
+                from_airport=current_simulation_state["current_airport"],
+                visited_areas=current_simulation_state["visited_zones"],
+            )
+
+            if not actions:
                 self.logger.info("No flight available to go back to the initial area")
                 return False
             else:
-                action = simulation_policy(actions=flights_to_go_back_initial_zone)
+                action = simulation_policy(actions=actions)
 
                 current_simulation_state = self.transition_function(
                     current_simulation_state, action
