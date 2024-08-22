@@ -1,4 +1,4 @@
-\begin{thebibliography}{13}
+\begin{thebibliography}{41}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -21,6 +21,11 @@ J.E. Beasley and B.~Cao.
 \newblock \doi{https://doi.org/10.1016/S0305-0548(98)00019-7}.
 \newblock URL \url{https://www.sciencedirect.com/science/article/pii/S0305054898000197}.
 
+\bibitem[Fulton(2023)]{lcc_new_norm}
+Deirdre Fulton.
+\newblock Unstoppable lccs - growth indicates a new norm.
+\newblock \url{https://www.oag.com/blog/unstoppable-lccs-growth-indicates-new-norm}, 2023.
+
 \bibitem[Enquêtes(2024)]{ryanair_youtube_report}
 FranceTV Slash~/ Enquêtes.
 \newblock Ryanair: Y-a-t-il un rh dans l'avion? enquête sur les conditions de travail du géant du low-cost, 2024.
@@ -42,6 +47,27 @@ Allison Hope.
 \newblock \emph{CNTraveler}, 2017.
 \newblock URL \url{https://www.cntraveler.com/story/the-complex-process-behind-your-flights-schedule#:~:text=Flight%20schedules%20are%20mapped%20out,affect%20departure%20and%20arrival%20times.}
 
+\bibitem[None(2024{\natexlab{a}})]{inform_software}
+None.
+\newblock Advanced decision support for aviation disruption management.
+\newblock \url{https://www.inform-software.com/en/lp/aviation-disruption-management#:~:text=Proper%20aviation%20disruption%20management%20means,the%20schedule%2C%20while%20minimizing%20costs.}, 2024{\natexlab{a}}.
+
+\bibitem[None(2024{\natexlab{b}})]{ibs_software}
+None.
+\newblock A modern cloud platform to optimize end-to-end airline operations and crew management. iflight drives unmatched efficiencies, cost-savings, and productivity for the world's top airlines.
+\newblock \url{https://www.ibsplc.com/product/airline-operations-solutions/iflight}, 2024{\natexlab{b}}.
+
+\bibitem[Verstreken and Xanthopoulos(January 8, 2024)]{flight_seasonnality_challenges}
+Jaap Bouwer Ludwig Hausmann Nina Lind~Christophe Verstreken and Stavros Xanthopoulos.
+\newblock Air travel is becoming more seasonal. what steps can airlines take to adapt to the new shape of demand.
+\newblock \emph{McKinsey}, January 8, 2024.
+\newblock URL \url{https://www.mckinsey.com/industries/travel-logistics-and-infrastructure/our-insights/how-airlines-can-handle-busier-summers-and-comparatively-quiet-winters#/}.
+
+\bibitem[None(2024{\natexlab{c}})]{acmi_def}
+None.
+\newblock What is acmi leasing?
+\newblock ACC Aviation, 2024{\natexlab{c}}.
+
 \bibitem[Team(26 December, 2023)]{np_hardness}
 Lark~Editorial Team.
 \newblock Np hard definition of np hardness.
@@ -52,16 +78,165 @@ Hennie de~Harder.
 \newblock Np-what? complexity types of optimization problems explained.
 \newblock \emph{Towards Data Science}, August 17, 2023.
 
-\bibitem[Wikipedia(2024{\natexlab{a}})]{wiki:Go}
+\bibitem[Jonker and Volgenant(1983)]{ASTP}
+Roy Jonker and Ton Volgenant.
+\newblock Transforming asymmetric into symmetric traveling salesman problems.
+\newblock \emph{Operations Research Letters}, 2\penalty0 (4):\penalty0 161--163, 1983.
+\newblock ISSN 0167-6377.
+\newblock \doi{https://doi.org/10.1016/0167-6377(83)90048-2}.
+\newblock URL \url{https://www.sciencedirect.com/science/article/pii/0167637783900482}.
+
+\bibitem[Bektas(2006)]{mTSP}
+Tolga Bektas.
+\newblock The multiple traveling salesman problem: an overview of formulations and solution procedures.
+\newblock \emph{Omega}, 34\penalty0 (3):\penalty0 209--219, 2006.
+\newblock ISSN 0305-0483.
+\newblock \doi{https://doi.org/10.1016/j.omega.2004.10.004}.
+\newblock URL \url{https://www.sciencedirect.com/science/article/pii/S0305048304001550}.
+
+\bibitem[Mitrović-Minić and Krishnamurti(2006)]{TWTSP}
+Snežana Mitrović-Minić and Ramesh Krishnamurti.
+\newblock The multiple tsp with time windows: vehicle bounds based on precedence graphs.
+\newblock \emph{Operations Research Letters}, 34\penalty0 (1):\penalty0 111--120, 2006.
+\newblock ISSN 0167-6377.
+\newblock \doi{https://doi.org/10.1016/j.orl.2005.01.009}.
+\newblock URL \url{https://www.sciencedirect.com/science/article/pii/S0167637705000295}.
+
+\bibitem[Vansteenwegen et~al.(2011)Vansteenwegen, Souffriau, and Oudheusden]{PCTSP}
+Pieter Vansteenwegen, Wouter Souffriau, and Dirk~Van Oudheusden.
+\newblock The orienteering problem: A survey.
+\newblock \emph{European Journal of Operational Research}, 209\penalty0 (1):\penalty0 1--10, 2011.
+\newblock ISSN 0377-2217.
+\newblock \doi{https://doi.org/10.1016/j.ejor.2010.03.045}.
+\newblock URL \url{https://www.sciencedirect.com/science/article/pii/S0377221710002973}.
+
+\bibitem[Tadei et~al.(2017)Tadei, Perboli, and Perfetti]{Stochastic_TSP}
+Roberto Tadei, Guido Perboli, and Francesca Perfetti.
+\newblock The multi-path traveling salesman problem with stochastic travel costs.
+\newblock \emph{EURO Journal on Transportation and Logistics}, 6\penalty0 (1):\penalty0 3--23, 2017.
+\newblock ISSN 2192-4376.
+\newblock \doi{https://doi.org/10.1007/s13676-014-0056-2}.
+\newblock URL \url{https://www.sciencedirect.com/science/article/pii/S219243762030087X}.
+
+\bibitem[Adler(Feb 2023)]{DTSP}
+Aviv Adler.
+\newblock The traveling salesman problem under dynamic constraints.
+\newblock \emph{Massachusetts Institute of Technology}, Feb 2023.
+
+\bibitem[Pop et~al.(2024)Pop, Cosma, Sabo, and Sitar]{GTSP}
+Petrică~C. Pop, Ovidiu Cosma, Cosmin Sabo, and Corina~Pop Sitar.
+\newblock A comprehensive survey on the generalized traveling salesman problem.
+\newblock \emph{European Journal of Operational Research}, 314\penalty0 (3):\penalty0 819--835, 2024.
+\newblock ISSN 0377-2217.
+\newblock \doi{https://doi.org/10.1016/j.ejor.2023.07.022}.
+\newblock URL \url{https://www.sciencedirect.com/science/article/pii/S0377221723005581}.
+
+\bibitem[Chieng and Wahid(2014)]{OTSP}
+Hung Chieng and Noorhaniza Wahid.
+\newblock \emph{A Performance Comparison of Genetic Algorithm’s Mutation Operators in n-Cities Open Loop Travelling Salesman Problem}, volume 287, pages 89--97.
+\newblock 01 2014.
+\newblock ISBN 978-3-319-07691-1.
+\newblock \doi{10.1007/978-3-319-07692-8_9}.
+
+\bibitem[Muneeb~Abid and Iqbal(2015)]{branch_and_bound}
+Malik Muneeb~Abid and Muhammad Iqbal.
+\newblock Heuristic approaches to solve traveling salesman problem.
+\newblock \emph{TELKOMNIKA Indonesian Journal of Electrical Engineering}, 15:\penalty0 390--396, 09 2015.
+\newblock \doi{10.11591/telkomnika.v15i2.8301}.
+
+\bibitem[Fleischmann(1985)]{cutting_planes}
+Bernhard Fleischmann.
+\newblock A cutting plane procedure for the travelling salesman problem on road networks.
+\newblock \emph{European Journal of Operational Research}, 21\penalty0 (3):\penalty0 307--317, 1985.
+\newblock ISSN 0377-2217.
+\newblock \doi{https://doi.org/10.1016/0377-2217(85)90151-1}.
+\newblock URL \url{https://www.sciencedirect.com/science/article/pii/0377221785901511}.
+
+\bibitem[specified(19 April, 2023)]{dynamic_programming_tsp}
+Not specified.
+\newblock Travelling salesman problem using dynamic programming.
+\newblock \emph{Geeksforgeeks}, 19 April, 2023.
+
+\bibitem[Rosenkrantz et~al.(1977)Rosenkrantz, Stearns, and II]{greedy}
+Daniel Rosenkrantz, Richard Stearns, and Philip II.
+\newblock An analysis of several heuristics for the traveling salesman problem.
+\newblock \emph{SIAM J. Comput.}, 6:\penalty0 563--581, 09 1977.
+\newblock \doi{10.1137/0206041}.
+
+\bibitem[Ahmed(2010)]{genetic_algorithm}
+Zakir Ahmed.
+\newblock Genetic algorithm for the traveling salesman problem using sequential constructive crossover operator.
+\newblock \emph{International Journal of Biometric and Bioinformatics}, 3, 03 2010.
+\newblock \doi{10.14569/IJACSA.2020.0110275}.
+
+\bibitem[Yang et~al.(2020)Yang, Hu, Li, Ji, Hu, Xu, and Wang]{simulated_annealing}
+Lei Yang, Xin Hu, Kangshun Li, Weijia Ji, Qiongdan Hu, Rui Xu, and Dongya Wang.
+\newblock \emph{Nested Simulated Annealing Algorithm to Solve Large-Scale TSP Problem}, pages 473--487.
+\newblock 05 2020.
+\newblock ISBN 978-981-15-5576-3.
+\newblock \doi{10.1007/978-981-15-5577-0_37}.
+
+\bibitem[Wang and Han(2021)]{ant_colony}
+Yong Wang and Zunpu Han.
+\newblock Ant colony optimization for traveling salesman problem based on parameters optimization.
+\newblock \emph{Applied Soft Computing}, 107:\penalty0 107439, 2021.
+\newblock ISSN 1568-4946.
+\newblock \doi{https://doi.org/10.1016/j.asoc.2021.107439}.
+\newblock URL \url{https://www.sciencedirect.com/science/article/pii/S1568494621003628}.
+
+\bibitem[Wikipedia(2024{\natexlab{a}})]{wiki:board_game}
+Wikipedia.
+\newblock {Havannah (board game)} --- {W}ikipedia{,} the free encyclopedia.
+\newblock \url{http://en.wikipedia.org/w/index.php?title=Havannah\%20(board\%20game)&oldid=1240631485}, 2024{\natexlab{a}}.
+\newblock [Online; accessed 18-August-2024].
+
+\bibitem[Wikipedia(2024{\natexlab{b}})]{wiki:Game_of_the_Amazons}
+Wikipedia.
+\newblock {Game of the Amazons} --- {W}ikipedia{,} the free encyclopedia.
+\newblock \url{http://en.wikipedia.org/w/index.php?title=Game\%20of\%20the\%20Amazons&oldid=1235225698}, 2024{\natexlab{b}}.
+\newblock [Online; accessed 18-August-2024].
+
+\bibitem[Wikipedia(2024{\natexlab{c}})]{wiki:Lines_of_Action}
+Wikipedia.
+\newblock {Lines of Action} --- {W}ikipedia{,} the free encyclopedia.
+\newblock \url{http://en.wikipedia.org/w/index.php?title=Lines\%20of\%20Action&oldid=1198717858}, 2024{\natexlab{c}}.
+\newblock [Online; accessed 18-August-2024].
+
+\bibitem[Wikipedia(2024{\natexlab{d}})]{wiki:Shogi}
+Wikipedia.
+\newblock {Shogi} --- {W}ikipedia{,} the free encyclopedia.
+\newblock \url{http://en.wikipedia.org/w/index.php?title=Shogi&oldid=1240175752}, 2024{\natexlab{d}}.
+\newblock [Online; accessed 18-August-2024].
+
+\bibitem[Duguépéroux et~al.(2016)Duguépéroux, Mazyad, Teytaud, and Dehos]{havannah}
+Joris Duguépéroux, Ahmad Mazyad, Fabien Teytaud, and Julien Dehos.
+\newblock Pruning playouts in monte-carlo tree search for the game of havannah.
+\newblock volume 10068, pages 47--57, 06 2016.
+\newblock ISBN 978-3-319-50934-1.
+\newblock \doi{10.1007/978-3-319-50935-8_5}.
+
+\bibitem[Lorentz(2008)]{amazons}
+Richard~J. Lorentz.
+\newblock Amazons discover monte-carlo.
+\newblock In H.~Jaap van~den Herik, Xinhe Xu, Zongmin Ma, and Mark H.~M. Winands, editors, \emph{Computers and Games}, pages 13--24, Berlin, Heidelberg, 2008. Springer Berlin Heidelberg.
+\newblock ISBN 978-3-540-87608-3.
+
+\bibitem[Winands et~al.(2010)Winands, Björnsson, and Saito]{lines_of_actions}
+Mark Winands, Yngvi Björnsson, and Jahn-Takeshi Saito.
+\newblock Monte carlo tree search in lines of action.
+\newblock \emph{IEEE Transactions on Computational Intelligence and AI in Games}, 2:\penalty0 239 -- 250, 12 2010.
+\newblock \doi{10.1109/TCIAIG.2010.2061050}.
+
+\bibitem[Wikipedia(2024{\natexlab{e}})]{wiki:Go}
 Wikipedia.
 \newblock {Go (game)} --- {W}ikipedia{,} the free encyclopedia.
-\newblock \url{http://en.wikipedia.org/w/index.php?title=Go\%20(game)&oldid=1239511822}, 2024{\natexlab{a}}.
+\newblock \url{http://en.wikipedia.org/w/index.php?title=Go\%20(game)&oldid=1239511822}, 2024{\natexlab{e}}.
 \newblock [Online; accessed 18-July-2024].
 
-\bibitem[Wikipedia(2024{\natexlab{b}})]{wiki:Lee_Sedol}
+\bibitem[Wikipedia(2024{\natexlab{f}})]{wiki:Lee_Sedol}
 Wikipedia.
 \newblock {Lee Sedol} --- {W}ikipedia{,} the free encyclopedia.
-\newblock \url{http://en.wikipedia.org/w/index.php?title=Lee\%20Sedol&oldid=1234296689}, 2024{\natexlab{b}}.
+\newblock \url{http://en.wikipedia.org/w/index.php?title=Lee\%20Sedol&oldid=1234296689}, 2024{\natexlab{f}}.
 \newblock [Online; accessed 11-August-2024].
 
 \bibitem[DeepMind(2020)]{alpha_go_documentary}
@@ -69,15 +244,15 @@ Google DeepMind.
 \newblock Alphago - the movie / full award-winning documentary.
 \newblock Youtube, 2020.
 
-\bibitem[mentionned()]{mcts_alpha_go_algorithm}
+\bibitem[mentionned(2024)]{mcts_alpha_go_algorithm}
 Not mentionned.
 \newblock Explain the role of monte carlo tree search (mcts) in alphago and how it integrates with policy and value networks.
-\newblock EITCA.
+\newblock EITCA, 2024.
 
-\bibitem[Browne et~al.(2012)Browne, Powley, Whitehouse, Lucas, Cowling, Rohlfshagen, Tavener, Perez~Liebana, Samothrakis, and Colton]{mcts_various_policies}
+\bibitem[Browne et~al.(2012{\natexlab{a}})Browne, Powley, Whitehouse, Lucas, Cowling, Rohlfshagen, Tavener, Perez~Liebana, Samothrakis, and Colton]{mcts_various_policies}
 Cameron Browne, Edward Powley, Daniel Whitehouse, Simon Lucas, Peter Cowling, Philipp Rohlfshagen, Stephen Tavener, Diego Perez~Liebana, Spyridon Samothrakis, and Simon Colton.
 \newblock A survey of monte carlo tree search methods.
-\newblock \emph{IEEE Transactions on Computational Intelligence and AI in Games}, 4:1:\penalty0 1--43, 03 2012.
+\newblock \emph{IEEE Transactions on Computational Intelligence and AI in Games}, 4:1:\penalty0 1--43, 03 2012{\natexlab{a}}.
 \newblock \doi{10.1109/TCIAIG.2012.2186810}.
 
 \bibitem[Baier and Drake(2010)]{mcts_assymetrical_growth}
@@ -85,5 +260,11 @@ Hendrik Baier and Peter~D. Drake.
 \newblock The power of forgetting: Improving the last-good-reply policy in monte carlo go.
 \newblock \emph{IEEE Transactions on Computational Intelligence and AI in Games}, 2:\penalty0 303--309, 2010.
 \newblock URL \url{https://api.semanticscholar.org/CorpusID:13578069}.
+
+\bibitem[Browne et~al.(2012{\natexlab{b}})Browne, Powley, Whitehouse, Lucas, Cowling, Rohlfshagen, Tavener, Perez, Samothrakis, and Colton]{different_selection_policies}
+Cameron Browne, Edward~J. Powley, Daniel Whitehouse, Simon~M. Lucas, Peter~I. Cowling, Philipp Rohlfshagen, S.~Tavener, Diego Perez, Spyridon Samothrakis, and Simon Colton.
+\newblock A survey of monte carlo tree search methods.
+\newblock \emph{IEEE Transactions on Computational Intelligence and AI in Games}, 4\penalty0 (1):\penalty0 1--43, 2012{\natexlab{b}}.
+\newblock \doi{10.1109/TCIAIG.2012.2186810}.
 
 \end{thebibliography}
