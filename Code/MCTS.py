@@ -206,9 +206,9 @@ class MCTS(data_preprocessing):
 
             node.update(cost)
 
-            self.logger.info(
-                f"Backpropagating Node: {node.state}, Visit Count: {node.visit_count}, Total Cost: {node.total_cost}, Scores: {node.scores}"
-            )
+            # self.logger.info(
+            #    f"Backpropagating Node: {node.state}, Visit Count: {node.visit_count}, Total Cost: {node.total_cost}, Scores: {node.scores}"
+            # )
 
             node = node.parent
 
@@ -364,16 +364,16 @@ class MCTS(data_preprocessing):
     def delete_node(self, node):
         if node.parent:
             for _ in node.parent.children:
-
-                self.logger.info(
-                    f"before deletion: {len(node.parent.children)},{_.state}"
-                )
+                pass
+                # self.logger.info(
+                #    f"before deletion: {len(node.parent.children)},{_.state}"
+                # )
             node.parent.children.remove(node)
             for _ in node.parent.children:
-
-                self.logger.info(
-                    f"after deletion: {len(node.parent.children)},{_.state}"
-                )
+                pass
+                # self.logger.info(
+                #    f"after deletion: {len(node.parent.children)},{_.state}"
+                # )
 
     def simulation(self):
         for _ in range(self.number_simulation):
@@ -480,9 +480,9 @@ class MCTS(data_preprocessing):
 
             if node_to_explore[1].state["current_day"] == self.number_of_areas + 1:
                 while not node_to_explore[1].parent.is_fully_expanded():
-                    self.logger.info(
-                        "Node to explore is last day but all siblings have not been visited yet"
-                    )
+                    # self.logger.info(
+                    #    "Node to explore is last day but all siblings have not been visited yet"
+                    # )
                     node_to_explore = self.select(self.root)
                     self.logger.info(f"Node to explore: {node_to_explore[1].state}")
                     result = node_to_explore[1].state["total_cost"]
