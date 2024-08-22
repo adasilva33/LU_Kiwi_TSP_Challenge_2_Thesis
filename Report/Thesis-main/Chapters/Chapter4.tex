@@ -54,7 +54,7 @@ Based on the discussion in Chapter \ref{Chapter2}, the flow of the Monte Carlo T
 For every iteration of this algorithm - there are four different phases:
 
 \begin{enumerate}
-    \item \textbf{Selection:} Starting from the root node (the starting airport $S_{i0}$ for $I_{i}$), select successive child nodes (airports that are in unvisited areas) until a leaf node (the airport in the initial area - not necessarly the starting airport) is reached. Use the chosen Selection function to evaluate which node's is the most promising. In the illustrative example in Section \ref{Example}, we used the UCB1 function for the selection function. We were also dealing with a maximisation problem, hence we selected nodes with the highest UCB1 value. A contrario, in Kiwi's minimisation problem,  nodes are evaluated based on the lowest value of the selection function.
+    \item \textbf{Selection:} Starting from the root node (the starting airport $S_{i0}$ for $I_{i}$), select successive child nodes (airports that are in unvisited areas) until a leaf node (the airport in the initial area - not necessarly the starting airport) is reached. Use the chosen Selection function to evaluate which node's is the most promising. In the illustrative example in Section \ref{subsub:Example}, we used the UCB1 function for the selection function. We were also dealing with a maximisation problem, hence we selected nodes with the highest UCB1 value. A contrario, in Kiwi's minimisation problem,  nodes are evaluated based on the lowest value of the selection function.
 
     \item \textbf{Expansion:} If the selected node is not a terminal node, expand the tree by adding all possible child nodes.
 

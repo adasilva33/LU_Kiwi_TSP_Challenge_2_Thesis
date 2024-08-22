@@ -388,42 +388,12 @@ class MCTS(data_preprocessing):
             )
             self.best_leaf = None
             self.best_leaf_cost = float("inf")
-            self.search2()
+            self.search()
             self.end_search_time = time.time() - self.start_time
             self.print_execution_times()
             self.get_final_nodes()
 
     def select(self, node):
-        while True:
-            unvisited_children = self.get_unvisited_children(node)
-            if unvisited_children:
-                self.logger.info(f"Unvisited children picked randomly")
-                return random.choice(unvisited_children)
-
-            if not node.children:
-                self.expand_node(node)
-
-                if not node.children:
-                    self.logger.info("Not a node to explore")
-                    # node.delete_node()
-                    return None
-
-                    break
-                    self.logger.info("Delete node")
-                    return node.delete_node()
-                return random.choice(node.children)
-
-            node = node.best_child()
-
-            self.logger.info(
-                f"Best node has been chosen on {self.desired_selection_policy}: {node.state}"
-            )
-
-            if node is None:
-                self.logger.info("node is None")
-                return None
-
-    def select2(self, node):
         self.logger.info("\nSELECTION\n")
         current_node = node
         self.logger.info(f"Starting selection at node: {current_node.state}")
@@ -475,33 +445,6 @@ class MCTS(data_preprocessing):
                 node.state["visited_zones"],
             )
         )
-        if not actions:
-            self.logger.info("Reached a root un-expandable")
-            node.delete_node()
-            return
-
-        expansion_policy = self.get_expansion_policy()
-        actions = expansion_policy(actions)
-
-        # self.logger.info(f"Actions 2: {actions}")
-        self.logger.debug("\nExpansion")
-
-        for action in actions:
-            new_state = self.transition_function(node.state, action)
-            child_node = node.add_child(new_state)
-            self.logger.info(
-                f"Children: {child_node.state}, Visit count: {child_node.visit_count}, Total cost: {child_node.total_cost}"
-            )
-        self.logger.debug("\nEnd expansion")
-
-    def expand_node2(self, node):
-        actions = (
-            self.possible_flights_from_an_airport_at_a_specific_day_with_previous_areas(
-                node.state["current_day"],
-                node.state["current_airport"],
-                node.state["visited_zones"],
-            )
-        )
 
         if node.state["current_day"] == self.number_of_areas:
             node.state["visited_zones"] = node.state["visited_zones"][1:]
@@ -534,27 +477,6 @@ class MCTS(data_preprocessing):
     def search(self):
         while True:
             node_to_explore = self.select(self.root)
-            if not node_to_explore:
-                self.logger.info("Not node to explore")
-                break
-
-            self.logger.info(f"node to explore {node_to_explore}")
-            if node_to_explore.is_fully_expanded():
-                node_to_explore = self.expand_and_select(node_to_explore)
-            cost = self.simulate(node_to_explore)
-
-            if not cost:
-                node_to_explore.delete_node()
-                self.logger.info(f"{node_to_explore.state} to be killed")
-            else:
-                self.backpropagate(node_to_explore, cost)
-
-        self.logger.info(f"Best node: {self.best_leaf}")
-        self.logger.info(f"Associated cost: {self.best_leaf_cost}")
-
-    def search2(self):
-        while True:
-            node_to_explore = self.select2(self.root)
 
             self.logger.info(f"Node to explore: {node_to_explore[1].state}")
 
@@ -563,7 +485,7 @@ class MCTS(data_preprocessing):
                     self.logger.info(
                         "Node to explore is last day but all siblings have not been visited yet"
                     )
-                    node_to_explore = self.select2(self.root)
+                    node_to_explore = self.select(self.root)
                     self.logger.info(f"Node to explore: {node_to_explore[1].state}")
                     result = node_to_explore[1].state["total_cost"]
                     self.backpropagate(node_to_explore[1], result)
@@ -577,7 +499,7 @@ class MCTS(data_preprocessing):
                 return
 
             if not node_to_explore[0]:
-                expanded_node = self.expand_node2(node=node_to_explore[1])
+                expanded_node = self.expand_node(node=node_to_explore[1])
                 if not expanded_node:
                     self.logger.info("Not unexpandable so deleted")
                     node_to_explore[1].delete_node()
@@ -633,7 +555,6 @@ class MCTS(data_preprocessing):
             # self.logger.info(f"Current simulation state {current_simulation_state}")
 
         if current_simulation_state["current_day"] == self.number_of_areas:
-
             flights_to_go_back_initial_zone = self.possible_flights_from_an_airport_at_a_specific_day_with_previous_areas(
                 day=current_simulation_state["current_day"],
                 from_airport=current_simulation_state["current_airport"],
