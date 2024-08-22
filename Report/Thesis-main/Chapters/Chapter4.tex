@@ -2,9 +2,6 @@
 \label{Chapter4}
 \lhead{Chapter 4. \emph{Methodology}}
 \todo{Describe implementation details}
-In this section we are going to discuss the different classes we used to implmeent our solution.
-
-We have used Python's latest version 3.10 on VS Code.
 \newpage
 
 \tikzset{class/.style={rectangle, draw=green!60, fill=green!5, very thick, minimum size=20},
@@ -13,12 +10,11 @@ We have used Python's latest version 3.10 on VS Code.
     instance/.style={rectangle, draw=orange!60, fill=orange!5, very thick, minimum size=20}
 }
 
-\newpage
-\section{Monte Carlo Tree Search}
 
-\subsection{Generalisation}
+\section{Monte Carlo Tree Search implementation}
+\subsection{General flow}
 
-The Monte Carlo Tree Search algorithm can be summarised on Figure \ref{fig:Flow MCTS}:
+Based on the discussion in Chapter \ref{Chapter2}, the flow of the Monte Carlo Tree Search algorithm is summarised in Figure \ref{fig:Flow MCTS}:
 \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[
@@ -55,28 +51,14 @@ The Monte Carlo Tree Search algorithm can be summarised on Figure \ref{fig:Flow 
     \label{fig:Flow MCTS}
 \end{figure}
 
-In every iteration of this algorithm - there are four different phases:
+For every iteration of this algorithm - there are four different phases:
 
 \begin{enumerate}
-    \item \textbf{Selection:} Starting from the root node (the starting airport $S_{i0}$ for $I_{i}$), select successive child nodes (airports that are in unvisited areas) until a leaf node (the airport in the initial area - not necessarly the starting airport) is reached. Use the Upper Confidence Bound for Trees (UCB1) formula to balance exploration and exploitation.
-
-          \begin{equation}
-              UCB1(S^{n_i,t_i}_i) = \bar{V_i} + c \sqrt{\frac{\ln N}{n_i}}
-          \end{equation}
-
-          where:
-          \begin{itemize}
-              \item $\bar{V_i} = \frac{t_i}{n_i}$ is the average value of the node.
-              \item $c$ is the exploration parameter - theoretically equal to $\sqrt2$; in practice it is chosen empirically.
-              \item $n_i$ is the number of times node $i$ has been visited.
-              \item $N$ is the total number of visits for the root node.
-          \end{itemize}
-
-          As oppose to the example in Section \ref{Example}, here we are going to select node with the lowest $UCB1$ value because we want to minimise the overall traveler's cost.
+    \item \textbf{Selection:} Starting from the root node (the starting airport $S_{i0}$ for $I_{i}$), select successive child nodes (airports that are in unvisited areas) until a leaf node (the airport in the initial area - not necessarly the starting airport) is reached. Use the chosen Selection function to evaluate which node's is the most promising. In the illustrative example in Section \ref{Example}, we used the UCB1 function for the selection function. We were also dealing with a maximisation problem, hence we selected nodes with the highest UCB1 value. A contrario, in Kiwi's minimisation problem,  nodes are evaluated based on the lowest value of the selection function.
 
     \item \textbf{Expansion:} If the selected node is not a terminal node, expand the tree by adding all possible child nodes.
 
-    \item \textbf{Simulation:} From the newly added node, perform a simulation (for example take random available flights from these nodes to a terminal node).
+    \item \textbf{Simulation:} From the newly added node, perform a simulation (based on the simulation policy) until we reach a terminal node i.e\ we find a feasible solution.
 
     \item \textbf{Backpropagation:} Update the values of the nodes along the path from the newly added node to the root based on the result of the simulation.
 
@@ -84,14 +66,15 @@ In every iteration of this algorithm - there are four different phases:
               \mathcal{B}(S^{n_i,t_i}_i) = S^{n_i+1,t_i+\mathcal{R}(S^{n_i,t_i}_i)}_i
           \end{equation}
 
-          where $\mathcal{R}(S^{n_i,t_i}_i)$ is the result of the simulation starting from node $S^{n_i,t_i}_i$.
+          where $\mathcal{R}(S^{n_i,t_i}_i)$ is the cost of the solution found after performing a simulation from node $S^{n_i,t_i}_i$.
 \end{enumerate}
 
 
 \newpage
 \subsubsection{Data Preprocessing}
 
-In order to implement our solution, the first thing to implement was a data\_preprocessing \tikz[baseline=(class.base)]{\node[class] (class) {class};}. All our Python code is oriented-object programmed. We have represented our class on Figure \ref{fig:data_preprocessing_class}.
+In order to implement our MCTS' solution, the first thing to implement was a data\_preprocessing \tikz[baseline=(class.base)]{\node[class] (class) {class};} in order to preprocess the given instance.
+Kiwi's challenge has been solved using Python 3.10 on VS Code 1.92.2. Our Python code is structured using object-oriented programming. This data\_preprocessing class is represented on Figure \ref{fig:data_preprocessing_class}.
 The input is an \tikz[baseline=(instance.base)]{\node[instance] (instance) {instance};} $I_i$, as defined in Chapter \ref{Chapter3}:
 
 \begin{figure}[!ht]
@@ -148,18 +131,16 @@ The input is an \tikz[baseline=(instance.base)]{\node[instance] (instance) {inst
     \label{fig:data_preprocessing_class}
 \end{figure}
 
+Different useful \tikz[baseline=(methods.base)]{\node[method] (methods) {methods};} are implemented within the data\_preprocessing class to compute and manage various attributes required for the problem at hand. These methods are designed to prepare and structure the data, making it easier to use in subsequent phases of the algorithm.
+For example, the remove\_duplicate method ensures that only the cheapest flight connections are considered between two airports if multiple flight connections exist at different prices on the same day.
+Other methods, such as flights\_by\_day\_dict and get\_airports\_by\_areas organise the data. The first method regroup all the flights by their respective days, creating a dictionary where each key represents a day and its corresponding value is a list of available flights. The second is regrouping all the airports present in the different areas.
+Finally, others methods like specific\_flights will be helpful in the algorithm's development gives all the possible flight connections from a specific airport on a specific day considering the visited\_areas, it hence gives you all the possibles actions from a node.
 
-Different useful \tikz[baseline=(methods.base)]{\node[method] (methods) {methods};} are implemented to compute data preprocessing \tikz[baseline=(attributes.base)]{\node[attributes] (attributes) {attributes};}. For example, remove\_duplicate considers the cheapest flight connections if multiple flight connections between two airports exist at different prices on the same day.
-Thanks to the different methods we can then compute data preprocessing's attributes such as flights\_by\_day\_dict that group all the flights by day, airports\_by\_area group all the airports per area.
-Other methods are also defined like specific\_flifhts that will be helpful later and gives you all the possible flight connections from a specific airport on a specific day considering the visited\_areas, it hence gives you all the possibles actions from a node.
-
-
-It is known that Python is relatively slow in terms of computation, so we decided to use as much as possible hasmaps.
-Hashmaps allow to retrieve data efficiently based on a key - with a $\mathcal{O}(1)$ in term of time complexity.
-
+Given that Python is relatively slower in terms of computation compared to other programming languages, we opted to use as much as possible dictionaries. Dictionnaries allow for efficient data retrieval based on a key, with an average time complexity of $\mathcal{O}(1)$. This choice enhances the performance of the data preprocessing step, ensuring that the algorithm runs more efficiently despite Python’s inherent limitations.
 
 \newpage
 \subsubsection{Node}
+\label{subsub:node}
 \begin{figure}[h]
     \centering
     \begin{tikzpicture}[
@@ -177,7 +158,7 @@ Hashmaps allow to retrieve data efficiently based on a key - with a $\mathcal{O}
         \node[attributes, left=of  Class, yshift=-190] (Attr4) {visit\_count};
 
         \node[methods, right=of  Class, yshift=-40] (Meth1) {add\_child};
-        \node[methods, right=of  Class, yshift=-90] (Meth2) {is\_fully\_expanded};
+        \node[methods, right=of  Class, yshift=-90] (Meth2) {delete\_node};
         \node[methods, right=of  Class, yshift=-140] (Meth3) {best\_child};
         \node[methods, right=of  Class, yshift=-190] (Meth4) {update};
 
@@ -201,184 +182,152 @@ Hashmaps allow to retrieve data efficiently based on a key - with a $\mathcal{O}
     \label{fig:node_class}
 \end{figure}
 
-As already mentionned during the example, we use Node structure in our algorithm, we hence defined a Node class.
-A node has one parent (if it is not the root node) or children(s) (if it is not a leaf node), they also have a number of times they have been visited - visit\_count and the total\_cost.
-We also add a state which is a dictionnary where we keep track of the current\_airport and the current\_day, the remaining\_zones we have to visit from this node to end the traveler's journey, the visited\_zones so far, and the total\_cost of the undertaken flight connections that is going to evolve for the simulation and then be backpropagated to the total\_cost of the node if a terminal node is reached.
+As mentionned earlier in Section \ref{subsub:Example}, we use a Node structure in our algorithm, hence we implemented a Node class.
+Each Node has a reference to a parent node (unless it is the root node) and may have one or more child nodes (unless it is a leaf node). These relationships form a tree structure where each node can expand into potential future states, guiding the search process.
+The visit\_count tracks the number of times a node has been visited during the MCTS process. This is crucial for evaluating the node’s importance and for calculating score of the node with the selection function.
+The state is a dictionnary that contains node's current information:
+\begin{itemize}
+    \item current\_airport: The airport where the traveler is  at this node.
+    \item current\_day: The day of the trip at this node.
+    \item remaining\_zones: The zones that still need to be visited to complete the journey.
+    \item visited\_zones: The zones that have already been visited to ensure that all zones are visited exactly once during the trip.
+    \item total\_cost: It represents the accumulated cost of the current solution path leading to this node.
+\end{itemize}
 
-\newpage
-\subsection{Pseudo-code}
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=1\textwidth]{Figures/Pseudo code.png}
-\end{figure}
-\newpage
-\subsection{Different policies}
-\subsubsection{Selection policy}
-Our selection policy is based on
-\subsubsection{Simulation policy}
+Additionally, to manage the expansion of child nodes, the add\_child method is defined.
+This method generates new nodes based on the possible actions available from the current node, the potential flight connections from the current airport on this specific day, given the current path taken so far. These new nodes represent the next possible states in the traveler’s journey, allowing the search tree to expand and explore different travel routes.
+Finally, the delete\_node method can be used to delete a node from the list of its parent's children.
 
+
+\section{The different policies}
+In the previous section, we outlined the general flow of the MCTS algorithm, focusing on two cores classes, data\_preprocessing and Node, that are central in MCTS' implementation.
+
+In Section \ref{sub:selection_policies_litterature}, we explored the various selection policies that guide the decision-making process within MCTS.
+Although there is a limited litterature review, we decided to parameterise not only the selection policy but also the simulation and expansion policy.
+
+\subsection{Simulation policies}
+When you simulate from a given node in the tree, the goal is to find a feasible combinaison of airport that could be a solution to our problem.
+Then from this current node, you have the current state (defined in Section \ref{subsub:node}), so you have to chose for the remaining actions based on the simulation policy.
+
+We decided to define three distinct simulation policies:
+
+\begin{itemize}
+    \item Random policy: This policy selects a random action from the set of available actions, introducing variability and exploration in the simulation process.
+    \item Greedy Policy: This policy selects the action that corresponds to the cheapest available flight connection, thus prioritising cost minimisation at each step.
+
+    \item Tolerance Policy (with coefficient $c$):
+          This policy selects an action randomly from a subset of actions that are within a certain tolerance level of the minimum cost action. The tolerance level is defined by a coefficient $c$, allowing for a balance between exploration and exploitation.
+
+          The tolerance heuristic is defined as follows:
+          \begin{itemize}
+              \item Identify the cheapest flight connection among the available actions $c_{min}$.
+              \item Filter the actions to include only those with a cost less or equal than $c_{min}(1+c) $.
+              \item Randomly select an action from this filtered set.
+          \end{itemize}
+
+\end{itemize}
+
+\subsection{Expansion policies}
+When expanding a node, it’s theoretically possible to expand all available child nodes i.e.\ add all the possible flight connections from a node at a specific day to the tree. However, in practice, this can be computationally expensive and time-consuming, particularly in problems with a large number of possible actions. To address this, heuristic approaches often involve compromises that enhance the efficiency of the search process by selectively expanding certain nodes rather than all possible ones.
+
+In our implementation we defined two expansion policies:
+
+\begin{itemize}
+    \item \textbf{Top-K Actions Policy}: This policy expands the nodes corresponding to the cheapest flight connections available. Specifically, it sorts all possible actions based on their associated costs and selects the top \(k\) actions with the lowest costs, where \(k\) is regulated by a parameter called \texttt{number\_of\_children}. This approach ensures that only the most promising actions, in terms of cost efficiency, are considered during expansion. This policy narrow down the search space but can reach to local optima.
+    \item \textbf{Ratio Best-Random Policy}: This policy takes a more balanced approach by combining the selection of the best actions with a degree of randomness. First, it calculates the number of top actions to select based on a predefined ratio, \(c\), of \texttt{number\_of\_children}. The top actions are chosen based on their costs, similar to the Top-K Actions Policy. After selecting these best actions, the policy randomly selects additional actions from the remaining pool to reach the desired number of children. This policy is designed to explore a broader range of possibilities while still prioritising cost-effective options.
+\end{itemize}
+
+In addition to these policies, as already mention, the parameter \texttt{number\_of\_children} plays a critical role in regulating the maximum number of children that can be expanded from any given node. This limitation controls the size of the search tree, especially in larger instances where again, expanding too many nodes could make the algorithm computationally exhaustive.
+
+\subsection{MCTS' Pseudo-code}
+In this section, we go into more detail about how we implemented the algorithm in practice by examining the different functions of our MCTS class. The main idea is:
 
 \begin{algorithm}[H]
-    \caption{Monte Carlo Tree Search (MCTS)}
+    \caption{Monte\_Carlo\_Tree\_Search}
     \label{alg:MCTS}
     \begin{algorithmic}[1]
-        \STATE Initialize root node with initial state
-        \FOR{number of simulations}
-        \STATE $node \leftarrow \text{Select}(root)$
-        \IF{$node$ is not fully expanded}
-        \STATE $node \leftarrow \text{Expand}(node)$
+        \STATE Initialise Root\_Node with Initial\_State
+        \WHILE{Tree is not fully explored}
+        \STATE $Node \leftarrow \text{Select}(Root\_Node)$
+        \IF{$Node$ is not fully expanded}
+        \STATE $Node \leftarrow \text{Expand}(Node)$
         \ENDIF
-        \STATE $cost \leftarrow \text{Simulate}(node)$
-        \STATE \text{Backpropagate}($node$, $cost$)
-        \ENDFOR
-        \RETURN $BestLeafNode$
-    \end{algorithmic}
-\end{algorithm}
-
-
-\begin{algorithm}[H]
-    \caption{Select Function}
-    \label{alg:Select}
-    \begin{algorithmic}[1]
-        \STATE $currentNode \leftarrow root$
-        \WHILE{True}
-        \STATE $unvisitedChildren \leftarrow \text{GetUnvisitedChildren}(currentNode)$
-        \IF{$unvisitedChildren$ is not empty}
-        \STATE \textbf{return} \text{Randomly select from} $unvisitedChildren$
-        \ENDIF
-        \IF{$currentNode$ has no children}
-        \STATE \text{ExpandNode}($currentNode$)
-        \IF{$currentNode$ has no children after expansion}
-        \STATE \textbf{return} $None$
-        \ENDIF
-        \STATE \textbf{return} \text{Randomly select from} $currentNode.children$
-        \ENDIF
-        \STATE $currentNode \leftarrow \text{BestChild}(currentNode)$
+        \STATE $Cost \leftarrow \text{Simulate}(Node)$
+        \STATE \text{Backpropagate}($Node$, $Cost$)
         \ENDWHILE
+        \RETURN $Best\_Leaf\_Node$
     \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[H]
-    \caption{Expand Function}
-    \label{alg:Expand}
-    \begin{algorithmic}[1]
-        \STATE $actions \leftarrow \text{PossibleActions}(currentNode.state)$
-        \STATE $expansionPolicy \leftarrow \text{GetExpansionPolicy}()$
-        \STATE $actions \leftarrow expansionPolicy(actions)$
-        \FOR{each $action$ in $actions$}
-        \STATE $newState \leftarrow \text{TransitionFunction}(currentNode.state, action)$
-        \STATE \text{AddChild}(currentNode, newState)
-        \ENDFOR
-    \end{algorithmic}
-\end{algorithm}
+The \texttt{Select} function returns two arguments: a boolean and a node. The boolean indicates to the expansion function whether expansion is necessary (True means no expansion needed, False means yes):
 
 \begin{algorithm}[H]
-    \caption{Simulate Function}
-    \label{alg:Simulate}
+    \caption{Select\_Function}
+    \label{alg:SelectFunction}
     \begin{algorithmic}[1]
-        \STATE $currentSimulationState \leftarrow \text{Copy of } node.state$
-        \WHILE{$currentSimulationState.currentDay \neq \text{Number of Areas}$}
-        \STATE $actions \leftarrow \text{PossibleActions}(currentSimulationState)$
-        \STATE $action \leftarrow \text{SimulationPolicy}(actions)$
-        \IF{$action$ is $None$}
-        \STATE \textbf{return} $False$
+        \STATE \textbf{Input:} $Node$
+        \STATE $Current \leftarrow Node$
+        \WHILE{$Current.Children$ is not empty}
+        \IF{Current is not fully expanded}
+        \STATE $UnvisitedChildren \leftarrow \text{Children with } VisitCount = 0$
+        \IF{$UnvisitedChildren$ is not empty}
+        \STATE $SelectedChild \leftarrow \text{Randomly select from } UnvisitedChildren$
+        \RETURN $True, SelectedChild$
         \ENDIF
-        \STATE $currentSimulationState \leftarrow \text{TransitionFunction}(currentSimulationState, action)$
+        \ELSE
+        \STATE $Current \leftarrow \text{BestChild}(Current)$
+        \ENDIF
         \ENDWHILE
-        \IF{$currentSimulationState.currentDay == \text{Number of Areas}$}
-        \STATE $returnFlightActions \leftarrow \text{FlightsToReturn}(currentSimulationState)$
-        \IF{$returnFlightActions$ is empty}
-        \STATE \textbf{return} $False$
+        \IF{$Current.Children$ is empty \textbf{and} $Current.State["current\_day"]==N_{Areas}$}
+        \RETURN $False, Current$
+        \ELSIF{$Current.Children$ is empty \textbf{and} $Current.State["current\_day"]==N_{Areas}$}
+        \RETURN $False, Current$
+        \ELSIF{$Current.State["current\_day"]==N_{Areas} + 1$}
+        \RETURN $True, Current$
         \ENDIF
-        \STATE $action \leftarrow \text{SimulationPolicy}(returnFlightActions)$
-        \STATE $currentSimulationState \leftarrow \text{TransitionFunction}(currentSimulationState, action)$
-        \ENDIF
-        \RETURN $currentSimulationState.totalCost$
     \end{algorithmic}
 \end{algorithm}
 
+We backpropagate the node using the update method of the node. The new node becomes the parent of this node, and we do that until \texttt{Node} is \texttt{None}, i.e., we have backpropagated all the information up to the root node.
+
 \begin{algorithm}[H]
-    \caption{Backpropagate Function}
+    \caption{Backpropagate\_Function}
     \label{alg:Backpropagate}
     \begin{algorithmic}[1]
-        \WHILE{$node$ is not $None$}
-        \STATE $node.update(cost)$
-        \STATE $node \leftarrow node.parent$
+        \WHILE{$Node$ is not $None$}
+        \STATE $Node.Update(Cost)$
+        \STATE $Node \leftarrow Node.Parent$
         \ENDWHILE
     \end{algorithmic}
 \end{algorithm}
 
+The transition function modifies the states of a node by updating the current airport, the visited zones, remaining zones, etc.
+
 \begin{algorithm}[H]
-    \caption{Transition Function}
+    \caption{Transition\_Function}
     \label{alg:TransitionFunction}
     \begin{algorithmic}[1]
-        \STATE $newState \leftarrow \text{Copy of } state$
-        \STATE $newState.currentDay \leftarrow state.currentDay + 1$
-        \STATE $newState.currentAirport \leftarrow action[0]$
-        \STATE $newState.totalCost \leftarrow state.totalCost + action[1]$
-        \STATE \text{Update}($newState.path$, $newState.currentAirport$)
-        \STATE \text{RemoveVisitedZone}($newState.remainingZones$, $newState.currentAirport$)
-        \STATE \text{AddVisitedZone}($newState.visitedZones$, $newState.currentAirport$)
-        \RETURN $newState$
+        \STATE $New\_State \leftarrow \text{Copy of } State$
+        \STATE $New\_State.Current\_Day \leftarrow State.Current\_Day + 1$
+        \STATE $New\_State.Current\_Airport \leftarrow Action[0]$
+        \STATE $New\_State.Total\_Cost \leftarrow State.Total\_Cost + Action[1]$
+        \STATE \text{Update}($New\_State.Path$, $New\_State.Current\_Airport$)
+        \STATE \text{Remove\_Visited}($New\_State.Remaining\_Zones$, $New\_State.Current\_Airport$)
+        \STATE \text{Add\_Visited}($New\_State.Visited\_Zones$, $New\_State.Current\_Airport$)
+        \RETURN $New\_State$
     \end{algorithmic}
 \end{algorithm}
 
-\subsection{selection policies} % (fold)
-\label{sub:selection policies}
-
-% subsection selection policies (end)
+Finally, the Best Child function, defined in the Node class is based on the selection function UCB, UCB1\_Tuned, SP and Bayesian, computes the score of the visited nodes and pick the one that minimises the selection function.
 
 \begin{algorithm}[H]
-    \caption{UCB Selection}
-    \label{alg:UCB}
+    \caption{Best Child}
+    \label{alg:Best Child}
     \begin{algorithmic}[1]
-        \STATE $\epsilon \leftarrow 0$
-        \STATE $visitedChildren \leftarrow \text{Children with } visitCount > 0$
-        \STATE $sortedChildren \leftarrow \text{Sort } visitedChildren \text{ by } \frac{totalCost}{visitCount + \epsilon}$
-        \STATE $scores \leftarrow \text{Assign ranks to sortedChildren}$
-        \STATE $totalScores \leftarrow \sum scores$
-        \STATE $normalizedScore(child) \leftarrow \frac{scores[child]}{totalScores}$
-        \STATE $choicesWeights \leftarrow \left[ normalizedScore(child) + cParam \times \sqrt{\frac{2 \times \log(visitCount)}{child.visitCount + \epsilon}} \text{ for each child in } visitedChildren \right]$
-        \STATE $bestChildNode \leftarrow \text{Child with minimum } choicesWeights$
-        \RETURN $bestChildNode$
-    \end{algorithmic}
-\end{algorithm}
-
-\begin{algorithm}[H]
-    \caption{SP Selection}
-    \label{alg:SP}
-    \begin{algorithmic}[1]
-        \STATE $visitedChildren \leftarrow \text{Children with } visitCount > 0$
-        \STATE $D \leftarrow 1$
-        \STATE $spMctsScore(child) \leftarrow \text{meanCost} - cp \times \text{possibleDeviation}$
-        \STATE $choicesWeights \leftarrow \left[ spMctsScore(child) \text{ for each child in } visitedChildren \right]$
-        \STATE $bestChildNode \leftarrow \text{Child with minimum } choicesWeights$
-        \RETURN $bestChildNode$
-    \end{algorithmic}
-\end{algorithm}
-
-\begin{algorithm}[H]
-    \caption{Bayesian UCT Selection}
-    \label{alg:Bayesian}
-    \begin{algorithmic}[1]
-        \STATE $visitedChildren \leftarrow \text{Children with } visitCount > 0$
-        \STATE $N \leftarrow visitCount$
-        \STATE $useVariance \leftarrow \text{True or False depending on the formula}$
-        \STATE $bayesianUctScore(child) \leftarrow meanCost + explorationTerm$
-        \STATE $choicesWeights \leftarrow \left[ bayesianUctScore(child, useVariance) \text{ for each child in } visitedChildren \right]$
-        \STATE $bestChildNode \leftarrow \text{Child with minimum } choicesWeights$
-        \RETURN $bestChildNode$
-    \end{algorithmic}
-\end{algorithm}
-
-\begin{algorithm}[H]
-    \caption{UCB1-Tuned Selection}
-    \label{alg:UCB1_tuned}
-    \begin{algorithmic}[1]
-        \STATE $visitedChildren \leftarrow \text{Children with } visitCount > 0$
-        \STATE $ucb1TunedScore(child) \leftarrow meanCost + cParam \times \sqrt{\left(\frac{\log(visitCount)}{child.visitCount}\right) \times \min\left(0.25, variance + \sqrt{\frac{2 \times \log(visitCount)}{child.visitCount}}\right)}$
-        \STATE $choicesWeights \leftarrow \left[ ucb1TunedScore(child) \text{ for each child in } visitedChildren \right]$
-        \STATE $bestChildNode \leftarrow \text{Child with minimum } choicesWeights$
-        \RETURN $bestChildNode$
+        \REQUIRE $Selection\_Function$
+        \STATE $Visited\_Children \leftarrow \text{Children with } visitCount > 0$
+        \STATE $Choices\_Weights \leftarrow \left[ Selection\_Function(child) \text{ for child in } Visited\_Children \right]$
+        \STATE $Best\_Child\_Node \leftarrow \text{Child with minimum } Choices\_Weights$
+        \RETURN $Best\_Child\_Node$
     \end{algorithmic}
 \end{algorithm}

@@ -2,7 +2,7 @@ from MCTS import MCTS
 from Node import Node
 from Data_Preprocessing import data_preprocessing
 
-instance_number = 1
+instance_number = 4
 instance_path = f"/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Flight connections dataset/{instance_number}.in"
 
 expansion_policies = ["top_k", "ratio_k"]
@@ -20,7 +20,7 @@ mcts = MCTS(
     desired_expansion_policy="ratio_k",
     ratio_expansion=0.5,
     desired_simulation_policy="heuristic_policy",
-    number_simulation=30,
+    number_simulation=10,
     desired_selection_policy="UCB",
     cp=1.41,
 )

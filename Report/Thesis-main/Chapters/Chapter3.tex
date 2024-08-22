@@ -19,7 +19,9 @@ we can write $c^{d}_{ij}$ the cost to travel from $city_i$ to $city_j$ on day $d
 
 The aim of the problem is to find the cheapest route for the traveler's journey.
 
-We can then formulate the problem more effectively:
+The problem itself had not been mathematically defined in previous research, and we found it particularly valuable in our study to rigorously formulate the problem mathematically, as it provided a clear framework to analyse and understand its complexities.
+
+We can then formulate the problem as follow:
 
 \begin{itemize}
     \item $\mathcal{A} = \{1, 2, \ldots, N\}$: Set of areas.
@@ -119,6 +121,7 @@ For example, the second zone is named \textcolor{red}{second} and has two airpor
 After all the information regarding the areas and the airports we have the flight connections informations. In Table \ref{table:Flight connections sample I6}, few flights are displayed from $I_6$ for illustrative purpose.
 \begin{table}[!ht]
     \centering
+    \caption{Flight connections sample I6}
     \begin{tabular}{||cccc||}
         \toprule
         Departure from & Arrival & Day & Cost \\ [1ex]
@@ -132,16 +135,18 @@ After all the information regarding the areas and the airports we have the fligh
         [1ex]
         \bottomrule
     \end{tabular}
-    \caption{Flight connections sample I6}
+
     \label{table:Flight connections sample I6}
 \end{table}
 
 
 For every instance $I_i$, we know what connections exist between two airports for a specific day and the associated cost.
 There might be in some instances flights connections at day 0, this means these connections exist for every day of the journey at the same price.
-\\Furthermore, we could have same flight connections at a specific day but with different prices. We then have to consider only the more relevant connections i.e.\ the flight connection with the lowest fare.
+\\Furthermore, we could have same flight connections at a specific day but with different prices. We then have to consider only the more relevant connections i.e.\ the flight connection with the lowest fare, on \ref{table:Flight connections sample I6} we only consider the flight from UXA to DDB with the associated cost of 110.
 
 \subsection{General formulation}
+We decided to formulate the problem mathematically because it was not done in the existing papers, and we found it useful to clearly understand the problem's instances and their characteristics.
+
 
 An instance \(I_i\) can be mathematically defined as follows:
 
@@ -206,6 +211,7 @@ where:
 When solving all the instances, Kiwi's defined time limits constraints based on the nature of the instance. We can summarise these constraints in the Table above:
 \begin{table}[!ht]
     \centering
+    \caption{Time limits based on the number of areas and airports}
     \begin{tabular}{||cccc||}
         \toprule
         Instance & nb areas   & Nb Airports & Time limit (s) \\ [1ex]
@@ -215,14 +221,14 @@ When solving all the instances, Kiwi's defined time limits constraints based on 
         Large    & $>100$     &             & 15             \\ [1ex]
         \bottomrule
     \end{tabular}
-    \caption{Time limits based on the number of areas and airports}
     \label{table:Time limit constraints}
 \end{table}
 
-All the useful information about the instances such as the starting airport, the associated area, the range of airports per area, the number of airports and the time limit constraints defined in  Table \ref{table:Time limit constraints}.
+All the useful information about the instances such as the starting airport, the associated area, the range of airports per area, the number of airports and the time limit constraints are defined in Table \ref{table:Instances presentation}.
 
 \begin{table}[!ht]
     \centering
+    \caption{Instances and their respective parameters}
     \resizebox{\textwidth}{!}{ % Resize the table to fit the text width
         \begin{tabular}{||>{\centering\arraybackslash}p{2.2cm}
             >{\centering\arraybackslash}p{4cm}
@@ -250,7 +256,7 @@ All the useful information about the instances such as the starting airport, the
             \bottomrule
         \end{tabular}
     }
-    \caption{Instances and their respective parameters}
+
     \label{table:Instances presentation}
 \end{table}
 

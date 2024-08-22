@@ -155,7 +155,7 @@ class MCTS(data_preprocessing):
             return None
         return random.choice(actions)
 
-    def heuristic_policy(self, actions):
+    def greedy_policy(self, actions):
 
         # self.logger.info(f"Actions: {actions}")
         if not actions:
@@ -308,7 +308,7 @@ class MCTS(data_preprocessing):
         )
 
     def get_simulation_policy(self):
-        if self.desired_simulation_policy == "heuristic_policy":
+        if self.desired_simulation_policy == "greedy_policy":
             return self.heuristic_policy
         elif self.desired_simulation_policy == "random_policy":
             return self.random_policy
@@ -632,7 +632,6 @@ class MCTS(data_preprocessing):
             )
             # self.logger.info(f"Current simulation state {current_simulation_state}")
 
-        # self.logger.info("End simulation - now return area starting")
         if current_simulation_state["current_day"] == self.number_of_areas:
 
             flights_to_go_back_initial_zone = self.possible_flights_from_an_airport_at_a_specific_day_with_previous_areas(

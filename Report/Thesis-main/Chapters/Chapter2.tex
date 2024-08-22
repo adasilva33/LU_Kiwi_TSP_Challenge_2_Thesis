@@ -140,7 +140,7 @@ To ensure that the reader understands the various stages of the Monte Carlo Tree
 
 
 \subsection{Example}
-\label{Example}
+\label{subsub:Example}
 Let's say we are given a maximisation problem. When starting the game, you have two possible actions $a_1$ and $a_2$ from the node $S^{0,0}_0$ in the tree $\mathcal{T}$.
 Every node is defined like so: $S^{n_i,t_i}_i$ where $n_i$ represents the number of times node $i$ has been visited, $t_i$ the total score of this node.
 Furthermore, for every node - we can compute a selection metric, for instance the $UCB1$ value: $UCB1(S^{n_i,t_i}_i)=\bar{V_i} + 2 \sqrt{\frac{\ln N}{n_i}}$ where $\bar{V_i}=\frac{n_i}{t_i}$ represents the average value of the node, $n_i$ the number of times node $i$ has been visited, $N=n_0$ the number of times the root node has been visited (which is also equal to the number of iterations).
@@ -473,6 +473,77 @@ The MCTS algorithm can be either stopped because you are running out of time or 
           \end{itemize}
 \end{itemize}
 
-\subsection{Simulation policy}
+\section{Selection Policies}
+\label{sub:selection_policies_litterature}
+\subsection{Single-Player MCTS (SP-MCTS)}
+Single-Player MCTS (SP-MCTS) is an adaptation of the Monte Carlo Tree Search (MCTS) algorithm specifically designed for single-player games. SP-MCTS modifies the standard Upper Confidence Bounds (UCB) formula by adding a third term to account for the possible deviation of a node's value, adjusting the standard deviation for infrequently visited nodes to better estimate rewards.
+
+The modified UCB formula used in SP-MCTS is:
+\begin{equation}
+    rD \frac{\sigma^2}{n_i} + n_i,
+\end{equation}
+where \( \sigma^2 \) is the variance of the node's simulation results, \( n_i \) is the number of visits to the node, and \( D \) is a constant that inflates the standard deviation for less frequently visited nodes.
+
+Key enhancements in SP-MCTS include:
+\begin{itemize}
+    \item \textbf{Heuristic-Guided Default Policy}: A heuristic is used to guide simulations, improving the efficiency of the search process.
+    \item \textbf{Meta-Search}: To avoid getting stuck in local maxima, SP-MCTS periodically restarts with different random seeds and stores the best solution across runs.
+    \item \textbf{Maximization Tracking}: By tracking maximum simulation results, SP-MCTS ensures that strong lines of play are not overshadowed by weaker ones.
+\end{itemize}
+
+\subsection{UCB1-Tuned}
+UCB1-Tuned is an enhancement of the standard UCB1 algorithm, designed to fine-tune the balance between exploration and exploitation in MCTS. This approach adjusts the exploration term based on sample variance, providing a more accurate trade-off in dynamic environments.
+
+The UCB1-Tuned formula is:
+\begin{equation}
+    \sqrt{\frac{\ln n}{n_j}} \cdot \min\left(1, V_j(n_j)\right),
+\end{equation}
+where:
+\begin{equation}
+    V_j(n_j) = \frac{1}{2} \sum_{s=1}^{n_j} \left(X_{j,s}^2 - X_j\right) + \frac{\sqrt{2 \ln t}}{s},
+\end{equation}
+and \( n_j \) is the number of times the machine \( j \) has been played, \( X_{j,s} \) is the reward for each play, and \( t \) is the total number of plays.
+
+Notable applications of UCB1-Tuned include:
+\begin{itemize}
+    \item \textbf{Improved Exploration-Exploitation Trade-off}: UCB1-Tuned replaces the upper confidence bound term with one that accounts for variance, leading to better decision-making.
+    \item \textbf{Domain Applications}: The UCB1-Tuned approach has been successfully applied in games like Go and real-time environments, showing superior performance compared to the standard UCB1.
+\end{itemize}
+
+\subsection{Upper Confidence Bounds for Trees (UCT)}
+UCT is the foundational algorithm for MCTS, combining Monte Carlo simulations with the UCB1 algorithm for selecting actions during the search process. UCT ensures a balance between exploring new actions and exploiting known good ones.
+
+The UCB1 formula used in UCT is:
+\begin{equation}
+    X_j + C_p \sqrt{\frac{\ln N}{n_j}},
+\end{equation}
+where \( X_j \) is the average reward from action \( j \), \( C_p \) is the exploration constant, \( N \) is the total number of simulations, and \( n_j \) is the number of times action \( j \) has been tried.
+
+Core components of UCT:
+\begin{itemize}
+    \item \textbf{Exploration-Exploitation Balance}: UCT employs the UCB1 formula to manage the trade-off between exploration and exploitation during tree growth.
+    \item \textbf{Tree Growth Mechanism}: UCT builds a search tree dynamically, where nodes are expanded based on the outcomes of simulations, continuously refining the action-value estimates.
+\end{itemize}
+
+\subsection{Bayesian UCT}
+Bayesian UCT introduces Bayesian methods into the UCT framework to improve the estimation of node values and their uncertainties, especially in scenarios with limited simulation trials.
+
+The Bayesian tree policy can be represented as:
+\begin{equation}
+    B_i = \mu_i + \frac{\sqrt{2 \ln N}}{n_i},
+\end{equation}
+where \( \mu_i \) is the mean of an extremum (minimax) distribution \( P_i \), and \( n_i \) is the number of visits to the node \( i \).
+
+An alternative Bayesian UCT formula is:
+\begin{equation}
+    B_i = \mu_i + \sigma_i \cdot \sqrt{\frac{2 \ln N}{n_i}},
+\end{equation}
+where \( \sigma_i \) is the square root of the variance of \( P_i \).
+
+Key strategies in Bayesian UCT:
+\begin{itemize}
+    \item \textbf{Bayesian Tree Policies}: Two tree policies are proposed—one that maximizes mean rewards and another that maximizes mean plus variance, with the latter often showing superior performance.
+    \item \textbf{Improved Convergence}: Bayesian UCT demonstrates better convergence properties compared to standard UCT, particularly when accurate prior information is available.
+\end{itemize}
 
 \subsubsection{Different nodes}
