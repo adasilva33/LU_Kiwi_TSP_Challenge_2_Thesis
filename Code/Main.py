@@ -1,9 +1,7 @@
 from MCTS import MCTS
 from Node import Node
 from Data_Preprocessing import data_preprocessing
-
-instance_number = 2
-instance_path = f"/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Flight connections dataset/{instance_number}.in"
+from Logs_process import logs_analysis
 
 expansion_policies = ["top_k", "ratio_k"]
 simulation_policies = [
@@ -11,11 +9,18 @@ simulation_policies = [
     "random_policy",
     "tolerance_policy",
 ]
-
 selection_policy = ["UCB", "UCB1T", "SP", "Bayesian"]
+
+
+instance_number = 3
+root_dir = "Flight connections dataset"
+instances = f"/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/{root_dir}"
+instance_path = f"{instances}/{instance_number}.in"
+
 
 mcts = MCTS(
     instance=instance_path,
+    instance_number=instance_number,
     number_childrens=10,
     desired_expansion_policy="ratio_k",
     ratio_expansion=0.5,
@@ -25,4 +30,4 @@ mcts = MCTS(
     cp=1.41,
 )
 
-import Clean
+logs_analysis(root_dir=instances, create_or_not=True, do_we_delete=True)

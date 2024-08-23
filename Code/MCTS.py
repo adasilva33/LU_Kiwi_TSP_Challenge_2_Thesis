@@ -15,6 +15,7 @@ class MCTS(data_preprocessing):
     def __init__(
         self,
         instance,
+        instance_number,
         number_childrens,
         desired_expansion_policy,
         ratio_expansion,
@@ -23,6 +24,7 @@ class MCTS(data_preprocessing):
         cp,
         number_simulation,
     ):
+        self.instance_number = instance_number
         self.number_childrens = number_childrens
         self.desired_simulation_policy = desired_simulation_policy
         self.desired_expansion_policy = desired_expansion_policy
@@ -30,6 +32,9 @@ class MCTS(data_preprocessing):
         self.number_simulation = number_simulation
         self.desired_selection_policy = desired_selection_policy
         self.cp = cp
+
+        self.expanded_nodes = []
+        self.simulations_dict = {}
 
         self.start_time = time.time()
         super().__init__(instance_path=instance)
@@ -375,6 +380,16 @@ class MCTS(data_preprocessing):
                 #    f"after deletion: {len(node.parent.children)},{_.state}"
                 # )
 
+    def print_characteristics_simulation(self):
+        self.logger.info(f"\n\nSimulation dictionnary: {self.simulations_dict}")
+        self.logger.info(f"Number of childrens: {self.number_childrens}")
+        self.logger.info(f"Desired expansion policy: {self.desired_expansion_policy}")
+        self.logger.info(f"Ratio expansion: {self.ratio_expansion}")
+        self.logger.info(f"Desired simulation policy: {self.desired_simulation_policy}")
+        self.logger.info(f"Desired selection policy: {self.desired_selection_policy}")
+        self.logger.info(f"Cp: {self.cp}")
+        self.logger.info(f"Instance: {self.instance_number}")
+
     def simulation(self):
         for _ in range(self.number_simulation):
             self.logger = None
@@ -390,6 +405,7 @@ class MCTS(data_preprocessing):
             self.end_search_time = time.time() - self.start_time
             self.print_execution_times()
             self.get_final_nodes()
+            self.print_characteristics_simulation()
 
     def select(self, node):
         self.logger.info("\nSELECTION\n")
@@ -436,19 +452,8 @@ class MCTS(data_preprocessing):
             return True, current_node
 
     def expand_node(self, node):
-        actions = (
-            self.possible_flights_from_an_airport_at_a_specific_day_with_previous_areas(
-                node.state["current_day"],
-                node.state["current_airport"],
-                node.state["visited_zones"],
-            )
-        )
-
-        if node.state["current_day"] == self.number_of_areas:
-            node.state["visited_zones"] = node.state["visited_zones"][1:]
-            node.state["remaining_zones"].append(
-                self.associated_area_to_airport(self.starting_airport)
-            )
+        if node not in self.expanded_nodes:
+            self.expanded_nodes.append(node)
 
             actions = self.possible_flights_from_an_airport_at_a_specific_day_with_previous_areas(
                 node.state["current_day"],
@@ -456,21 +461,37 @@ class MCTS(data_preprocessing):
                 node.state["visited_zones"],
             )
 
-        expansion_policy = self.get_expansion_policy()
-        actions = expansion_policy(actions)
+            if node.state["current_day"] == self.number_of_areas:
+                node.state["visited_zones"] = node.state["visited_zones"][1:]
+                node.state["remaining_zones"].append(
+                    self.associated_area_to_airport(self.starting_airport)
+                )
 
-        if actions:
-            self.logger.info("Start expansion")
-            for action in actions:
-                self.logger.info(f"{action}")
-                new_state = self.transition_function(node.state, action)
-                node.add_child(new_state)
-            self.logger.info("End expansion")
+                actions = self.possible_flights_from_an_airport_at_a_specific_day_with_previous_areas(
+                    node.state["current_day"],
+                    node.state["current_airport"],
+                    node.state["visited_zones"],
+                )
+
+            expansion_policy = self.get_expansion_policy()
+            actions = expansion_policy(actions)
+
+            if actions:
+                self.logger.info("Start expansion")
+                for action in actions:
+                    self.logger.info(f"{action}")
+                    new_state = self.transition_function(node.state, action)
+                    node.add_child(new_state)
+                self.logger.info("End expansion")
+            else:
+                self.logger.info(f"No actions possible")
+                return None
+
+            return node
+
         else:
-            self.logger.info(f"No actions possible")
+            self.logger.info("INFINITE LOOP")
             return None
-
-        return node
 
     def search(self):
         while True:
@@ -512,17 +533,19 @@ class MCTS(data_preprocessing):
                     continue
 
             else:
-                result = self.simulate(node_to_explore[1])
-                self.logger.info(f"Result from simulation: {result}")
+                simulation = self.simulate(node_to_explore[1])
 
-                if result:
-                    self.backpropagate(node_to_explore[1], result)
+                if simulation[0]:
+                    self.logger.info(f"Result from simulation: {simulation[0]}")
+                    self.simulations_dict[
+                        str(node_to_explore[1].state["current_day"])
+                    ] = simulation[1]
+                    self.backpropagate(node_to_explore[1], simulation[0])
                 else:
                     self.logger.info(
                         "Simulation failed to reach a valuable state - node deleted"
                     )
                     self.delete_node(node_to_explore[1])
-                    # self.logger.info(f"Nodes in tree: {len(self.collect_all_nodes())}")
                     if len(self.collect_all_nodes()) == 1:
                         self.logger.info("Everything has been deleted to the root node")
                         break
@@ -544,7 +567,7 @@ class MCTS(data_preprocessing):
             # self.logger.info(f"Action: {action}")
             if action is None:
                 self.logger.info("Action is None")
-                return False
+                return False, False
 
             current_simulation_state = self.transition_function(
                 current_simulation_state, action
@@ -567,7 +590,7 @@ class MCTS(data_preprocessing):
 
             if not actions:
                 self.logger.info("No flight available to go back to the initial area")
-                return False
+                return False, False
             else:
                 action = simulation_policy(actions=actions)
 
@@ -576,4 +599,4 @@ class MCTS(data_preprocessing):
                 )
                 self.logger.info(f"Current simulation state {current_simulation_state}")
 
-                return current_simulation_state["total_cost"]
+                return current_simulation_state["total_cost"], current_simulation_state

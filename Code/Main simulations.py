@@ -1,89 +1,78 @@
 from MCTS import MCTS
 from Node import Node
-
+from Data_Preprocessing import data_preprocessing
+from Logs_process import logs_analysis
 import time
 
+expansion_policies = ["top_k", "ratio_k"]
+simulation_policies = ["greedy_policy", "tolerance_policy"]
+# selection_policies = ["UCB", "UCB1T", "SP", "Bayesian"]
+selection_policies = ["UCB"]
 
-root_dir = "/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Flight connections dataset"
+instance = range(4, 9)
+c_p = [1.41]
+N_simulation = [5]
+N_children = [10]
+ratios = [0.5]
 
-instances = range(8, 9)
-number_childrens_options = [5, 10, 15]
-desired_expansion_policy_options = ["ratio_k", "top_k"]
-ratio_expansion_options = [0, 0.5, 1]
-desired_simulation_policy_options = [
-    "greedy_policy",
-    "random_policy",
-    "tolerance_policy",
-]
-number_simulation_options = [10]
-desired_selection_policy_options = ["UCB", "UCB1T", "SP", "Bayesian"]
-cp_options = [0, 1.41, 2]
-
-# Calculate the total number of simulations
+# Calculate the total number of iterations
 total_iterations = (
-    len(instances)
-    * len(number_childrens_options)
-    * len(desired_expansion_policy_options)
-    * len(ratio_expansion_options)
-    * len(desired_simulation_policy_options)
-    * (
-        1
-        if "greedy_policy" in desired_simulation_policy_options
-        else len(number_simulation_options)
-    )
-    * len(desired_selection_policy_options)
-    * len(cp_options)
+    len(instance)
+    * len(N_children)
+    * len(expansion_policies)
+    * len(ratios)
+    * len(simulation_policies)
+    * (1 if "greedy_policy" in simulation_policies else len(N_simulation))
+    * len(selection_policies)
+    * len(c_p)
 )
 
 
-# Initialize counters and lists for plotting
 iteration = 0
 percentages = []
 times = []
+
+# Start time tracking
 start_time = time.time()
 
 
-for instance_number in instances:
-    for number_childrens in number_childrens_options:
-        for desired_expansion_policy in desired_expansion_policy_options:
-            for ratio_expansion in ratio_expansion_options:
-                for desired_simulation_policy in desired_simulation_policy_options:
-                    if desired_simulation_policy == "greedy_policy":
-                        number_simulation_options_current = [1]
-                    else:
-                        number_simulation_options_current = number_simulation_options
+for i in instance:
+    for expansion_p in expansion_policies:
+        for simulation_p in simulation_policies:
+            for selection_p in selection_policies:
+                for children in N_children:
+                    for c_p_coeff in c_p:
+                        for ratio in ratios:
 
-                    for number_simulation in number_simulation_options_current:
-                        for (
-                            desired_selection_policy
-                        ) in desired_selection_policy_options:
-                            for cp in cp_options:
+                            instance_number = i
+                            root_dir = "Flight connections dataset"
+                            instances = f"/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/{root_dir}"
+                            instance_path = f"{instances}/{instance_number}.in"
 
-                                iteration += 1
-                                percentage_completed = (
-                                    iteration / total_iterations
-                                ) * 100
-                                current_time = time.time() - start_time
-                                percentages.append(percentage_completed)
-                                times.append(current_time)
+                            if simulation_p == "greedy_policy":
+                                simulation = 1
 
-                                print(f"Iteration {iteration} started.")
+                            iteration += 1
+                            percentage_completed = (iteration / total_iterations) * 100
 
-                                instance_path = f"{root_dir}/{instance_number}.in"
+                            print(f"Iteration {iteration} started.")
 
-                                mcts = MCTS(
-                                    instance=instance_path,
-                                    number_childrens=number_childrens,
-                                    desired_expansion_policy=desired_expansion_policy,
-                                    ratio_expansion=ratio_expansion,
-                                    desired_simulation_policy=desired_simulation_policy,
-                                    number_simulation=number_simulation,
-                                    desired_selection_policy=desired_selection_policy,
-                                    cp=cp,
-                                )
+                            mcts = MCTS(
+                                instance=instance_path,
+                                instance_number=instance_number,
+                                number_childrens=children,
+                                desired_expansion_policy=expansion_p,
+                                ratio_expansion=ratio,
+                                desired_simulation_policy=simulation_p,
+                                number_simulation=10,
+                                desired_selection_policy=selection_p,
+                                cp=c_p_coeff,
+                            )
 
-                                print(
-                                    f"Iteration {iteration}/{total_iterations} ({percentage_completed:.2f}%) completed."
-                                )
+                            logs_analysis(
+                                root_dir=instances,
+                                create_or_not=True,
+                                do_we_delete=True,
+                            )
 
-import Clean
+                            print(f"Progress: {percentage_completed}% completed.")
