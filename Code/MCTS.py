@@ -40,10 +40,10 @@ class MCTS(data_preprocessing):
         super().__init__(instance_path=instance)
         self.end_time_data_preprocessing = time.time() - self.start_time
         self.simulation()
-        self.organise_log_files_in_folder(
-            folder_path=os.path.dirname(self.instance_path)
-        )
-        self.collect_all_nodes()
+        # self.organise_log_files_in_folder(
+        #    folder_path=os.path.dirname(self.instance_path)
+        # )
+        # self.collect_all_nodes()
 
     def configure_logging(self):
         log_file = f"{self.instance_path}_{self.number_childrens}_{self.desired_simulation_policy}_{self.desired_expansion_policy}_{self.ratio_expansion}_{self.number_simulation}_{self.desired_selection_policy}_{self.cp}.log"
@@ -403,7 +403,7 @@ class MCTS(data_preprocessing):
             self.best_leaf_cost = float("inf")
             self.search()
             self.end_search_time = time.time() - self.start_time
-            self.print_execution_times()
+            # self.print_execution_times()
             self.get_final_nodes()
             self.print_characteristics_simulation()
 
@@ -421,9 +421,7 @@ class MCTS(data_preprocessing):
                 unvisited_children = [
                     child for child in current_node.children if child.visit_count == 0
                 ]
-                self.logger.info(
-                    f"{node.state}'s unvisited children: {len(unvisited_children)}"
-                )
+                self.logger.info(f"Unvisited children: {len(unvisited_children)}")
                 if unvisited_children:
                     selected_child = random.choice(unvisited_children)
                     self.logger.info(
@@ -524,6 +522,8 @@ class MCTS(data_preprocessing):
                     # self.logger.info(f"Nodes in tree: {len(self.collect_all_nodes())}")
                     if len(self.collect_all_nodes()) == 1:
                         self.logger.info("Everything has been deleted to the root node")
+                        self.print_characteristics_simulation()
+                        self.print_execution_times()
                         break
                     continue
                 else:
@@ -537,10 +537,16 @@ class MCTS(data_preprocessing):
 
                 if simulation[0]:
                     self.logger.info(f"Result from simulation: {simulation[0]}")
-                    self.simulations_dict[
-                        str(node_to_explore[1].state["current_day"])
-                    ] = simulation[1]
+
+                    key = str(node_to_explore[1].state["current_day"])
+                    value_to_add = simulation[0]
+                    if key in self.simulations_dict:
+                        self.simulations_dict[key].append(value_to_add)
+                    else:
+                        self.simulations_dict[key] = [value_to_add]
+
                     self.backpropagate(node_to_explore[1], simulation[0])
+
                 else:
                     self.logger.info(
                         "Simulation failed to reach a valuable state - node deleted"

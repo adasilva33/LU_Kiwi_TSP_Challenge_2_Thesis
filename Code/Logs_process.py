@@ -155,7 +155,7 @@ class logs_analysis:
             for file_path in self.files_paths:
                 log_data = self.extract_log_data(file_path)
                 log_data["File Path"] = file_path
-                log_data["Time"] = datetime.now().time()
+                log_data["Time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 data.append(log_data)
 
             df = pd.DataFrame(data)
@@ -186,3 +186,10 @@ class logs_analysis:
         final_df.to_excel(file_path, index=False)
 
         return df
+
+
+# logs_analysis(
+#    root_dir="/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Flight connections dataset",
+#    create_or_not=True,
+#    do_we_delete=True,
+# )
