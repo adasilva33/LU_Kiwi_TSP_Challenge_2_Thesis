@@ -8,19 +8,19 @@
 \todo{How convincing is the authors' argument? (Critical response - comparisons with other research, strengths or weaknesses but in relation to your research)}
 \section{Optimisation in Air Travel}
 
-In this section, we discuss some common challenges faced by airline companies and demonstrate the importance of optimisation in decision-making. The goal is to provide insight into some important optimisation problems, underscoring their importance for the success and competitiveness of airline companies.
+In this section, we discuss some common challenges faced by airline companies and demonstrate the importance of optimisation in decision-making for the success and competitiveness of airline companies.
 
 \subsection{Fleet Assignment Problem}
 
 
-The Fleet Assignment Problem (FAP), as discussed in \cite{airline_fleet_assignement} involves assigning different types of aircraft, each with specific capacities, to flights based on their capabilities, operational costs, and revenue potential. This decision greatly influences airline revenues and is a vital part of the overall scheduling process. The complexity of FAP is driven by the large number of flights an airline manages daily and its interdependencies with other processes like maintenance and crew scheduling.
+The Fleet Assignment Problem (FAP), as discussed in \cite{airline_fleet_assignement} involves assigning different types of aircraft, to flights based on their capabilities, operational costs, and revenue potential. This decision greatly influences airline revenues and is a vital part of the overall scheduling process. The complexity of FAP is driven by the large number of flights an airline manages daily and its interdependencies with other processes like maintenance and crew scheduling.
 
 
 \subsection{Crew Scheduling Problem} % (fold)
 
 The Crew Scheduling Problem (CSP), as discussed in \cite{crew_scheduling_problem}, involves assigning crews to a sequence of tasks, each with defined start and end times, with the primary objective of ensuring that all tasks are covered while adhering to regulations on maximum working hours for crew members.
 
-This problem is particularly critical for low-cost carriers, for instance in the United Kingdom in 2023, the low-cost carriers comprise 48\% of the scheduled capacity (total number of seats offered) \cite{lcc_new_norm}, which rely heavily on optimised crew schedules to maintain competitiveness. Efficient crew scheduling is essential not only for low cost carriers and for cost minimisation but also for ensuring operational reliability and flexibility in response to unexpected disruptions.  \cite{ryanair_youtube_report}
+This problem is particularly critical for low-cost airlines, for example in the United Kingdom in 2023, low-cost flights comprise 48\% of the scheduled capacity (total number of seats offered) \cite{lcc_new_norm}, which rely heavily on optimised crew schedules to maintain competitiveness. Efficient crew scheduling is essential not only for low cost carriers and for cost minimisation but also for ensuring operational reliability and flexibility in response to unexpected disruptions.  \cite{ryanair_youtube_report}
 
 
 \subsection{Disruption Management} % (fold)
@@ -30,8 +30,8 @@ Disruptions in airline operations, as noted in \cite{disruption_management}, can
 
 The two mains drivers of disruption management are aircraft and crew recovery.
 \begin{itemize}
-    \item Aircraft recovery: Reassigning aircraft to flights after disruption by taking care of schedules, airports availibility and maintenance. Optimisation tools help manage the complex logistics of matching available aircraft with rescheduled flights, considering factors like airport availability and maintenance requirements. This ensures that the revised schedules are as efficient and practical as possible.
-    \item Crew recovery: reassigning crew members to flights by respecting all flights are staffed appropriattely. Optimisation tools are used to adjust crew schedules, taking into account factors such as legal working hours, crew availability, and the need to cover all flights efficiently. These tools help in developing feasible and compliant crew rosters that adapt to the new flight schedules.
+    \item Aircraft recovery: Optimisation tools help manage the complex logistics of matching available aircraft with rescheduled flights, considering factors like airport availability and maintenance requirements.
+    \item Crew recovery: Optimisation tools are used to adjust crew schedules, taking into account factors such as legal working hours, crew availability, and the need to cover all flights efficiently. These tools help in developing feasible and compliant crew rosters that adapt to the new flight schedules.
 \end{itemize}
 
 These optimisation strategies, supported by advanced software, for instance \cite{inform_software} and \cite{ibs_software}, are crucial for reducing the impact of disruptions and boosting operational resilience in the airline industry.
@@ -40,7 +40,7 @@ These optimisation strategies, supported by advanced software, for instance \cit
 \label{sub:Airline adaptation to new demand}
 
 
-Airlines companies must continuously adapt their schedules to meet evolving market demands, particularly with the growing dominance of leisure travel over business travel, which has introduced new patterns of demand seasonality, especially in Europe as shown on Figure \ref{fig:European_demand_seasonality}. This seasonality poses a challenge for airlines as they have to balance high demand during peak seasons with the risk of underutilisation during off-peak times.
+Airline companies must continuously adapt their schedules to meet evolving market demands, particularly with the growing dominance of leisure travel over business travel, which has introduced new patterns of demand as shown on Figure \ref{fig:European_demand_seasonality} in Europe. This seasonality poses a challenge for airlines as they have to balance high demand during peak seasons with the risk of underutilisation during off-peak times.
 
 \begin{figure}[!ht]
     \centering
@@ -50,8 +50,8 @@ Airlines companies must continuously adapt their schedules to meet evolving mark
 \end{figure}
 
 
-Since travel demand varies throughout the year, seasonal-wise, airlines use a variety of techniques to achieve operational efficiency while maximising revenue \cite{flight_seasonnality_challenges}. The seats that airlines book are nearly 65\% more in August than they do in February when summer peak demand skyrocketed. They make the required allowance for additional aircraft and crew by optimisation models that specify priority routes and requirements for additional flights, alongside effective crew rotation management to have everything go smoothly due to the heightened demand of resources.
-\\In contrast, winter months pose a different type of problem: demand drops, meaning potential underutilisation of aircraft. To do this, airlines are known to turn to ACMI leasing (agreement between two airlines, where the lessor agrees to provide an aircraft, crew, maintenance and insurance \cite{acmi_def}) during periods of low demand to temporarily reduce fleet size by outsourcing their capacity. Parallel to this, they also increase maintenance activities and incentivise crews to take holidays or undergo training to maximise productivity across the operation. Equally, on a year-round basis, airlines apply dynamic pricing algorithms to vary fares in reaction to real-time demand patterns. In high-demand summer months, fares are tactically set so as to maximise revenues from travelers willing to pay more, while in winter, pricing strategies are aimed at stimulating demand with fare reductions to fill seats that otherwise would have gone empty and improve overall aircraft utilisation. Such adaptive strategies are critical to the airlines for effectively beating the seasonal ebbs and flows in the travel industry.
+Since travel demand varies throughout the year, airlines use a variety of techniques to achieve operational efficiency while maximising revenue \cite{flight_seasonnality_challenges}. For instances, airlines sell nearly 65\% more seats. To ensure their operatios remain efficient during periods of heightened demand, airline companies make the required allowance for additional aircraft and crew by optimisation models that specify priority routes and requirements for additional flights, alongside effective crew rotation management.
+\\In contrast, winter months pose a different type of problem where demand drops, which can potentially lead to underutilisation of aircrafts. To manage this, airlines are known to turn to ACMI leasing (agreement between two airlines, where the lessor agrees to provide an aircraft, crew, maintenance and insurance \cite{acmi_def}) during periods of low demand to temporarily reduce fleet size by outsourcing their capacity. Alongside this, they also increase maintenance activities and incentivise crews to take holidays or undergo training to maximise productivity across the operation. Equally, on a year-round basis, airlines apply dynamic pricing algorithms to vary fares in reaction to real-time demand patterns. In high-demand summer months, fares are tactically set so as to maximise revenues from travelers willing to pay more, while in winter, pricing strategies are aimed at stimulating demand with fare reductions to fill seats that otherwise would have gone empty. Such adaptive strategies are critical to the airlines for effectively beating the seasonal ebbs and flows in the travel industry.
 
 %\begin{figure}[!ht]
 %    \centering
@@ -66,8 +66,8 @@ Since travel demand varies throughout the year, seasonal-wise, airlines use a va
 \section{Traveling Salesman problem and its adapation}
 \label{sec:TSP}
 
-The Traveling Salesman Problem is a well known problem in the Operational Research and Computer Science area. The basic version of the TSP is to find the best roundtrip for a saleman that has to travel around a given number of cities while minimising the overall journey's distance.
-This problem is characterised as $\mathcal{NP}$-Hard \cite{np_hardness}. This means that there is no known polynomial-time algorithm that can solve all instances of the problem efficiently . In terms of time complexity, if we were to solve it explorating all the possible solutions the time complexity would have been $\mathcal{O}(\frac{(n-1)!}{2})$ where $n$ represents the number of cities.
+The Traveling Salesman Problem is a well known problem in the Operational Research and Computer Science fields. A simple description of the TSP is to find the best roundtrip for a saleman that has to travel around a given number of cities while minimising the overall journey's distance.
+This problem is characterised as $\mathcal{NP}$-Hard \cite{np_hardness}. This means that there is no known polynomial-time algorithm that can solve all instances of the problem efficiently . Regarding time complexity, if we were to solve it exploring all the possible solutions, the time complexity would have been $\mathcal{O}(\frac{(n-1)!}{2})$ where $n$ represents the number of cities.
 
 \begin{figure}[!ht]
     \centering
@@ -76,23 +76,23 @@ This problem is characterised as $\mathcal{NP}$-Hard \cite{np_hardness}. This me
     \label{fig:time_complexity_comparisons}
 \end{figure}
 
-On Figure \ref{fig:time_complexity_comparisons}, different time complexity are compared and the factorial time complexity is the worst. That means that these kinds of $\mathcal{NP}$-Hard problem are typically not solved exploiting all the search area but using heuristics algorithms. Heuristics solutions do not guarantee to find the absolute optimal solution but can find near-optimal solutions in a much more reasonnable times.
+On Figure \ref{fig:time_complexity_comparisons}, different time complexities are compared and demonstrates that the factorial time complexity is the worst. Therefore, these kinds of $\mathcal{NP}$-Hard problem are typically not solved exploiting all the search area but using heuristics algorithms. Heuristics solutions do not guarantee to find the absolute optimal solution but can find near-optimal solutions within more reasonnable timeframes.
 
-The TSP has been studied extensively, not least because many variants can be derived from it:
+The TSP has been studied extensively, and, many variants can be derived from it:
 
 \begin{itemize}
     \item Symmetric TSP (STSP): The distance between cities are symmetric, meaning that the distance to travel from city A to city B is the same as from city B to city A. %\cite{STSP}
     \item Assymetric TSP (ATSP): The distance between cities are assymetric, meaning that the distance to travel from city A to city B is different than the distance to travel from city B to city A.\cite{ASTP}
-    \item Multiple TSP (mTSP): Instead of one salesman, multiple salesman are starting from one city visit all the cities such that each city is visited exactly once. \cite{mTSP}
+    \item Multiple TSP (mTSP): Instead of one salesman, multiple salesman are starting from one city, they visit all the cities such that each city is visited exactly once. \cite{mTSP}
     \item Time Window TSP (TWTSP): Each city has to be visited in a defined time slot. \cite{TWTSP}
-    \item Price-collection TSP (PCTSP): Not all the cities have to be visited, the goal is to to minimise the overall traveler's distance while maximising the price collected earned when visiting a city. \cite{PCTSP}
+    \item Price-collection TSP (PCTSP): Not all the cities have to be visited, the goal is to minimise the overall traveler's distance while maximising the price collected earned when visiting a city. \cite{PCTSP}
     \item Stochastic TSP (STSP): The distances between the cities or the cost of travels are stochastic (\i.e random variables) rather than deterministic. \cite{Stochastic_TSP}
-    \item Dynamic TSP (DTSP): The problem can change over the times, that means that new cities can be added or distances between cities can change while the salesman has already started his journey. \cite{DTSP}
+    \item Dynamic TSP (DTSP): The problem can change over time, that means that new cities can be added or distances between cities can change while the salesman has already started his journey. \cite{DTSP}
     \item Generalised TSP (GTSP): The cities are grouped into clusters, the goal is to visit exactly one city from each cluster. \cite{GTSP}
     \item Open TSP (OTSP): The traveler does not have to end his journey at the starting city. \cite{OTSP}
 \end{itemize}
 
-Multiple algorithms have been developed to address these TSP variants, we can classify them into two major categories:
+Multiple algorithms have been developed to address these TSP variants, we can classify them into two categories:
 
 \begin{itemize}
     \item \textbf{Exact Algorithms}: These algorithms aim to find the optimal solution to the TSP by exploring all possible routes or by using mathematical techniques to prune the search space efficiently. Examples include:
@@ -101,34 +101,34 @@ Multiple algorithms have been developed to address these TSP variants, we can cl
               \item \textbf{Cutting Planes}: This technique adds constraints (or cuts) to the TSP formulation iteratively to remove infeasible solutions and converge to the optimal solution. This approach is particularly effective for symmetric TSPs. \cite{cutting_planes}
               \item \textbf{Dynamic Programming}: Introduced by Bellman, this approach breaks down the TSP into subproblems and solves them recursively, which is highly effective for specific TSP variants, though its complexity grows exponentially. \cite{dynamic_programming_tsp}
           \end{itemize}
-    \item \textbf{Approximation and Heuristic Algorithms}: These algorithms are designed to find near-optimal solutions within a reasonable time frame, especially for large-scale problems where exact methods are computationally infeasible. Examples include:
+    \item \textbf{Approximation and Heuristic Algorithms}: These algorithms are designed to find near-optimal solutions within a reasonable time frame, specifically for large-scale problems where exact methods are computationally infeasible. Examples include:
           \begin{itemize}
               \item \textbf{Greedy Algorithms}: These algorithms make a series of locally optimal choices in the hope of finding a global optimum. An example is the Nearest Neighbor algorithm, which selects the nearest unvisited city at each step. \cite{greedy}
               \item \textbf{Genetic Algorithms}: Inspired by the process of natural selection, these algorithms evolve a population of solutions over time, using operations such as mutation and crossover to explore the solution space. \cite{genetic_algorithm}
               \item \textbf{Simulated Annealing}: This probabilistic technique searches for a global optimum by allowing moves to worse solutions based on a temperature parameter that gradually decreases. It is particularly useful for escaping local optima. \cite{simulated_annealing}
-              \item \textbf{Ant Colony Optimization}: This metaheuristic is inspired by the foraging behavior of ants and uses a combination of deterministic and probabilistic rules to construct solutions, gradually improving them through pheromone updates. \cite{ant_colony}
+              \item \textbf{Ant Colony Optimization}: This metaheuristic is inspired by the foraging behavior of ants and uses a combination of deterministic and probabilistic rules to construct solutions, which qre grqdually refined through updates based on pheromone trails. \cite{ant_colony}
           \end{itemize}
 \end{itemize}
 
-Some TSP problems (or its variants) have been solved using other algorithms, hence they are less traditionnal than those mentionned.
+Some TSP problems (or its variants) have been solved using other algorithms.
 
 \newpage
 \section{The Monte Carlo Tree Search algorithm}
 
 The Monte Carlo Tree Search (MCTS) algorithm can be characterised as less traditionnal than the previously enounced methods in Section \ref{sec:TSP} because MCTS is typically used in games. MCTS' (and its variants)
-have been successfully implemented across a range of games, such as Havannah \cite{wiki:board_game},  Amazons \cite{wiki:Game_of_the_Amazons}, Lines of Actions \cite{wiki:Lines_of_Action}, Go, chess, and Shogi \cite{wiki:Shogi}, establishing it as the state-of-the-art method for many of these games \cite{havannah}, \cite{amazons}, \cite{lines_of_actions}. It is widely use in board games and has been really popular when Google DeepMind developed AlphaGo. AlphaGo is a software that was created to beat the best Go's player in the world.
+have been successfully implemented across a range of games, such as Havannah \cite{wiki:board_game},  Amazons \cite{wiki:Game_of_the_Amazons}, Lines of Actions \cite{wiki:Lines_of_Action}, Go, Chess, and Shogi \cite{wiki:Shogi}, establishing it as the state-of-the-art algorithm \cite{havannah}, \cite{amazons}, \cite{lines_of_actions}. It is widely used in board games and is increasingly popular since Google DeepMind developed AlphaGo. AlphaGo is a software that was created to beat the best Go's player in the world.
 
-Go is an ancient board game from China where two players take turns placing black or white stones on a grid. The goal is to capture territory by surrounding empty spaces or the opponent’s stones. Despite its simple rules, Go is incredibly deep and complex, with countless possible moves and strategies. It is known for its balance between intuition and logic, hence it has been a significant focus of artificial intelligence research ,\cite{wiki:Go}. In 2016, Lee Sedol \cite{wiki:Lee_Sedol} - the best Go's player in the world has been beaten by AlphaGo 4-1 \cite{alpha_go_documentary}.
+Go is a board game from China where two players take turns placing black or white stones on a grid. The goal is to capture territory by surrounding empty spaces or the opponent’s stones. Despite its simple rules, Go is a complex game, with countless possible moves and strategies. It is known for its balance between intuition and logic, hence why it has been a significant focus of artificial intelligence research ,\cite{wiki:Go}. In 2016, Lee Sedol \cite{wiki:Lee_Sedol} - the best Go's player in the world was been beaten by AlphaGo 4-1 \cite{alpha_go_documentary}.
 
-MCTS with policy and value networks are at the heart of AlphaGo's decision-making process, enabling AlphaGo's to pick the optimal moves in the complex search of Go. \cite{mcts_alpha_go_algorithm}
+MCTS with policy and value networks are at the heart of AlphaGo decision-making process, enabling AlphaGo's to pick the optimal moves in the complex search of Go. \cite{mcts_alpha_go_algorithm}
 
 
 
 \subsection{Overview}
 The MCTS' process is conceptually straightforward. A tree is built in an incremental and assymatric manner (Figure \ref{fig:Assymetrical_growth_MCTS}).
-For every iteration, a selection policy is used to determine which node we have to select in the tree to perform simulations.
-The selection policy, typically balances the exploration  i.e.\ look into part of the tree that have not been visited yet and the exploitation i.e.\ look into part of the trees that appear to be promising.
-Once the node is selected, a simulation i.e.\ a sequence of available actions, based on a simulation policy, are applied from this node until a terminal condition is reached e.g\ no further actions are possible. \cite{mcts_various_policies}
+For every iteration, a selection policy is used to determine which node to select in the tree to perform simulations.
+The selection policy, typically balances the exploration  (looking into parts of the tree that have not been visited yet) and the exploitation (looking into parts of the trees that appear to be promising).
+Once the node is selected, a simulation - a sequence of available actions, based on a simulation policy, is applied from this node until a terminal condition is reached e.g\ no further actions are possible. \cite{mcts_various_policies}
 
 \begin{figure}[!ht]
     \centering
@@ -136,14 +136,15 @@ Once the node is selected, a simulation i.e.\ a sequence of available actions, b
     \caption{Assymetrical growth of MCTS - Simulation and Expansion - \cite{mcts_assymetrical_growth}}
     \label{fig:Assymetrical_growth_MCTS}
 \end{figure}
-To ensure that the reader understands the various stages of the Monte Carlo Tree Search Algorithm, we will begin by looking at a detailed example. This example will illustrate each component of the algorithm in action. We will then generalise the principles discussed, as the basic methodology of this paper is based on the application of the MCTS algorithm.
+\newpage
+To ensure a clearer understanding of MCTS algorithm's stages, we will start by exploring a detailed example \cite{example_youtube_mcts}. This example will illustrate each component of the algorithm in action. Furthermore, we will generalise the principles discussed, as the methodology of this paper is built on the application of the MCTS algorithm.
 
 
 \subsection{Example}
 \label{subsub:Example}
-Let's say we are given a maximisation problem. When starting the game, you have two possible actions $a_1$ and $a_2$ from the node $S^{0,0}_0$ in the tree $\mathcal{T}$.
+Let's say we are given a maximisation problem. When beginning the game, you have two possible actions $a_1$ and $a_2$ from the node $S^{0,0}_0$ in the tree $\mathcal{T}$.
 Every node is defined like so: $S^{n_i,t_i}_i$ where $n_i$ represents the number of times node $i$ has been visited, $t_i$ the total score of this node.
-Furthermore, for every node - we can compute a selection metric, for instance the $UCB1$ value: $UCB1(S^{n_i,t_i}_i)=\bar{V_i} + 2 \sqrt{\frac{\ln N}{n_i}}$ where $\bar{V_i}=\frac{n_i}{t_i}$ represents the average value of the node, $n_i$ the number of times node $i$ has been visited, $N=n_0$ the number of times the root node has been visited (which is also equal to the number of iterations).
+Moreover, for every node - we can compute a selection metric, for instance the $UCB1$ value: $UCB1(S^{n_i,t_i}_i)=\bar{V_i} + 2 \sqrt{\frac{\ln N}{n_i}}$ where $\bar{V_i}=\frac{n_i}{t_i}$ represents the average value of the node, $n_i$ the number of times node $i$ has been visited, $N=n_0$ the number of times the root node has been visited (which is also equal to the number of iterations).
 
 Before the first iteration, none node have been visited - $\forall i \in \mathcal{T}, S^{0,0}_{i}$.
 \begin{figure}[!ht]
@@ -168,10 +169,10 @@ Before the first iteration, none node have been visited - $\forall i \in \mathca
     \caption{Selection - $I1$}
     \label{fig:Expansion of the tree from the root node}
 \end{figure}
-At the beginning of $I1$, we then have to choose between these two child nodes (or choose between taking $a_1$ or $a_2$). We then have to calculate the $UCB1$ value for these two nodes and pick the node that maximises the $UCB1$ value (as we are dealing with a maximisation problem).
+At the beginning of $I1$, we have to choose between these two child nodes (or choose between taking $a_1$ or $a_2$). After, we have to calculate the $UCB1$ value for these two nodes and pick the node that maximises the $UCB1$ value (as we are dealing with a maximisation problem).
 In Figure \ref{fig:Expansion of the tree from the root node}, neither of these have been visited yet so $USB(S^{0,0}_1)=UCB1(S^{0,0}_2)=\infty$. Hence we decide to choose randomly $S^{0,0}_1$.
 
-$S^{0,0}_1$ is a leaf node that has not been visited - then we can simulate from this node i.e.\ selecting actions from this node based on the simulation policy to a terminal state as shown on Figure \ref{fig:Simulation - $I1$}:
+$S^{0,0}_1$ is a leaf node that has not been visited - then we can simulate from this node, which means selecting actions from this node based on the simulation policy to a terminal state as shown on Figure \ref{fig:Simulation - $I1$}:
 
 \begin{figure}[!ht]
     \centering
@@ -223,7 +224,7 @@ We can then define a backpropagation function:
 
 
 \newpage
-Then, back to our example on Figure \ref{fig:Backpropagation_I1} we update the nodes $\mathcal{B}(S^{0,0}_1)=S^{\mathbf{1},\mathbf{20}}_1$ and $\mathcal{B}(S^{0,0}_0)=S^{\mathbf{1},\mathbf{20}}_0$.
+Then, back to the example on Figure \ref{fig:Backpropagation_I1} we update the nodes $\mathcal{B}(S^{0,0}_1)=S^{\mathbf{1},\mathbf{20}}_1$ and $\mathcal{B}(S^{0,0}_0)=S^{\mathbf{1},\mathbf{20}}_0$.
 \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[
@@ -247,7 +248,7 @@ Then, back to our example on Figure \ref{fig:Backpropagation_I1} we update the n
     \label{fig:Backpropagation_I1}
 \end{figure}
 
-The fourth phase of the algorithm have been done for $I1$. We can then start the $2^{nd}$ iteration $I2$.
+The fourth phase of the algorithm has been done for $I1$. Therefore, we can then start the $2^{nd}$ iteration $I2$.
 \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[
@@ -299,8 +300,8 @@ On Figure \ref{fig:Selection - I2}, we can either choose $a_1$ or $a_2$. When a 
     \label{fig:Simulation and Backpropagation - I2}
 \end{figure}
 \newpage
-We can then simulate (Figure \ref{fig:Simulation and Backpropagation - I2}) from the chosen node $S^{0,0}_{2}$ and $\mathcal{R}(S^{0,0}_{2})=10$ and backpropagate all the visited nodes: $\mathcal{B}(S^{0,0}_{2})=S^{1,10}_{2}$ and $\mathcal{B}(S^{1,20}_{0})=S^{2,30}_{0}$.
-We now start the $3^{rd}$ iteration, based on the $UCB1$ score we decide to choose $a_1$.
+We can simulate (Figure \ref{fig:Simulation and Backpropagation - I2}) from the chosen node $S^{0,0}_{2}$ and $\mathcal{R}(S^{0,0}_{2})=10$ and backpropagate all the visited nodes: $\mathcal{B}(S^{0,0}_{2})=S^{1,10}_{2}$ and $\mathcal{B}(S^{1,20}_{0})=S^{2,30}_{0}$.
+Next, we start the $3^{rd}$ iteration, based on the $UCB1$ score we decide to choose $a_1$.
 \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[
@@ -386,7 +387,7 @@ Based on $UCB1$ score we decide to simulate from $S^{0,0}_3$ on Figure \ref{fig:
     \label{fig:Simulation and Backpropagation - I3}
 \end{figure}
 \newpage
-Let's do the fourth iteration $I4$ represented on Figure \ref{fig:Selection - Simulation - Backpropagation - I4}:
+This is the fourth iteration $I4$ represented on Figure \ref{fig:Selection - Simulation - Backpropagation - I4}:
 \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[
@@ -420,7 +421,7 @@ Let's do the fourth iteration $I4$ represented on Figure \ref{fig:Selection - Si
     \label{fig:Selection - Simulation - Backpropagation - I4}
 \end{figure}
 
-The MCTS algorithm can be either stopped because you are running out of time or because you have no more available actions. For instance, if we were to stop at this stage of the algorithm, the best action to undertake is $a_2$ because it has the higher average value: $\bar{V_1}=\frac{20}{2} \le \bar{V_2}=\frac{24}{2}$.
+The MCTS algorithm can either be stopped because you are running out of time or because you have no more available actions. For instance, if we were to stop at this stage of the algorithm, the best action to undertake is $a_2$ because it has the higher average value: $\bar{V_1}=\frac{20}{2} \le \bar{V_2}=\frac{24}{2}$.
 
 \subsection{The different parameters in the MCTS}
 

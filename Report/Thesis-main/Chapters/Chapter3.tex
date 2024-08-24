@@ -15,7 +15,7 @@ where \( a_{j,k_j} \) being airports in area \(j\) and \(k_j\) is the number of 
 The traveler has to visit one area per day. He has to leave this area to visit a new area by flying from the airport he flew in.
 He leaves from a known starting airport and has to do his journey and come back to the starting area, not necessarly the starting airport.
 There are flight connections between different airports, with different prices depending on the day of the travel:
-we can write $c^{d}_{ij}$ the cost to travel from $city_i$ to $city_j$ on day $d$. We do not necessarly have $c^{d}_{ij}=c^{d}_{ji}$ neither $c^{d_1}_{ij}=c^{d_2}_{ij}$ if $d_1 \neq d_2$. The problem can hence be characterised as assymetric and time dependant as discussed in Section \ref{sec:TSP}.
+we can write $c^{d}_{ij}$ the cost to travel from $city_i$ to $city_j$ on day $d$. We do not necessarly have $c^{d}_{ij}=c^{d}_{ji}$ neither $c^{d_1}_{ij}=c^{d_2}_{ij}$ if $d_1 \neq d_2$. The problem can hence be characterised as an generalised, assymetric and time dependant TSP - as discussed in Section \ref{sec:TSP}.
 
 The aim of the problem is to find the cheapest route for the traveler's journey.
 
@@ -118,7 +118,7 @@ That means that the Traveller will visit \textcolor{gray}{13} different areas, h
 Then we are given the list of airports that are in every zone.
 For example, the second zone is named \textcolor{red}{second} and has two airports: \textcolor{orange}{WRO} and \textcolor{purple}{DL1}.
 
-After all the information regarding the areas and the airports we have the flight connections informations. In Table \ref{table:Flight connections sample I6}, few flights are displayed from $I_6$ for illustrative purpose.
+After all the information regarding the areas and the airports we have the flight connections informations. In Table \ref{table:Flight connections sample I6}, few flights are displayed from $I_6$ for illustrative purposes.
 \begin{table}[!ht]
     \centering
     \caption{Flight connections sample I6}
@@ -142,7 +142,7 @@ After all the information regarding the areas and the airports we have the fligh
 
 For every instance $I_i$, we know what connections exist between two airports for a specific day and the associated cost.
 There might be in some instances flights connections at day 0, this means these connections exist for every day of the journey at the same price.
-\\Furthermore, we could have same flight connections at a specific day but with different prices. We then have to consider only the more relevant connections i.e.\ the flight connection with the lowest fare, on \ref{table:Flight connections sample I6} we only consider the flight from UXA to DDB with the associated cost of 110.
+\\Furthermore, we could have the same flight connections at a specific day but with different prices. Furthermore, we have to consider solely the more relevant connections i.e.\ the flight connection with the lowest fare, on \ref{table:Flight connections sample I6} we only consider the flight from UXA to DDB with the associated cost of 110.
 
 \subsection{General formulation}
 We decided to formulate the problem mathematically because it was not done in the existing papers, and we found it useful to clearly understand the problem's instances and their characteristics.
