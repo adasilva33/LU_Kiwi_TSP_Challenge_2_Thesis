@@ -403,7 +403,7 @@ class MCTS(data_preprocessing):
             self.best_leaf_cost = float("inf")
             self.search()
             self.end_search_time = time.time() - self.start_time
-            # self.print_execution_times()
+            self.print_execution_times()
             self.get_final_nodes()
             self.print_characteristics_simulation()
 
