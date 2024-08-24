@@ -8,3 +8,66 @@
     Evaluate what you have achieved against the aims and objectives you outlined in the introduction}
 
 \section{Hypothesis}
+
+
+\begin{table}[!ht]
+    \centering
+    \caption{State of the Art Solution}
+    \resizebox{\textwidth}{!}{ % Resize the table to fit the text width
+        \begin{tabular}{||>{\centering\arraybackslash}p{2.2cm}
+            >{\centering\arraybackslash}p{4cm}
+            >{\centering\arraybackslash}p{3.2cm}
+            >{\centering\arraybackslash}p{3.2cm}
+            >{\centering\arraybackslash}p{3.2cm} ||}
+            \toprule
+            Instance & Kiwi's & RL     & Best known & Best found \\ [1ex]
+            \midrule
+            I1       & 1396   & 1396   & 1396       & 1396       \\
+            I2       & 1498   & 1498   & 1498       & 1498       \\
+            I3       & 7672   & 7672   & 7672       & 7672       \\
+            I4       & 14024  & 13952  & 13952      & -          \\
+            I5       & 698    & 690    & 690        & -          \\
+            I6       & 2159   & 2610   & 2159       & -          \\
+            I7       & 31681  & 30937  & 30937      & -          \\
+            I8       & 4052   & 4081   & 4052       & -          \\
+            I9       & 76372  & 75604  & 75604      & -          \\
+            I10      & 21667  & 58304  & 21667      & -          \\
+            I11      & 44153  & 59361  & 44153      & -          \\
+            I12      & 65447  & 86074  & 65447      & -          \\
+            I13      & 97859  & 166543 & 97859      & -          \\
+            I14      & 118811 & 198787 & 118811     & -          \\ [1ex]
+            \bottomrule
+        \end{tabular}
+    }
+    \label{table:State of the Art Solution}
+\end{table}
+
+
+\begin{table}[!ht]
+    \centering
+    \caption{I4}
+    \resizebox{\textwidth}{!}{ % Resize the table to fit the text width
+        \begin{tabular}{||>{\centering\arraybackslash}p{3cm}
+            >{\centering\arraybackslash}p{2.5cm}
+            >{\centering\arraybackslash}p{3.5cm}
+            >{\centering\arraybackslash}p{3.5cm}
+            >{\centering\arraybackslash}p{2.5cm}
+            >{\centering\arraybackslash}p{2.5cm}
+            >{\centering\arraybackslash}p{3cm}
+            >{\centering\arraybackslash}p{3cm}
+            >{\centering\arraybackslash}p{2.5cm}
+            >{\centering\arraybackslash}p{2.5cm}
+            >{\centering\arraybackslash}p{2.5cm} ||}
+            \toprule
+            \makecell{Expansion policy} & \makecell{Number                                                                                    \\ childrens} & \makecell{Desired simulation \\ policy} & \makecell{Desired selection \\ policy} & \makecell{Ratio \\ expansion} & Cp & \makecell{Best node \\ cost} & \makecell{Time to find \\ the solution} & Mean & Median & Std \\ [1ex]
+            \midrule
+            top\_k                      & 5                & greedy\_policy & UCB & 0.5 & 1.41 & 31698 & 464.2422 & 31698    & 31698 & 0.00   \\
+            top\_k                      & 5                & greedy\_policy & SP  & 0.5 & 1.41 & 31884 & 519.5144 & 32129.67 & 32131 & 129.24 \\
+            top\_k                      & 10               & greedy\_policy & UCB & 0.5 & 1.41 & 31924 & 353.9113 & 31924    & 31924 & 0.00   \\
+            top\_k                      & 20               & greedy\_policy & UCB & 0.5 & 1.41 & 32237 & 937.3664 & 32237    & 32237 & 0.00   \\
+            top\_k                      & 15               & greedy\_policy & UCB & 0.5 & 1.41 & 32265 & 942.9624 & 32265    & 32265 & 0.00   \\
+            \bottomrule
+        \end{tabular}
+    }
+
+\end{table}
