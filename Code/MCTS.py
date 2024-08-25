@@ -522,6 +522,8 @@ class MCTS(data_preprocessing):
                     # self.logger.info(f"Nodes in tree: {len(self.collect_all_nodes())}")
                     if len(self.collect_all_nodes()) == 1:
                         self.logger.info("Everything has been deleted to the root node")
+                        self.end_time_data_preprocessing = 0
+                        self.end_search_time = 0
                         self.print_characteristics_simulation()
                         self.print_execution_times()
                         break
@@ -554,6 +556,10 @@ class MCTS(data_preprocessing):
                     self.delete_node(node_to_explore[1])
                     if len(self.collect_all_nodes()) == 1:
                         self.logger.info("Everything has been deleted to the root node")
+                        self.end_time_data_preprocessing = 0
+                        self.end_search_time = 0
+                        self.print_characteristics_simulation()
+                        self.print_execution_times()
                         break
 
     def simulate(self, node):

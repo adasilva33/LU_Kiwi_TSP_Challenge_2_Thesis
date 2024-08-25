@@ -58,7 +58,7 @@ class logs_analysis:
                     print(f"Directory not empty: {dir_to_remove}")
 
     def extract_log_data(self, file_path):
-        with open(file_path, "r") as file:
+        with open(file_path, "r", encoding="ISO-8859-1") as file:
             content = file.read()
 
             # Use regex to find the required information
@@ -177,11 +177,21 @@ class logs_analysis:
         parent_dir = os.path.dirname(self.root_dir)
         file_path = os.path.join(parent_dir, "Simulation output.xlsx")
 
-        if os.path.exists(file_path):
-            current_df = pd.read_excel(file_path)
-            final_df = pd.concat([current_df, df])
-        else:
-            final_df = df
+        try:
+            if os.path.exists(file_path):
+                # Attempt to read the Excel file
+                current_df = pd.read_excel(file_path)
+                # Concatenate the current DataFrame with the existing one
+                final_df = pd.concat([current_df, df])
+                return final_df
+            else:
+                print(f"File {file_path} does not exist.")
+                return None
+        except Exception as e:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            print(f"An error occurred: {e}. Saving DataFrame as a pickle file.")
+            df.to_pickle(f"pickle_{timestamp}.pkl")
+            return None
 
         final_df.to_excel(file_path, index=False)
 

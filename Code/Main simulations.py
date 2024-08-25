@@ -6,15 +6,15 @@ from Logs_process import logs_analysis
 import time
 
 expansion_policies = ["top_k", "ratio_k"]
-simulation_policies = ["tolerance_policy"]
+simulation_policies = ["tolerance_policy", "random_policy"]
 selection_policies = ["UCB", "UCB1T"]
 
 
-instance = range(2, 3)
+instance = range(4, 5)
 c_p = [0, 1.41, 2 * 1.41]
 N_simulation = [5]
-N_children = [5, 10, 15]
-ratios = [0, 0.3, 0.5, 0.8, 1]
+N_children = [10, 15]
+ratios = [0.5]
 
 # Calculate the total number of iterations
 total_iterations = (
@@ -50,11 +50,6 @@ for i in instance:
                             instances = f"/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/{root_dir}"
                             instance_path = f"{instances}/{instance_number}.in"
 
-                            if simulation_p == "greedy_policy":
-                                simulation = 2
-                            else:
-                                simulation = 10
-
                             iteration += 1
                             percentage_completed = (iteration / total_iterations) * 100
 
@@ -82,7 +77,6 @@ for i in instance:
 
 for i in instance:
     for expansion_p in expansion_policies:
-
         for selection_p in selection_policies:
             for children in N_children:
                 for c_p_coeff in c_p:
@@ -104,7 +98,7 @@ for i in instance:
                             number_childrens=children,
                             desired_expansion_policy=expansion_p,
                             ratio_expansion=ratio,
-                            desired_simulation_policy=simulation_p,
+                            desired_simulation_policy="greedy_policy",
                             number_simulation=1,
                             desired_selection_policy=selection_p,
                             cp=c_p_coeff,

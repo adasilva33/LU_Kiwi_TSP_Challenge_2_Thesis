@@ -29,7 +29,7 @@ Based on the discussion in Chapter \ref{Chapter2}, the flow of the Monte Carlo T
         \node (current) [process, below of=start] {Node = $S_0$};
         \node (decision1) [decision, below of=current, yshift=-0.5cm] {is Node a leaf node?};
         \node (ucb1) [process, below of=decision1, yshift=-1cm, align=center] {Node = child node of Node \\ that minimises the \\ chosen selection function};
-        \node (decision2) [decision, right of=decision1, xshift=4cm] {Node has never been visited};
+        \node (decision2) [decision, right of=decision1, xshift=4cm] {Has Node been visited};
         \node (expand) [process, below of=decision2, yshift=-1cm, align=center] {For each available action\\ from Node, add a new \\ state to the tree};
         \node (firstChild) [process, below of=expand] {Node = random new child node};
         \node (rollout1) [process, below of=firstChild] {ROLLOUT - simulation policy};
@@ -40,8 +40,8 @@ Based on the discussion in Chapter \ref{Chapter2}, the flow of the Monte Carlo T
         \draw [arrow] (decision1) -- node[anchor=east] {no} (ucb1);
         \draw [arrow] (ucb1) -- (decision1);
         \draw [arrow] (decision1) -- node[anchor=south] {yes} (decision2);
-        \draw [arrow] (decision2) -- node[anchor=east] {no} (expand);
-        \draw [arrow] (decision2) -- node[anchor=east] {yes} (rollout2);
+        \draw [arrow] (decision2) -- node[anchor=east] {yes} (expand);
+        \draw [arrow] (decision2) -- node[anchor=east] {no} (rollout2);
         \draw [arrow] (expand) -- (firstChild);
         \draw [arrow] (ucb1.west) -- ++(-1,0) |- (decision1.west);
         \draw [arrow] (firstChild) -- (rollout1);
@@ -74,7 +74,7 @@ For every iteration of this algorithm - there are four different phases:
 \subsubsection{Data Preprocessing}
 
 In order to implement our MCTS' solution, the first thing to implement was a data\_preprocessing \tikz[baseline=(class.base)]{\node[class] (class) {class};} in order to preprocess the given instance.
-Kiwi's challenge has been solved using Python 3.10 on VS Code 1.92.2. Our Python code is structured using object-oriented programming. This data\_preprocessing class is represented on Figure \ref{fig:data_preprocessing_class}.
+Kiwi's challenge has been solved using Python 3.10 on VS Code 1.92.2. Our Python code is structured using object-oriented programming following CamelCase's convention \cite{camel_case}. This data\_preprocessing class is represented on Figure \ref{fig:data_preprocessing_class}.
 The input is an \tikz[baseline=(instance.base)]{\node[instance] (instance) {instance};} $I_i$, as defined in Chapter \ref{Chapter3}:
 
 \begin{figure}[!ht]
@@ -88,7 +88,7 @@ The input is an \tikz[baseline=(instance.base)]{\node[instance] (instance) {inst
 
         %Nodes  
         \node[instance]          (Instance){$I_i = (N_i, S_{i0}, A_{i}, F_{i})$};
-        \node[class]             (Class)[below=of Instance]{data preprocessing};
+        \node[class]             (Class)[below=of Instance]{DataPreprocessing};
 
         \node[attributes, left=of  Class , yshift=-40] (Attr1) {$N_i$};
         \node[attributes, left=of  Class , yshift=-90] (Attr2) {$S_{i0}$};
@@ -200,14 +200,14 @@ Finally, the delete\_node method can be used to delete a node from the list of i
 
 
 \section{The different policies}
-In the previous section, we outlined the general flow of the MCTS algorithm, focusing on two cores classes, data\_preprocessing and Node, that are central in MCTS' implementation.
+In the previous section, we outlined the general flow of the MCTS algorithm, focusing on two cores classes, DataPreprocessing and Node, that are central in MCTS' implementation.
 
 In Section \ref{sub:selection_policies_litterature}, we explored the various selection policies that guide the decision-making process within MCTS.
 Although there is a limited litterature review, we decided to parameterise not only the selection policy but also the simulation and expansion policy.
 
 \subsection{Simulation policies}
 When you simulate from a given node in the tree, the goal is to find a feasible combinaison of airport that could be a solution to our problem.
-Then from this current node, you have the current state (defined in Section \ref{subsub:node}), so you have to chose for the remaining actions based on the simulation policy.
+Then from this chosen node for the simulation, you have the current state (defined in Section \ref{subsub:node}), so you have to chose for the remaining actions to find a simulated solution based on the simulation policy.
 
 We decided to define three distinct simulation policies:
 
@@ -228,16 +228,17 @@ We decided to define three distinct simulation policies:
 \end{itemize}
 
 \subsection{Expansion policies}
-When expanding a node, it’s theoretically possible to expand all available child nodes i.e.\ add all the possible flight connections from a node at a specific day to the tree. However, in practice, this can be computationally expensive and time-consuming, particularly in problems with a large number of possible actions. To address this, heuristic approaches often involve compromises that enhance the efficiency of the search process by selectively expanding certain nodes rather than all possible ones.
+When expanding a node, it’s theoretically possible to expand all available child nodes i.e.\ add to the tree all the possible flight connections from this airport (that are in the available actions based on the visited areas). However, in practice, this can be computationally expensive and time-consuming, particularly in problems with a large number of possible actions. To address this, heuristic approaches often involve compromises that enhance the efficiency of the search process by selectively expanding certain nodes rather than all possible ones.
+
+Firstly, we defined \texttt{number\_of\_children}, a parameter of our MCTS - it regulates the maximum number of children that can be expanded from any given node. This limitation controls the size of the search tree, expanding too many children for every selected node could make the algorithm computationally exhaustive.
 
 In our implementation we defined two expansion policies:
 
 \begin{itemize}
-    \item \textbf{Top-K Actions Policy}: This policy expands the nodes corresponding to the cheapest flight connections available. Specifically, it sorts all possible actions based on their associated costs and selects the top \(k\) actions with the lowest costs, where \(k\) is regulated by a parameter called \texttt{number\_of\_children}. This approach ensures that only the most promising actions, in terms of cost efficiency, are considered during expansion. This policy narrow down the search space but can reach to local optima.
-    \item \textbf{Ratio Best-Random Policy}: This policy takes a more balanced approach by combining the selection of the best actions with a degree of randomness. First, it calculates the number of top actions to select based on a predefined ratio, \(c\), of \texttt{number\_of\_children}. The top actions are chosen based on their costs, similar to the Top-K Actions Policy. After selecting these best actions, the policy randomly selects additional actions from the remaining pool to reach the desired number of children. This policy is designed to explore a broader range of possibilities while still prioritising cost-effective options.
+    \item \textbf{Top-K Actions Policy}: This policy expands the nodes corresponding to the cheapest flight connections available. Specifically, it sorts all possible actions based on their associated costs and selects the top \(k\) actions with the lowest costs, where \(k\) is regulated by \texttt{number\_of\_children}. This approach ensures that only the most promising actions, in terms of cost efficiency, are considered during expansion. This policy narrow down the search space but can reach to local optima.
+    \item \textbf{Ratio Best-Random Policy}: This policy takes a more balanced approach by combining the selection of the best actions with a degree of randomness. First, it calculates the number of top actions to select based on a predefined ratio, \(c \in [0,1]\), which reflects the proportion of Top-K Actions within the allowed \texttt{number\_of\_children}. After selecting these best actions, the policy randomly selects $(1-c)*number\_of\_children$ actions from the remaining pool to reach the desired number of children. This policy is designed to explore a broader range of possibilities while still prioritising cost-effective options.
 \end{itemize}
 
-In addition to these policies, as already mention, the parameter \texttt{number\_of\_children} plays a critical role in regulating the maximum number of children that can be expanded from any given node. This limitation controls the size of the search tree, especially in larger instances where again, expanding too many nodes could make the algorithm computationally exhaustive.
 
 \subsection{MCTS' Pseudo-code}
 In this section, we go into more detail about how we implemented the algorithm in practice by examining the different functions of our MCTS class. The main idea is:
