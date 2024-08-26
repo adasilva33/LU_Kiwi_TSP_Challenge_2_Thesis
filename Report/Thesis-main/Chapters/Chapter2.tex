@@ -455,3 +455,60 @@ The UCB balances its exploration with the coefficient $C_p$, empirically $C_p=\s
 The UCB1-Tuned balances its exploration with \( \min\left(\frac{1}{4}, \mathrm{Var}(X_i) + \sqrt{\frac{2 \ln N}{n_i}}\right) \), making the UCB1-Tuned more adaptable to environments with varying reward distributions. The $C_p$ coefficient can also be considered in the UCB1-Tuned's formula. Hence in stochastic environments the UCB1-Tuned is more likely to have a better overall performance.
 
 Other selection policies, such as the Beta policy or Single Player MCTS, also play significant roles in various applications of the Monte Carlo Tree Search. However, these policies will not be the focus of this study due to their probabilistic nature, which does not align well with our specific problem context.
+
+\section{Previous study on this challenge}
+
+More than 500 teams registered for Kiwi.com TSP 2.0 challenge, and only 100 teams developed algorithms that were robust to go to the second phase of the challenge.
+The literature on the methods used by the participants is relatively sparse compared to the number of competitors. On the \href{hhttps://code.kiwi.com/articles/travelling-salesman-challenge-2-0-wrap-up/}{Kiwi.com website}, the best instances are showcased. The winners explained their approach during the award ceremony \cite{tsp2_award}, they implemented a Breadth-first search (BFS) algorithm in C++. Other participants employed well-known heuristic such as modified Simulated Annealing, Genetic Algorithms and Reinforcement Learning hyper-heuristics.
+Two papers were published on this challenge, \cite{reinforcement_learning_yaro} and \cite{local_search_yaro} where a Local Search and a Reinforcement Learning (RL) hyper-heuristics algorithms are implemented.
+The algorithms used by the known participants to solve this challenge are summarised on Table \ref{table:Kiwi TSP 2.0 - State of the chosen algorithm}.
+\begin{table}[!ht]
+    \centering
+    \caption{Kiwi TSP 2.0 - Chosen algorithm of the state of the art solutions}
+    \begin{tabular}{||c c c c c||}
+        \toprule
+        References                                 & Reinforcement Learning & Local search & BFS & SA \\[1ex]
+        \midrule
+        Paper 1 \cite{reinforcement_learning_yaro} & x                      &              &     &    \\
+        Paper 2 \cite{local_search_yaro}           &                        & x            &     &    \\
+        Kiwi's official winner                     &                        &              & x   &    \\
+        Other participants                         & x                      & x            & x   & x  \\
+        \bottomrule
+    \end{tabular}
+    \label{table:Kiwi TSP 2.0 - State of the chosen algorithm}
+\end{table}
+
+Furthermore, Table \ref{table:Kiwi TSP 2.0 - State of the chosen algorithm} summarises the state of the art solutions.
+\begin{table}[!ht]
+    \centering
+    \caption{Kiwi TSP 2.0 - State of the art solution}
+    \resizebox{.7\textwidth}{!}{ % Resize the table to fit the text width
+        \begin{tabular}{||>{\centering\arraybackslash}p{1.5cm}
+            >{\centering\arraybackslash}p{1.5cm}
+            >{\centering\arraybackslash}p{1.5cm}
+            >{\centering\arraybackslash}p{2.5cm}
+            >{\centering\arraybackslash}p{1.5cm} ||}
+            \toprule
+            Instance & Kiwi's & Local Search & Reinforcement learning & Best known \\ [1ex]
+            \midrule
+            I1       & 1396   & 1396         & 1396                   & 1396       \\
+            I2       & 1498   & 1498         & 1498                   & 1498       \\
+            I3       & 7672   & 7672         & 7672                   & 7672       \\
+            I4       & 14024  & 14045        & 13952                  & 13952      \\
+            I5       & 698    & 837          & 690                    & 690        \\
+            I6       & 2159   & 3021         & 2610                   & 2159       \\
+            I7       & 31681  & 32354        & 30937                  & 30937      \\
+            I8       & 4052   & 4041         & 4081                   & 4041       \\
+            I9       & 76372  & 82242        & 75604                  & 75604      \\
+            I10      & 21667  & 87462        & 58304                  & 21667      \\
+            I11      & 44153  & 49453        & 59361                  & 44153      \\
+            I12      & 65447  & 70082        & 86074                  & 65447      \\
+            I13      & 97859  & -            & 166543                 & 97859      \\
+            I14      & 118811 & -            & 198787                 & 118811     \\ [1ex]
+            \bottomrule
+        \end{tabular}
+    }
+    \label{table:State of the art solutions}
+\end{table}
+
+These points motivate our selection of Monte Carlo Tree Search as a suitable approach for this challenge.
