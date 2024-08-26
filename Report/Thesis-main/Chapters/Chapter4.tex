@@ -51,14 +51,14 @@ Based on the discussion in Chapter \ref{Chapter2}, the flow of the Monte Carlo T
     \label{fig:Flow MCTS}
 \end{figure}
 
-For every iteration of this algorithm - there are four different phases:
+For every iteration of this algorithm, there are four different phases:
 
 \begin{enumerate}
-    \item \textbf{Selection:} Starting from the root node (the starting airport $S_{i0}$ for $I_{i}$), select successive child nodes (airports that are in unvisited areas) until a leaf node (the airport in the initial area - not necessarly the starting airport) is reached. Use the chosen Selection function to evaluate which node's is the most promising. In the illustrative example in Section \ref{subsub:Example}, we used the UCB1 function for the selection function. We were also dealing with a maximisation problem, hence we selected nodes with the highest UCB1 value. A contrario, in Kiwi's minimisation problem,  nodes are evaluated based on the lowest value of the selection function.
+    \item \textbf{Selection:} Starting from the root node (the starting airport $S_{i0}$ for $I_{i}$), select successive child nodes (airports that are in unvisited areas) until a leaf node (the airport in the initial area, not necessarly the starting airport) is reached. Use the chosen Selection function to evaluate which node is the most promising. In the illustrative example in Section \ref{subsub:Example}, the UCB1 function was used for the selection function. Furthermore, the problem's goal was to maximise the objective function, hence the nodes with the highest UCB1 value was selected. A contrario, in Kiwi's minimisation problem,  nodes are evaluated based on the lowest value of the selection function.
 
     \item \textbf{Expansion:} If the selected node is not a terminal node, expand the tree by adding all possible child nodes.
 
-    \item \textbf{Simulation:} From the newly added node, perform a simulation (based on the simulation policy) until we reach a terminal node i.e\ we find a feasible solution.
+    \item \textbf{Simulation:} From the newly added node, perform a simulation (based on the simulation policy) until a feasible terminal node is reached.
 
     \item \textbf{Backpropagation:} Update the values of the nodes along the path from the newly added node to the root based on the result of the simulation.
 
@@ -73,8 +73,8 @@ For every iteration of this algorithm - there are four different phases:
 \newpage
 \subsubsection{Data Preprocessing}
 
-In order to implement our MCTS' solution, the first thing to implement was a data\_preprocessing \tikz[baseline=(class.base)]{\node[class] (class) {class};} in order to preprocess the given instance.
-Kiwi's challenge has been solved using Python 3.10 on VS Code 1.92.2. Our Python code is structured using object-oriented programming following CamelCase's convention \cite{camel_case}. This data\_preprocessing class is represented on Figure \ref{fig:data_preprocessing_class}.
+To implement our MCTS' solution, the first thing to create is a data\_preprocessing \tikz[baseline=(class.base)]{\node[class] (class) {class};} to prepare the given instance to the problem at hand.
+Kiwi's challenge is solved using Python 3.10 on VS Code 1.92.2. Our Python code is structured using object-oriented programming following CamelCase's convention \cite{camel_case}. This data\_preprocessing class is represented on Figure \ref{fig:data_preprocessing_class}.
 The input is an \tikz[baseline=(instance.base)]{\node[instance] (instance) {instance};} $I_i$, as defined in Chapter \ref{Chapter3}:
 
 \begin{figure}[!ht]
@@ -132,11 +132,13 @@ The input is an \tikz[baseline=(instance.base)]{\node[instance] (instance) {inst
 \end{figure}
 
 Different useful \tikz[baseline=(methods.base)]{\node[method] (methods) {methods};} are implemented within the data\_preprocessing class to compute and manage various attributes required for the problem at hand. These methods are designed to prepare and structure the data, making it easier to use in subsequent phases of the algorithm.
-For example, the remove\_duplicate method ensures that only the cheapest flight connections are considered between two airports if multiple flight connections exist at different prices on the same day.
-Other methods, such as flights\_by\_day\_dict and get\_airports\_by\_areas organise the data. The first method regroup all the flights by their respective days, creating a dictionary where each key represents a day and its corresponding value is a list of available flights. The second is regrouping all the airports present in the different areas.
-Finally, others methods like specific\_flights will be helpful in the algorithm's development gives all the possible flight connections from a specific airport on a specific day considering the visited\_areas, it hence gives you all the possibles actions from a node.
+For example, the remove\_duplicate method ensures that only the cheapest flight connections are considered between two airports if multiple flight connections exist at different prices, on the same day.
+Other methods, such as flights\_by\_day\_dict and get\_airports\_by\_areas organise the data. The first method regroups all the flights by their respective days, creating a dictionary where each key represents a day and its corresponding value is a list of available flights. The second method regroups all the airports present in the different areas.
 
-Given that Python is relatively slower in terms of computation compared to other programming languages, we opted to use as much as possible dictionaries. Dictionnaries allow for efficient data retrieval based on a key, with an average time complexity of $\mathcal{O}(1)$. This choice enhances the performance of the data preprocessing step, ensuring that the algorithm runs more efficiently despite Python’s inherent limitations.
+Finally, other methods, such as specific\_flights, will be useful for developing the MCTS' algorithm. These give all the possible flight connections from a specific airport on a given day, taking into account the areas visited, so that all possible actions can be obtained from a node.
+
+
+Given that Python is relatively slower, in terms of computation, compared to other programming languages, dictionnaries are used where possible. Dictionnaries allow for efficient data retrieval based on a key, with an average time complexity of $\mathcal{O}(1)$. This choice improves the performance of the data preprocessing step, enabling the algorithm to run more efficiently despite Python’s inherent limitations.
 
 \newpage
 \subsubsection{Node}
@@ -182,10 +184,10 @@ Given that Python is relatively slower in terms of computation compared to other
     \label{fig:node_class}
 \end{figure}
 
-As mentionned earlier in Section \ref{subsub:Example}, we use a Node structure in our algorithm, hence we implemented a Node class.
+As mentionned earlier in Section \ref{subsub:Example},a Node structure is used in the algorithm, hence the implementation of a Node class.
 Each Node has a reference to a parent node (unless it is the root node) and may have one or more child nodes (unless it is a leaf node). These relationships form a tree structure where each node can expand into potential future states, guiding the search process.
-The visit\_count tracks the number of times a node has been visited during the MCTS process. This is crucial for evaluating the node’s importance and for calculating score of the node with the selection function.
-The state is a dictionnary that contains node's current information:
+The visit\_count tracks the number of times a node has been visited during the MCTS process. This is crucial for evaluating the node’s importance and for calculating the score of the node with the selection function.
+The state is a dictionnary that contains the node's current information:
 \begin{itemize}
     \item current\_airport: The airport where the traveler is  at this node.
     \item current\_day: The day of the trip at this node.
@@ -195,21 +197,21 @@ The state is a dictionnary that contains node's current information:
 \end{itemize}
 
 Additionally, to manage the expansion of child nodes, the add\_child method is defined.
-This method generates new nodes based on the possible actions available from the current node, the potential flight connections from the current airport on this specific day, given the current path taken so far. These new nodes represent the next possible states in the traveler’s journey, allowing the search tree to expand and explore different travel routes.
+This method generates new nodes based on the possible actions available from the current node. These new nodes represent the next possible states in the traveler’s journey, allowing the search tree to expand and explore different travel routes.
 Finally, the delete\_node method can be used to delete a node from the list of its parent's children.
 
 
 \section{The different policies}
 In the previous section, we outlined the general flow of the MCTS algorithm, focusing on two cores classes, DataPreprocessing and Node, that are central in MCTS' implementation.
 
-In Section \ref{sub:selection_policies_litterature}, we explored the various selection policies that guide the decision-making process within MCTS.
+In Section \ref{sub:selection_policies_litterature}, we explored the various selection policies that guide the decision-making process within the MCTS
 Although there is a limited litterature review, we decided to parameterise not only the selection policy but also the simulation and expansion policy.
 
 \subsection{Simulation policies}
-When you simulate from a given node in the tree, the goal is to find a feasible combinaison of airport that could be a solution to our problem.
-Then from this chosen node for the simulation, you have the current state (defined in Section \ref{subsub:node}), so you have to chose for the remaining actions to find a simulated solution based on the simulation policy.
+When you simulate from a given node in the tree, the goal is to find a feasible combinaison of airports that could be a solution to our problem.
+From this node chosen for simulation, we obtain the current state (defined in section \ref{subsub:node}). The remaining actions must then be chosen to find a simulated solution based on the simulation policy.
 
-We decided to define three distinct simulation policies:
+Below is the definition of the three distinct simulation policies:
 
 \begin{itemize}
     \item Random policy: This policy selects a random action from the set of available actions, introducing variability and exploration in the simulation process.
@@ -218,7 +220,7 @@ We decided to define three distinct simulation policies:
     \item Tolerance Policy (with coefficient $c$):
           This policy selects an action randomly from a subset of actions that are within a certain tolerance level of the minimum cost action. The tolerance level is defined by a coefficient $c$, allowing for a balance between exploration and exploitation.
 
-          The tolerance heuristic is defined as follows:
+          The tolerance policy is defined as follows:
           \begin{itemize}
               \item Identify the cheapest flight connection among the available actions $c_{min}$.
               \item Filter the actions to include only those with a cost less or equal than $c_{min}(1+c) $.
@@ -230,21 +232,21 @@ We decided to define three distinct simulation policies:
 \subsection{Expansion policies}
 When expanding a node, it’s theoretically possible to expand all available child nodes i.e.\ add to the tree all the possible flight connections from this airport (that are in the available actions based on the visited areas). However, in practice, this can be computationally expensive and time-consuming, particularly in problems with a large number of possible actions. To address this, heuristic approaches often involve compromises that enhance the efficiency of the search process by selectively expanding certain nodes rather than all possible ones.
 
-Firstly, we defined \texttt{number\_of\_children}, a parameter of our MCTS - it regulates the maximum number of children that can be expanded from any given node. This limitation controls the size of the search tree, expanding too many children for every selected node could make the algorithm computationally exhaustive.
+Firstly, we defined \texttt{number\_of\_children}, a parameter of our MCTS algorithm which regulates the maximum number of children that can be expanded from any given node. This limitation controls the size of the search tree, as expanding too many children for every selected node could make the algorithm computationally exhaustive.
 
 In our implementation we defined two expansion policies:
 
 \begin{itemize}
-    \item \textbf{Top-K Actions Policy}: This policy expands the nodes corresponding to the cheapest flight connections available. Specifically, it sorts all possible actions based on their associated costs and selects the top \(k\) actions with the lowest costs, where \(k\) is regulated by \texttt{number\_of\_children}. This approach ensures that only the most promising actions, in terms of cost efficiency, are considered during expansion. This policy narrow down the search space but can reach to local optima.
+    \item \textbf{Top-K Actions Policy}: This policy expands the nodes corresponding to the cheapest flight connections available. Specifically, it sorts all possible actions based on their associated costs and selects the top \(k\) actions with the lowest costs, where \(k\) is regulated by \texttt{number\_of\_children}. This approach ensures that only the most promising actions, in terms of cost efficiency, are considered during expansion. This policy narrows down the search space but can increase the chance to reach a leaf node.
     \item \textbf{Ratio Best-Random Policy}: This policy takes a more balanced approach by combining the selection of the best actions with a degree of randomness. First, it calculates the number of top actions to select based on a predefined ratio, \(c \in [0,1]\), which reflects the proportion of Top-K Actions within the allowed \texttt{number\_of\_children}. After selecting these best actions, the policy randomly selects $(1-c)*number\_of\_children$ actions from the remaining pool to reach the desired number of children. This policy is designed to explore a broader range of possibilities while still prioritising cost-effective options.
 \end{itemize}
 
 
-\subsection{MCTS' Pseudo-code}
-In this section, we go into more detail about how we implemented the algorithm in practice by examining the different functions of our MCTS class. The main idea is:
+\subsection{Pseudo-code}
+In this section, the implementation of the algorithm in practice is explored by examining the different functions of our MCTS class. The search function of the MCTS is defined:
 
 \begin{algorithm}[H]
-    \caption{Monte\_Carlo\_Tree\_Search}
+    \caption{Search\_Function}
     \label{alg:MCTS}
     \begin{algorithmic}[1]
         \STATE Initialise Root\_Node with Initial\_State
@@ -259,8 +261,9 @@ In this section, we go into more detail about how we implemented the algorithm i
         \RETURN $Best\_Leaf\_Node$
     \end{algorithmic}
 \end{algorithm}
+The \texttt{Search} function represents the general flow of the algorithm as mentionned on Figure \ref{fig:Flow MCTS}.
 
-The \texttt{Select} function returns two arguments: a boolean and a node. The boolean indicates to the expansion function whether expansion is necessary (True means no expansion needed, False means yes):
+The \texttt{Select} function (Algorithm \ref{alg:SelectFunction}), which selects the node to visit, returns two arguments: a boolean and a node. The boolean indicates to the expansion function whether expansion is necessary (True means no expansion needed, False means expansion needed).
 
 \begin{algorithm}[H]
     \caption{Select\_Function}
@@ -281,7 +284,7 @@ The \texttt{Select} function returns two arguments: a boolean and a node. The bo
         \ENDWHILE
         \IF{$Current.Children$ is empty \textbf{and} $Current.State["current\_day"]==N_{Areas}$}
         \RETURN $False, Current$
-        \ELSIF{$Current.Children$ is empty \textbf{and} $Current.State["current\_day"]==N_{Areas}$}
+        \ELSIF{$Current.Children$ is empty \textbf{and} $Current.State["current\_day"]<>N_{Areas}$}
         \RETURN $False, Current$
         \ELSIF{$Current.State["current\_day"]==N_{Areas} + 1$}
         \RETURN $True, Current$
@@ -289,7 +292,9 @@ The \texttt{Select} function returns two arguments: a boolean and a node. The bo
     \end{algorithmic}
 \end{algorithm}
 
-We backpropagate the node using the update method of the node. The new node becomes the parent of this node, and we do that until \texttt{Node} is \texttt{None}, i.e., we have backpropagated all the information up to the root node.
+There are special cases to handle, when one approaches the final solution because one has to communicate the right information to the \texttt{Expand Node} function.
+
+After simulating, the backpropagation function updates the node's attributes. The new node becomes the parent of this node, and so on until \texttt{Node} is \texttt{None}, i.e., all the information is backpropagated up to the root node.
 
 \begin{algorithm}[H]
     \caption{Backpropagate\_Function}
@@ -319,7 +324,7 @@ The transition function modifies the states of a node by updating the current ai
     \end{algorithmic}
 \end{algorithm}
 
-Finally, the Best Child function, defined in the Node class is based on the selection function UCB, UCB1\_Tuned, SP and Bayesian, computes the score of the visited nodes and pick the one that minimises the selection function.
+Finally, the Best Child function, defined in the Node class is based on the selection function UCB and UCB1\_Tuned. They both, compute the score of the visited nodes and pick the one that minimises the selection function.
 
 \begin{algorithm}[H]
     \caption{Best Child}

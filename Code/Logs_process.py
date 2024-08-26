@@ -57,7 +57,7 @@ class logs_analysis:
                 except OSError:
                     print(f"Directory not empty: {dir_to_remove}")
 
-    def extract_log_data(self, file_path):
+    def extract_log_data_g(self, file_path):
         with open(file_path, "r", encoding="ISO-8859-1") as file:
             content = file.read()
 
@@ -89,17 +89,15 @@ class logs_analysis:
 
             # Extracted values (if found)
             best_node = best_node.group(1) if best_node else None
-            preprocess_time = (
-                preprocess_time.group(1) if preprocess_time else "Not found"
-            )
-            solution_time = solution_time.group(1) if solution_time else "Not found"
-            total_time = total_time.group(1) if total_time else "Not found"
+            preprocess_time = preprocess_time.group(1) if preprocess_time else "0"
+            solution_time = solution_time.group(1) if solution_time else "0"
+            total_time = total_time.group(1) if total_time else "0"
             simulation_dict = simulation_dict.group(1) if simulation_dict else None
-            nb_children = nb_children.group(1) if nb_children else "Not found"
+            nb_children = nb_children.group(1) if nb_children else "0"
             expansion_policy = (
                 expansion_policy.group(1) if expansion_policy else "Not found"
             )
-            ratio = ratio.group(1) if ratio else "Not found"
+            ratio = ratio.group(1) if ratio else "0"
             desired_simulation_policy = (
                 desired_simulation_policy.group(1)
                 if desired_simulation_policy
@@ -110,7 +108,7 @@ class logs_analysis:
                 if desired_selection_policy
                 else "Not found"
             )
-            cp = cp.group(1) if cp else "Not found"
+            cp = cp.group(1) if cp else "0"
             instance = instance.group(1) if instance else "Not found"
 
             if best_node is None:
@@ -120,6 +118,101 @@ class logs_analysis:
                 best_node["total_cost"] = ""
             else:
                 best_node = ast.literal_eval(best_node)
+
+            if simulation_dict is None:
+                simulation_dict = ""
+            else:
+                simulation_dict = ast.literal_eval(simulation_dict)
+
+            return {
+                "Best node - day": best_node.get("current_day"),
+                "Best node - path": best_node.get("path"),
+                "Best node - cost": best_node.get("total_cost"),
+                "Time to preprocess the data": preprocess_time,
+                "Time to find the solution": solution_time,
+                "Total time": total_time,
+                "Number of SELECTION phases": num_selections,
+                "Number of SIMULATION phases": num_simulations,
+                "Simulation dictionnary": simulation_dict,
+                "Number childrens": nb_children,
+                "Desired expansion policy": expansion_policy,
+                "Desired simulation policy": desired_simulation_policy,
+                "Desired selection policy": desired_selection_policy,
+                "Ratio expansion": ratio,
+                "Cp": cp,
+                "Instance": instance,
+            }
+
+    def extract_log_data(self, file_path):
+        with open(file_path, "r", encoding="ISO-8859-1") as file:
+            content = file.read()
+
+            # Use regex to find all occurrences and take the last one
+            best_nodes = re.findall(r"Best Node:\s*(.+)", content)
+            preprocess_times = re.findall(
+                r"Time to preprocess the data:\s*([\d.]+) seconds", content
+            )
+            solution_times = re.findall(
+                r"Time to find the solution:\s*([\d.]+) seconds", content
+            )
+            total_times = re.findall(r"Total time:\s*([\d.]+) seconds", content)
+            simulation_dicts = re.findall(r"Simulation dictionnary:\s*(.+)", content)
+            nb_children_list = re.findall(r"Number of childrens:\s*(.+)", content)
+            expansion_policies = re.findall(
+                r"Desired expansion policy:\s*(.+)", content
+            )
+            desired_simulation_policies = re.findall(
+                r"Desired simulation policy:\s*(.+)", content
+            )
+            desired_selection_policies = re.findall(
+                r"Desired selection policy:\s*(.+)", content
+            )
+            cps = re.findall(r"Cp:\s*(.+)", content)
+            ratios = re.findall(r"Ratio expansion:\s*(.+)", content)
+            instances = re.findall(r"Instance:\s*(.+)", content)
+            num_selections = len(re.findall(r"SELECTION", content))
+            num_simulations = len(re.findall(r"SIMULATION", content))
+            # Extract the last occurrence of each if it exists
+            best_node = best_nodes[-1] if best_nodes else None
+            preprocess_time = preprocess_times[-1] if preprocess_times else "0"
+            solution_time = solution_times[-1] if solution_times else "0"
+            total_time = total_times[-1] if total_times else "0"
+            simulation_dict = simulation_dicts[-1] if simulation_dicts else None
+            nb_children = nb_children_list[-1] if nb_children_list else "0"
+            expansion_policy = (
+                expansion_policies[-1] if expansion_policies else "Not found"
+            )
+            desired_simulation_policy = (
+                desired_simulation_policies[-1]
+                if desired_simulation_policies
+                else "Not found"
+            )
+            desired_selection_policy = (
+                desired_selection_policies[-1]
+                if desired_selection_policies
+                else "Not found"
+            )
+            cp = cps[-1] if cps else "0"
+            ratio = ratios[-1] if ratios else "0"
+            instance = instances[-1] if instances else "Not found"
+
+            # Process the last Best Node (if exists)
+            if best_node is None:
+                best_node = {
+                    "current_day": "",
+                    "path": "",
+                    "total_cost": "",
+                }
+            else:
+                try:
+                    best_node = ast.literal_eval(best_node)
+                except Exception as e:
+                    print(f"Error processing Best Node: {e}")
+                    best_node = {
+                        "current_day": "",
+                        "path": "",
+                        "total_cost": "",
+                    }
 
             if simulation_dict is None:
                 simulation_dict = ""
@@ -159,20 +252,25 @@ class logs_analysis:
                 data.append(log_data)
 
             df = pd.DataFrame(data)
-            if self.do_we_delete:
-                self.delete_files()
 
-        df["Time to preprocess the data"] = pd.to_numeric(
-            df["Time to preprocess the data"], errors="coerce"
-        )
-        df["Time to find the solution"] = pd.to_numeric(
-            df["Time to find the solution"], errors="coerce"
-        )
-        df["Total time"] = pd.to_numeric(df["Total time"], errors="coerce")
-        df["Number childrens"] = pd.to_numeric(df["Number childrens"], errors="coerce")
-        df["Cp"] = pd.to_numeric(df["Cp"], errors="coerce")
-        df["Instance"] = pd.to_numeric(df["Instance"], errors="coerce")
-        df["Ratio expansion"] = pd.to_numeric(df["Ratio expansion"], errors="coerce")
+        columns_to_convert = [
+            "Time to preprocess the data",
+            "Time to find the solution",
+            "Total time",
+            "Number childrens",
+            "Cp",
+            "Instance",
+            "Ratio expansion",
+        ]
+
+        for column in columns_to_convert:
+            try:
+                if column in df.columns:
+                    df[column] = pd.to_numeric(df[column], errors="coerce")
+            except Exception as e:
+                print(f"Error converting column '{column}': {e}")
+        if self.do_we_delete:
+            self.delete_files()
 
         parent_dir = os.path.dirname(self.root_dir)
         file_path = os.path.join(parent_dir, "Simulation output.xlsx")
@@ -183,6 +281,7 @@ class logs_analysis:
                 current_df = pd.read_excel(file_path)
                 # Concatenate the current DataFrame with the existing one
                 final_df = pd.concat([current_df, df])
+                final_df.to_excel(file_path, index=False)
                 return final_df
             else:
                 print(f"File {file_path} does not exist.")
@@ -190,12 +289,8 @@ class logs_analysis:
         except Exception as e:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             print(f"An error occurred: {e}. Saving DataFrame as a pickle file.")
-            df.to_pickle(f"pickle_{timestamp}.pkl")
+            df.to_pickle(f"Code/Pickle/pickle_{timestamp}.pkl")
             return None
-
-        final_df.to_excel(file_path, index=False)
-
-        return df
 
 
 # logs_analysis(

@@ -144,7 +144,7 @@ To ensure a clearer understanding of MCTS algorithm's stages, we will start by e
 \label{subsub:Example}
 Let's say we are given a maximisation problem. When beginning the game, you have two possible actions $a_1$ and $a_2$ from the node $S^{0,0}_0$ in the tree $\mathcal{T}$.
 Every node is defined like so: $S^{n_i,t_i}_i$ where $n_i$ represents the number of times node $i$ has been visited, $t_i$ the total score of this node.
-Moreover, for every node - we can compute a selection metric, for instance the $UCB1$ value: $UCB1(S^{n_i,t_i}_i)=\bar{V_i} + 2 \sqrt{\frac{\ln N}{n_i}}$ where $\bar{V_i}=\frac{n_i}{t_i}$ represents the average value of the node, $n_i$ the number of times node $i$ has been visited, $N=n_0$ the number of times the root node has been visited (which is also equal to the number of iterations).
+Moreover, for every node - we can compute a selection metric, for instance the $UCB$ value: $UCB(S^{n_i,t_i}_i)=\bar{V_i} + 2 \sqrt{\frac{\ln N}{n_i}}$ where $\bar{V_i}=\frac{n_i}{t_i}$ represents the average value of the node, $n_i$ the number of times node $i$ has been visited, $N=n_0$ the number of times the root node has been visited (which is also equal to the number of iterations).
 
 Before the first iteration, none node have been visited - $\forall i \in \mathcal{T}, S^{0,0}_{i}$.
 \begin{figure}[!ht]
@@ -169,8 +169,8 @@ Before the first iteration, none node have been visited - $\forall i \in \mathca
     \caption{Selection - $I1$}
     \label{fig:Expansion of the tree from the root node}
 \end{figure}
-At the beginning of $I1$, we have to choose between these two child nodes (or choose between taking $a_1$ or $a_2$). After, we have to calculate the $UCB1$ value for these two nodes and pick the node that maximises the $UCB1$ value (as we are dealing with a maximisation problem).
-In Figure \ref{fig:Expansion of the tree from the root node}, neither of these have been visited yet so $USB(S^{0,0}_1)=UCB1(S^{0,0}_2)=\infty$. Hence we decide to choose randomly $S^{0,0}_1$.
+At the beginning of $I1$, we have to choose between these two child nodes (or choose between taking $a_1$ or $a_2$). After, we have to calculate the $UCB$ value for these two nodes and pick the node that maximises the $UCB$ value (as we are dealing with a maximisation problem).
+In Figure \ref{fig:Expansion of the tree from the root node}, neither of these have been visited yet so $UCB(S^{0,0}_1)=UCB(S^{0,0}_2)=\infty$. Hence we decide to choose randomly $S^{0,0}_1$.
 
 $S^{0,0}_1$ is a leaf node that has not been visited - then we can simulate from this node, which means selecting actions from this node based on the simulation policy to a terminal state as shown on Figure \ref{fig:Simulation - $I1$}:
 
@@ -263,8 +263,8 @@ The fourth phase of the algorithm has been done for $I1$. Therefore, we can then
         %\node[target_node, below=of S1, yshift=-1.7cm](Target){20};
         \node[unvisited_node, below right=of Root](S2){$\mathbf{S^{0,0}_2}$};
 
-        \node[right=2cm of S2, anchor=west] (UCB1) {$UCB(S^{1,20}_1)=20+2 \sqrt{\frac{\ln1}{1}} = 20$};
-        \node[below=0.55cm of UCB1, anchor=south] (UCB2) {$UCB(S^{0,0}_2)=\infty$};
+        \node[right=2cm of S2, anchor=west] (UCB) {$UCB(S^{1,20}_1)=20+2 \sqrt{\frac{\ln1}{1}} = 20$};
+        \node[below=0.55cm of UCB, anchor=south] (UCB2) {$UCB(S^{0,0}_2)=\infty$};
 
         \draw[->] (Root) -- (S1) node[midway, above, xshift=-2mm] {$a_1$};
         \draw[->] (Root) -- (S2) node[midway, above, xshift=2mm] {$a_2$};
@@ -274,7 +274,7 @@ The fourth phase of the algorithm has been done for $I1$. Therefore, we can then
     \caption{Selection - I2}
     \label{fig:Selection - I2}
 \end{figure}
-On Figure \ref{fig:Selection - I2}, we can either choose $a_1$ or $a_2$. When a child node has not been visited yet, you pick this node for the Selection or you can compute the $UCB1$ value, it leads to the same conclusion.
+On Figure \ref{fig:Selection - I2}, we can either choose $a_1$ or $a_2$. When a child node has not been visited yet, you pick this node for the Selection or you can compute the $UCB$ value, it leads to the same conclusion.
 
 \begin{figure}[!ht]
     \centering
@@ -301,7 +301,7 @@ On Figure \ref{fig:Selection - I2}, we can either choose $a_1$ or $a_2$. When a 
 \end{figure}
 \newpage
 We can simulate (Figure \ref{fig:Simulation and Backpropagation - I2}) from the chosen node $S^{0,0}_{2}$ and $\mathcal{R}(S^{0,0}_{2})=10$ and backpropagate all the visited nodes: $\mathcal{B}(S^{0,0}_{2})=S^{1,10}_{2}$ and $\mathcal{B}(S^{1,20}_{0})=S^{2,30}_{0}$.
-Next, we start the $3^{rd}$ iteration, based on the $UCB1$ score we decide to choose $a_1$.
+Next, we start the $3^{rd}$ iteration, based on the $UCB$ score we decide to choose $a_1$.
 \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[
@@ -316,8 +316,8 @@ Next, we start the $3^{rd}$ iteration, based on the $UCB1$ score we decide to ch
 
         \node[unvisited_node, below right=of Root](S2){$S^{1,10}_2$};
         %\node[target_node, below=of S2, yshift=-1.7cm](Target){10};
-        \node[right=5mm of S2, anchor=west, yshift=2mm] (UCB1) {$UCB1(S^{1,20}_1)=\mathbf{21.67}$};
-        \node[below=0.55cm of UCB1, anchor=south] (UCB2) {$UCB1(S^{1,10}_2)=11.67$};
+        \node[right=5mm of S2, anchor=west, yshift=2mm] (UCB) {$UCB(S^{1,20}_1)=\mathbf{21.67}$};
+        \node[below=0.55cm of UCB, anchor=south] (UCB2) {$UCB(S^{1,10}_2)=11.67$};
 
         \draw[->] (Root) -- (S1) node[midway, above, xshift=-2mm] {$a_1$};
         \draw[->] (Root) -- (S2) node[midway, above, xshift=2mm] {$a_2$};
@@ -345,8 +345,8 @@ $S^{1,20}_{1}$ is a leaf node and has been visited so we can expand this node.
         \node[unvisited_node, below left=of S1](S3){$S^{1,0}_3$};
         \node[unvisited_node, below right=of S1](S4){$S^{0,0}_4$};
 
-        \node[left=8mm of S1, anchor=east] (UCB1) {$UCB1(S^{2,20}_1)=11.48$};
-        \node[below=0.55cm of UCB1, anchor=south] (UCB2) {$UCB1(S^{1,10}_2)=\mathbf{12.10}$};
+        \node[left=8mm of S1, anchor=east] (UCB) {$UCB(S^{2,20}_1)=11.48$};
+        \node[below=0.55cm of UCB, anchor=south] (UCB2) {$UCB(S^{1,10}_2)=\mathbf{12.10}$};
 
         %\node[target_node, below=of S3, yshift=-1.7cm](Target){0};
 
@@ -359,7 +359,7 @@ $S^{1,20}_{1}$ is a leaf node and has been visited so we can expand this node.
     \caption{Selection and Expansion - I3}
 \end{figure}
 \newpage
-Based on $UCB1$ score we decide to simulate from $S^{0,0}_3$ on Figure \ref{fig:Simulation and Backpropagation - I3}
+Based on $UCB$ score we decide to simulate from $S^{0,0}_3$ on Figure \ref{fig:Simulation and Backpropagation - I3}
 \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[
@@ -424,127 +424,34 @@ This is the fourth iteration $I4$ represented on Figure \ref{fig:Selection - Sim
 The MCTS algorithm can either be stopped because you are running out of time or because you have no more available actions. For instance, if we were to stop at this stage of the algorithm, the best action to undertake is $a_2$ because it has the higher average value: $\bar{V_1}=\frac{20}{2} \le \bar{V_2}=\frac{24}{2}$.
 
 \subsection{The different parameters in the MCTS}
-
-
-\subsection{Selection policy}
-\cite{different_selection_policies}
-\begin{itemize}
-    \item \textbf{Upper Confidence Bound (UCB):}
-          \begin{itemize}
-              \item \textit{Description}: UCB is a popular selection policy in MCTS that balances exploration and exploitation using a mathematical formulation that considers both the average reward of a node and the uncertainty of that reward.
-              \item \textit{Trade-offs}:
-                    \begin{itemize}
-                        \item \textbf{Exploration vs. Exploitation}: UCB adjusts the balance between exploring less-visited nodes and exploiting nodes with high rewards.
-                        \item \textbf{Parameter Sensitivity}: The performance of UCB depends on the constant \(C_p\) in its formula, which controls the level of exploration.
-                        \item \textbf{Children's Count}: UCB can lead to varying numbers of children being explored, depending on the setting of \(C_p\).
-                    \end{itemize}
-          \end{itemize}
-
-    \item \textbf{UCB1-Tuned:}
-          \begin{itemize}
-              \item \textit{Description}: A variation of UCB that dynamically adjusts the exploration term based on the variance of rewards, making it more adaptive to different scenarios.
-              \item \textit{Trade-offs}:
-                    \begin{itemize}
-                        \item \textbf{Adaptivity}: UCB1-Tuned can adapt to the variance in the rewards, potentially leading to better performance in complex environments.
-                        \item \textbf{Computational Cost}: The added complexity in adjusting the exploration term may lead to higher computational costs.
-                        \item \textbf{Children's Count}: This policy may result in fewer nodes being selected for expansion when the variance is low, focusing more on exploitation.
-                    \end{itemize}
-          \end{itemize}
-
-    \item \textbf{Single-Player (SP-MCTS):}
-          \begin{itemize}
-              \item \textit{Description}: A variant of MCTS specifically designed for single-player scenarios, incorporating a third term in the UCB formula to account for the uncertainty in node values.
-              \item \textit{Trade-offs}:
-                    \begin{itemize}
-                        \item \textbf{Exploration of Uncertainty}: SP-MCTS inflates the uncertainty term for less-visited nodes, which can lead to more thorough exploration in single-player settings.
-                        \item \textbf{Focus on Strong Lines}: This policy tends to favor strong lines of play, potentially neglecting less promising but necessary exploratory paths.
-                        \item \textbf{Children's Count}: Tends to explore a wider range of children nodes, balancing between known strong strategies and potential new solutions.
-                    \end{itemize}
-          \end{itemize}
-
-    \item \textbf{Bayesian UCT:}
-          \begin{itemize}
-              \item \textit{Description}: Bayesian UCT integrates Bayesian statistics into the selection policy, allowing for a probabilistic approach to balancing exploration and exploitation.
-              \item \textit{Trade-offs}:
-                    \begin{itemize}
-                        \item \textbf{Probabilistic Exploration}: Bayesian UCT provides a more nuanced exploration strategy by considering prior knowledge and updating beliefs as more information is gathered.
-                        \item \textbf{Complexity}: The Bayesian approach can be computationally expensive, especially in large search spaces.
-                        \item \textbf{Children's Count}: The number of children explored under Bayesian UCT can be influenced by the prior distributions used, potentially leading to more focused exploration in areas of high uncertainty.
-                    \end{itemize}
-          \end{itemize}
-\end{itemize}
-
-\section{Selection Policies}
 \label{sub:selection_policies_litterature}
-\subsection{Single-Player MCTS (SP-MCTS)}
-Single-Player MCTS (SP-MCTS) is an adaptation of the Monte Carlo Tree Search (MCTS) algorithm specifically designed for single-player games. SP-MCTS modifies the standard Upper Confidence Bounds (UCB) formula by adding a third term to account for the possible deviation of a node's value, adjusting the standard deviation for infrequently visited nodes to better estimate rewards.
 
-The modified UCB formula used in SP-MCTS is:
+As outlined in the previous example, node's selection is crucial in the MCTS process and can significantly influence the performance of the algorithm.
+The selection function traditionnaly used is the Upper Confidence Bound 1 (UCB). However, there are a lot of different MCTS' selection functions as mentionned in this survey \cite{different_selection_policies}.
+Every selection function, is based on the upper confidence bound principle, which balances the dual aspect of exploration and exploitation in the tree search.
+
+The UCB and is variants, the UCB1-Tuned are defined as follow:
+
 \begin{equation}
-    rD \frac{\sigma^2}{n_i} + n_i,
+    UCB = \overline{X}_i + C_p \sqrt{\frac{2 \ln N}{n_i}}
+    \label{eq:UCB}
 \end{equation}
-where \( \sigma^2 \) is the variance of the node's simulation results, \( n_i \) is the number of visits to the node, and \( D \) is a constant that inflates the standard deviation for less frequently visited nodes.
 
-Key enhancements in SP-MCTS include:
+\begin{equation}
+    UCB\text{-Tuned} = \overline{X}_i + \sqrt{\frac{\ln N}{n_i} \min\left(\frac{1}{4}, \mathrm{Var}(X_i) + \sqrt{\frac{2 \ln N}{n_i}}\right)}
+    \label{eq:UCB1T}
+\end{equation}
+
+Where:
 \begin{itemize}
-    \item \textbf{Heuristic-Guided Default Policy}: A heuristic is used to guide simulations, improving the efficiency of the search process.
-    \item \textbf{Meta-Search}: To avoid getting stuck in local maxima, SP-MCTS periodically restarts with different random seeds and stores the best solution across runs.
-    \item \textbf{Maximization Tracking}: By tracking maximum simulation results, SP-MCTS ensures that strong lines of play are not overshadowed by weaker ones.
+    \item \( \overline{X}_i \): Average reward of node \( i \).
+    \item \( N \): Total number of visits to the root node.
+    \item \( n_i \): Number of visits to node \( i \).
+    \item \( C_p \): Exploration parameter
+    \item \( \mathrm{Var}(X_i) \): Variance of the rewards at node \( i \), representing the variability of the rewards.
 \end{itemize}
 
-\subsection{UCB1-Tuned}
-UCB1-Tuned is an enhancement of the standard UCB1 algorithm, designed to fine-tune the balance between exploration and exploitation in MCTS. This approach adjusts the exploration term based on sample variance, providing a more accurate trade-off in dynamic environments.
+The UCB balances its exploration with the coefficient $C_p$, empirically $C_p=\sqrt2$. The term \( C_p \sqrt{\frac{2 \ln N}{n_i}} \) adds a confidence interval to the average reward, which encourages exploring less-visited nodes when $C_p>0$. When $C_p=0$, the tree search explores less but exploits more of the known part that seems promising for the problem in the tree.
+The UCB1-Tuned balances its exploration with \( \min\left(\frac{1}{4}, \mathrm{Var}(X_i) + \sqrt{\frac{2 \ln N}{n_i}}\right) \), making the UCB1-Tuned more adaptable to environments with varying reward distributions. The $C_p$ coefficient can also be considered in the UCB1-Tuned's formula. Hence in stochastic environments the UCB1-Tuned is more likely to have a better overall performance.
 
-The UCB1-Tuned formula is:
-\begin{equation}
-    \sqrt{\frac{\ln n}{n_j}} \cdot \min\left(1, V_j(n_j)\right),
-\end{equation}
-where:
-\begin{equation}
-    V_j(n_j) = \frac{1}{2} \sum_{s=1}^{n_j} \left(X_{j,s}^2 - X_j\right) + \frac{\sqrt{2 \ln t}}{s},
-\end{equation}
-and \( n_j \) is the number of times the machine \( j \) has been played, \( X_{j,s} \) is the reward for each play, and \( t \) is the total number of plays.
-
-Notable applications of UCB1-Tuned include:
-\begin{itemize}
-    \item \textbf{Improved Exploration-Exploitation Trade-off}: UCB1-Tuned replaces the upper confidence bound term with one that accounts for variance, leading to better decision-making.
-    \item \textbf{Domain Applications}: The UCB1-Tuned approach has been successfully applied in games like Go and real-time environments, showing superior performance compared to the standard UCB1.
-\end{itemize}
-
-\subsection{Upper Confidence Bounds for Trees (UCT)}
-UCT is the foundational algorithm for MCTS, combining Monte Carlo simulations with the UCB1 algorithm for selecting actions during the search process. UCT ensures a balance between exploring new actions and exploiting known good ones.
-
-The UCB1 formula used in UCT is:
-\begin{equation}
-    X_j + C_p \sqrt{\frac{\ln N}{n_j}},
-\end{equation}
-where \( X_j \) is the average reward from action \( j \), \( C_p \) is the exploration constant, \( N \) is the total number of simulations, and \( n_j \) is the number of times action \( j \) has been tried.
-
-Core components of UCT:
-\begin{itemize}
-    \item \textbf{Exploration-Exploitation Balance}: UCT employs the UCB1 formula to manage the trade-off between exploration and exploitation during tree growth.
-    \item \textbf{Tree Growth Mechanism}: UCT builds a search tree dynamically, where nodes are expanded based on the outcomes of simulations, continuously refining the action-value estimates.
-\end{itemize}
-
-\subsection{Bayesian UCT}
-Bayesian UCT introduces Bayesian methods into the UCT framework to improve the estimation of node values and their uncertainties, especially in scenarios with limited simulation trials.
-
-The Bayesian tree policy can be represented as:
-\begin{equation}
-    B_i = \mu_i + \frac{\sqrt{2 \ln N}}{n_i},
-\end{equation}
-where \( \mu_i \) is the mean of an extremum (minimax) distribution \( P_i \), and \( n_i \) is the number of visits to the node \( i \).
-
-An alternative Bayesian UCT formula is:
-\begin{equation}
-    B_i = \mu_i + \sigma_i \cdot \sqrt{\frac{2 \ln N}{n_i}},
-\end{equation}
-where \( \sigma_i \) is the square root of the variance of \( P_i \).
-
-Key strategies in Bayesian UCT:
-\begin{itemize}
-    \item \textbf{Bayesian Tree Policies}: Two tree policies are proposed—one that maximizes mean rewards and another that maximizes mean plus variance, with the latter often showing superior performance.
-    \item \textbf{Improved Convergence}: Bayesian UCT demonstrates better convergence properties compared to standard UCT, particularly when accurate prior information is available.
-\end{itemize}
-
-\subsubsection{Different nodes}
+Other selection policies, such as the Beta policy or Single Player MCTS, also play significant roles in various applications of the Monte Carlo Tree Search. However, these policies will not be the focus of this study due to their probabilistic nature, which does not align well with our specific problem context.

@@ -8,20 +8,20 @@
 
 \section{Background}
 
-The number of flights connection keep increasing every year \cite{statista_flights_year}, more than have 38 millions flights have been scheduled in 2023 - hence it is a challenge for traveler's to find the best and cheapest flight connections for their specific journey, especially when one has to visit a big number of cities/areas.
-Consequently, traveler agencies have deployed online trip planner algorithm in order to find flights connection that match traveler's requirement. For example, Google Flights, skyscanner, Kayak and Kiwi.com.
+The number of flight connections keep increasing every year \cite{statista_flights_year}, more than 38 million flights have been scheduled in 2023 - therefore, creating a challenge for traveler's to find the best and cheapest flight connections for their specific journey, especially when one has to visit a big number of cities.
+Consequently, travel agencies have deployed online trip planner algorithms in order to find flights connection that match the traveler's requirements. Example of these are, Google Flights, skyscanner, Kayak and Kiwi.com.
 
-These agencies have launched different challenges in order to create and build powerful trip planner algorithm. For instance, as mentionned in \cite{reinforcement_learning_yaro}, OpenFlights.org launched the Air Travelling Salesman project and Kiwi.com has launched a project in 2017 called Traveling Salesman Challenge where the current algorithm used by Kiwi.com was developed and proposed a new challenge in 2018, the Traveling Salesman Problem 2.0 which is the focus of this study.
+These agencies have launched different challenges to create and build powerful trip planner algorithms. For instance, as mentionned in \cite{reinforcement_learning_yaro}, OpenFlights.org launched the Air Travelling Salesman project. Furthermore, Kiwi.com has launched a project in 2017, called Traveling Salesman Challenge, where the current algorithm used by Kiwi.com was developed.In 2018, Kiwi.com launched a new challenge, the Traveling Salesman Problem 2.0 which is the focus of this study.
 
-
-
+The given problem is a variant of the Traveling Salesman Problem. It can be characteristed as a generalised, assymetric and time dependant TSP.
+A traveler has to visit a list of areas, one per day, given a starting airport and all the possible flight connections between these areas at different days. The goal is to determine what is the cheapest flights connection for the traveler to come back to the starting area. Regarding the number of possible journeys, solving this problem by exploring every single potential solution is impossible. This is why a heuristic approach is often used to solve such TSP problem. In this paper, the Kiwi.com challenge is solved using a Monte Carlo Tree Search.
 \section{Research objectives}
-
+\label{section:research_obj}
+This dissertation explores:
 \begin{itemize}
-    \item Goal of this dissertation is to solve Kiwi's challenge with a method that has not been used yet
-    \item No focus on the time limit - use Python and we then cannot compete against other participants - will be for later
-    \item Try to find better solutions than the state of the art for some instances
-    \item Big instances (instances I9,I10 etc) - not a major focus because they do not represent potential use case, but to study
+    \item Innovative solution: Solve the Kiwi.com Traveling Salesman problem 2.0 with a new (or never used) heuristic method with no focus on the time limit (as we are using Python and we cannot compete against other participants that mostly used faster program like C).
+    \item Try to find better solutions than the state of the art for some instances.
+    \item Some instances are not really representative of potential use case for this algorithm ($I_9 \ldots I_{14}$) because they represent unrealistic scenarios.
 \end{itemize}
 
 \section{Academic publication}
@@ -31,3 +31,12 @@ These agencies have launched different challenges in order to create and build p
 \end{itemize}
 
 \section{Dissertation structure}
+
+The dissertation is structured as follow:
+\begin{itemize}
+    \item Section \ref{Chapter2} is the litterature review where the Air Travel optimisations problem are introduced, TSP and its variants are redefined and finally the Monte Carlo Tree Search and an example are presented.
+    \item Section \ref{Chapter3} is the problem and instances description to highlight the problem complexity in detail.
+    \item Section \ref{Chapter4} is the methodology of our algorithm implementation, where we explain the code's structure, explain the general flow of the algorithm.
+    \item Section \ref{Chapter5} is the result and performance of our implementation compared to the state of the art solution.
+\end{itemize}
+

@@ -6,15 +6,15 @@ from Logs_process import logs_analysis
 import time
 
 expansion_policies = ["top_k", "ratio_k"]
-simulation_policies = ["tolerance_policy", "random_policy"]
+simulation_policies = ["random_policy"]
 selection_policies = ["UCB", "UCB1T"]
 
 
-instance = range(4, 5)
+instance = range(1, 2)
 c_p = [0, 1.41, 2 * 1.41]
-N_simulation = [5]
-N_children = [10, 15]
-ratios = [0.5]
+N_simulation = [5, 10, 15]
+N_children = [5, 10, 15]
+ratios = [0, 0.3, 0.5, 0.8, 1]
 
 # Calculate the total number of iterations
 total_iterations = (
@@ -90,7 +90,7 @@ for i in instance:
                         iteration += 1
                         percentage_completed = (iteration / total_iterations) * 100
 
-                        print(f"Iteration {iteration} started.")
+                        print(f"Greedy started.")
 
                         mcts = MCTS(
                             instance=instance_path,

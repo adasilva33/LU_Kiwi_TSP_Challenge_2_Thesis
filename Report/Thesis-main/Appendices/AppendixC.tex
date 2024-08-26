@@ -203,3 +203,146 @@
     \end{longtable}
 \end{center}
 \section{Instance 2}
+
+\section{Instance 3}
+\begin{center}
+    \small
+    \begin{longtable}{||>{\centering\arraybackslash}p{1.3cm}
+        >{\centering\arraybackslash}p{1.3cm}
+        >{\centering\arraybackslash}p{1.3cm}
+        >{\centering\arraybackslash}p{1.3cm}
+        >{\centering\arraybackslash}p{0.7cm}
+        >{\centering\arraybackslash}p{0.8cm}
+        >{\centering\arraybackslash}p{1cm}
+        >{\centering\arraybackslash}p{1cm}
+        >{\centering\arraybackslash}p{1cm}
+        >{\centering\arraybackslash}p{1cm}
+        ||}
+        \toprule
+        Selec policy & Exp policy & Simu policy & N° childrens & Ratio & Cp  & Best cost & Mean    & Std    & T(s) \\
+        \midrule
+        UCB          & top k      & tolerance   & 10.0         & 0.0   & 2.8 & 7672      & 7672.0  & 0.0    & 0.3  \\
+        UCB          & top k      & tolerance   & 10.0         & 0.0   & 1.4 & 7672      & 7672.0  & 0.0    & 1.2  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 0.3   & 2.8 & 7698      & 8928.5  & 988.2  & 0.2  \\
+        UCB1T        & top k      & tolerance   & 10.0         & 0.5   & 2.8 & 7698      & 8276.3  & 291.6  & 1.6  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 0.3   & 0.0 & 7698      & 8246.8  & 370.1  & 8.2  \\
+        UCB          & top k      & tolerance   & 10.0         & 0.3   & 1.4 & 7703      & 9027.7  & 855.5  & 1.1  \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 0.3   & 1.4 & 7703      & 8364.8  & 323.2  & 13.1 \\
+        UCB1T        & top k      & tolerance   & 10.0         & 0.3   & 0.0 & 7703      & 7984.2  & 220.5  & 26.1 \\
+        UCB          & top k      & tolerance   & 10.0         & 0.5   & 0.0 & 7768      & 8435.2  & 419.3  & 10.6 \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 0.3   & 2.8 & 7768      & 8266.1  & 263.6  & 11.1 \\
+        UCB1T        & top k      & tolerance   & 10.0         & 0.3   & 2.8 & 7773      & 8187.1  & 296.8  & 5.3  \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 1.0   & 0.0 & 7773      & 9300.7  & 684.7  & 7.1  \\
+        UCB1T        & top k      & tolerance   & 10.0         & 0.0   & 1.4 & 7787      & 7901.3  & 198.2  & 10.9 \\
+        UCB1T        & top k      & tolerance   & 10.0         & 0.3   & 1.4 & 7787      & 8160.6  & 337.3  & 16.1 \\
+        UCB1T        & top k      & tolerance   & 10.0         & 0.0   & 2.8 & 7787      & 7857.4  & 106.2  & 35.2 \\
+        UCB          & top k      & tolerance   & 10.0         & 0.3   & 0.0 & 7792      & 8097.5  & 285.0  & 14.2 \\
+        UCB1T        & top k      & tolerance   & 10.0         & 0.0   & 0.0 & 7792      & 7854.1  & 81.6   & 21.2 \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 0.3   & 0.0 & 7795      & 8288.7  & 300.8  & 14.8 \\
+        UCB1T        & top k      & tolerance   & 10.0         & 0.5   & 0.0 & 7795      & 8297.6  & 292.4  & 22.4 \\
+        UCB          & top k      & tolerance   & 10.0         & 0.0   & 0.0 & 7806      & 7897.2  & 124.7  & 17.5 \\
+        UCB1T        & top k      & tolerance   & 10.0         & 0.5   & 1.4 & 7807      & 8411.9  & 432.1  & 13.1 \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 0.5   & 0.0 & 7821      & 8624.7  & 564.2  & 15.9 \\
+        UCB          & ratio k    & tolerance   & 10.0         & 0.5   & 0.0 & 7829      & 8548.9  & 463.1  & 3.9  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 0.3   & 1.4 & 7934      & 8992.4  & 653.7  & 0.9  \\
+        UCB1T        & top k      & tolerance   & 10.0         & 1.0   & 1.4 & 7969      & 9300.1  & 696.9  & 8.5  \\
+        UCB          & top k      & tolerance   & 10.0         & 0.3   & 2.8 & 7981      & 8673.0  & 487.2  & 0.1  \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 0.5   & 1.4 & 8030      & 8633.6  & 349.7  & 8.3  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 0.0   & 1.4 & 8068      & 9370.3  & 1063.5 & 0.5  \\
+        UCB1T        & ratio k    & random      & 10.0         & 0.5   & 1.4 & 8077      & 9646.8  & 1175.5 & 0.3  \\
+        UCB          & top k      & random      & 10.0         & 0.0   & 1.4 & 8083      & 11851.6 & 1850.5 & 0.2  \\
+        UCB1T        & top k      & tolerance   & 10.0         & 1.0   & 0.0 & 8083      & 9373.6  & 727.4  & 0.5  \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 1.0   & 2.8 & 8083      & 9460.8  & 713.7  & 1.2  \\
+        UCB1T        & ratio k    & random      & 10.0         & 0.8   & 0.0 & 8083      & 9774.6  & 713.9  & 1.4  \\
+        UCB1T        & ratio k    & random      & 10.0         & 0.8   & 2.8 & 8094      & 9823.5  & 1208.4 & 0.3  \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 0.8   & 0.0 & 8094      & 9347.3  & 550.0  & 7.4  \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 0.5   & 2.8 & 8101      & 8682.9  & 421.1  & 14.0 \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 1.0   & 1.4 & 8104      & 9074.4  & 482.8  & 6.8  \\
+        UCB1T        & ratio k    & random      & 10.0         & 0.3   & 2.8 & 8123      & 10386.4 & 1130.7 & 1.3  \\
+        UCB          & top k      & random      & 10.0         & 0.0   & 0.0 & 8131      & 9774.6  & 1245.2 & 1.7  \\
+        UCB1T        & top k      & random      & 10.0         & 0.0   & 0.0 & 8139      & 9779.3  & 924.0  & 1.6  \\
+        UCB          & ratio k    & random      & 10.0         & 1.0   & 0.0 & 8147      & 9862.4  & 819.7  & 1.9  \\
+        UCB          & top k      & tolerance   & 10.0         & 0.8   & 0.0 & 8155      & 9145.9  & 603.1  & 3.6  \\
+        UCB          & top k      & random      & 10.0         & 0.3   & 0.0 & 8164      & 9478.3  & 650.0  & 1.1  \\
+        UCB1T        & top k      & random      & 10.0         & 0.3   & 1.4 & 8193      & 10077.9 & 903.4  & 0.4  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 0.5   & 2.8 & 8219      & 9410.7  & 727.1  & 0.5  \\
+        UCB1T        & ratio k    & random      & 10.0         & 0.8   & 1.4 & 8222      & 9628.9  & 859.2  & 2.3  \\
+        UCB1T        & top k      & tolerance   & 10.0         & 0.8   & 0.0 & 8227      & 9241.9  & 557.0  & 8.9  \\
+        UCB          & top k      & tolerance   & 10.0         & 0.5   & 2.8 & 8248      & 9611.8  & 913.2  & 0.1  \\
+        UCB          & top k      & random      & 10.0         & 0.5   & 0.0 & 8264      & 9756.5  & 980.8  & 1.0  \\
+        UCB1T        & top k      & random      & 10.0         & 1.0   & 1.4 & 8266      & 9614.8  & 796.0  & 1.7  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 0.0   & 2.8 & 8268      & 9861.9  & 1242.3 & 0.6  \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 0.8   & 1.4 & 8289      & 9232.9  & 469.6  & 6.8  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 0.5   & 1.4 & 8293      & 9503.2  & 764.9  & 0.2  \\
+        UCB          & ratio k    & random      & 10.0         & 0.8   & 0.0 & 8302      & 9794.7  & 821.4  & 1.4  \\
+        UCB          & top k      & tolerance   & 10.0         & 1.0   & 0.0 & 8318      & 9374.6  & 550.0  & 2.5  \\
+        UCB1T        & ratio k    & random      & 10.0         & 0.5   & 2.8 & 8324      & 9655.1  & 925.1  & 0.3  \\
+        UCB          & top k      & tolerance   & 10.0         & 1.0   & 2.8 & 8331      & 10393.4 & 1175.3 & 0.6  \\
+        UCB          & top k      & tolerance   & 10.0         & 0.5   & 1.4 & 8332      & 9607.5  & 863.6  & 1.2  \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 0.0   & 0.0 & 8346      & 8942.4  & 438.9  & 8.4  \\
+        UCB1T        & top k      & random      & 10.0         & 0.8   & 0.0 & 8352      & 9765.2  & 768.4  & 2.6  \\
+        UCB          & top k      & random      & 10.0         & 1.0   & 0.0 & 8357      & 9704.9  & 764.0  & 1.2  \\
+        UCB1T        & top k      & random      & 10.0         & 0.8   & 1.4 & 8374      & 9970.7  & 1074.0 & 3.0  \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 0.0   & 1.4 & 8384      & 9052.0  & 358.6  & 4.2  \\
+        UCB1T        & top k      & tolerance   & 10.0         & 0.8   & 1.4 & 8389      & 9156.9  & 522.9  & 3.0  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 0.8   & 0.0 & 8393      & 9185.4  & 457.5  & 1.1  \\
+        UCB1T        & top k      & random      & 10.0         & 0.8   & 2.8 & 8400      & 10254.1 & 911.3  & 0.4  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 0.0   & 0.0 & 8400      & 8967.8  & 363.3  & 11.4 \\
+        UCB1T        & ratio k    & random      & 10.0         & 0.3   & 0.0 & 8410      & 10341.3 & 909.2  & 2.5  \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 0.0   & 2.8 & 8416      & 9198.6  & 509.0  & 5.0  \\
+        UCB1T        & top k      & random      & 10.0         & 0.0   & 2.8 & 8419      & 9819.1  & 746.9  & 3.9  \\
+        UCB1T        & ratio k    & random      & 10.0         & 0.5   & 0.0 & 8443      & 9900.9  & 839.4  & 2.8  \\
+        UCB          & top k      & tolerance   & 10.0         & 0.8   & 2.8 & 8455      & 10359.9 & 1057.4 & 0.6  \\
+        UCB1T        & top k      & random      & 10.0         & 1.0   & 0.0 & 8461      & 9999.3  & 748.9  & 2.5  \\
+        UCB1T        & ratio k    & random      & 10.0         & 1.0   & 0.0 & 8464      & 9694.9  & 829.7  & 2.0  \\
+        UCB1T        & top k      & random      & 10.0         & 0.0   & 1.4 & 8466      & 9712.1  & 813.1  & 2.6  \\
+        UCB          & ratio k    & random      & 10.0         & 0.5   & 0.0 & 8497      & 10283.6 & 989.2  & 1.3  \\
+        UCB1T        & top k      & random      & 10.0         & 0.5   & 0.0 & 8499      & 10056.1 & 899.5  & 1.3  \\
+        UCB1T        & top k      & random      & 10.0         & 0.5   & 1.4 & 8506      & 9615.5  & 669.2  & 3.4  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 1.0   & 0.0 & 8507      & 9315.7  & 495.5  & 2.7  \\
+        UCB1T        & top k      & tolerance   & 10.0         & 1.0   & 2.8 & 8514      & 9292.7  & 502.4  & 3.4  \\
+        UCB          & top k      & random      & 10.0         & 0.8   & 0.0 & 8536      & 10240.1 & 926.6  & 1.7  \\
+        UCB1T        & ratio k    & tolerance   & 10.0         & 0.8   & 2.8 & 8552      & 9182.7  & 336.8  & 0.7  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 0.8   & 2.8 & 8557      & 10301.7 & 841.5  & 0.4  \\
+        UCB1T        & top k      & random      & 10.0         & 0.3   & 2.8 & 8578      & 10113.4 & 810.2  & 0.3  \\
+        UCB1T        & ratio k    & random      & 10.0         & 0.3   & 1.4 & 8631      & 10177.4 & 984.9  & 3.5  \\
+        UCB1T        & top k      & random      & 10.0         & 1.0   & 2.8 & 8637      & 9692.7  & 689.6  & 0.3  \\
+        UCB1T        & ratio k    & random      & 10.0         & 1.0   & 1.4 & 8672      & 10043.0 & 839.8  & 1.0  \\
+        UCB          & ratio k    & random      & 10.0         & 0.3   & 0.0 & 8740      & 9895.7  & 760.9  & 0.4  \\
+        UCB1T        & top k      & tolerance   & 10.0         & 0.8   & 2.8 & 8748      & 9196.2  & 272.7  & 11.8 \\
+        UCB          & ratio k    & random      & 10.0         & 0.8   & 2.8 & 8769      & 11392.2 & 1265.6 & 0.5  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 0.8   & 1.4 & 8769      & 10389.8 & 1255.4 & 1.1  \\
+        UCB1T        & ratio k    & random      & 10.0         & 1.0   & 2.8 & 8769      & 9758.3  & 604.5  & 1.8  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 1.0   & 1.4 & 8792      & 10840.1 & 1221.2 & 0.8  \\
+        UCB1T        & top k      & random      & 10.0         & 0.3   & 0.0 & 8810      & 10091.7 & 874.4  & 0.3  \\
+        UCB          & ratio k    & random      & 10.0         & 0.8   & 1.4 & 8848      & 11327.9 & 1485.9 & 0.9  \\
+        UCB          & top k      & random      & 10.0         & 0.8   & 2.8 & 8861      & 11805.1 & 1534.0 & 0.9  \\
+        UCB          & top k      & tolerance   & 10.0         & 0.8   & 1.4 & 8874      & 10947.5 & 1618.9 & 0.4  \\
+        UCB          & top k      & tolerance   & 10.0         & 1.0   & 1.4 & 8878      & 11056.1 & 1560.8 & 0.6  \\
+        UCB1T        & ratio k    & random      & 10.0         & 0.0   & 1.4 & 8894      & 10840.1 & 1165.3 & 4.2  \\
+        UCB1T        & ratio k    & random      & 10.0         & 0.0   & 0.0 & 8991      & 10776.1 & 1145.5 & 0.9  \\
+        UCB1T        & top k      & random      & 10.0         & 0.5   & 2.8 & 9145      & 10006.3 & 515.8  & 0.4  \\
+        UCB          & ratio k    & tolerance   & 10.0         & 1.0   & 2.8 & 9153      & 10667.7 & 1168.7 & 0.5  \\
+        UCB          & ratio k    & random      & 10.0         & 0.0   & 0.0 & 9239      & 11182.3 & 1200.5 & 1.4  \\
+        UCB          & top k      & random      & 10.0         & 0.3   & 1.4 & 9310      & 11662.6 & 1328.0 & 0.1  \\
+        UCB          & top k      & random      & 10.0         & 0.5   & 2.8 & 9417      & 12207.4 & 1105.5 & 0.9  \\
+        UCB          & ratio k    & random      & 10.0         & 1.0   & 2.8 & 9475      & 11612.8 & 1285.2 & 0.5  \\
+        UCB1T        & ratio k    & random      & 10.0         & 0.0   & 2.8 & 9519      & 11286.2 & 912.8  & 1.0  \\
+        UCB          & ratio k    & random      & 10.0         & 0.5   & 1.4 & 9594      & 12251.7 & 1929.4 & 1.0  \\
+        UCB          & top k      & random      & 10.0         & 0.3   & 2.8 & 9626      & 11712.6 & 1103.5 & 1.1  \\
+        UCB          & ratio k    & random      & 10.0         & 0.5   & 2.8 & 9943      & 12714.8 & 1563.9 & 0.3  \\
+        UCB          & top k      & random      & 10.0         & 0.8   & 1.4 & 10047     & 12433.9 & 1655.6 & 0.9  \\
+        UCB          & top k      & random      & 10.0         & 1.0   & 1.4 & 10055     & 11606.0 & 1101.4 & 0.3  \\
+        UCB          & top k      & random      & 10.0         & 1.0   & 2.8 & 10088     & 11859.3 & 984.4  & 0.5  \\
+        UCB          & ratio k    & random      & 10.0         & 0.0   & 2.8 & 10117     & 13609.3 & 1623.8 & 0.9  \\
+        UCB          & ratio k    & random      & 10.0         & 1.0   & 1.4 & 10203     & 11761.7 & 1145.0 & 0.2  \\
+        UCB          & ratio k    & random      & 10.0         & 0.3   & 1.4 & 10236     & 12376.5 & 1281.9 & 0.7  \\
+        UCB          & top k      & random      & 10.0         & 0.5   & 1.4 & 10243     & 12075.0 & 1077.4 & 0.5  \\
+        UCB          & top k      & random      & 10.0         & 0.0   & 2.8 & 10369     & 11852.0 & 1073.4 & 0.5  \\
+        UCB          & ratio k    & random      & 10.0         & 0.3   & 2.8 & 10661     & 12410.7 & 1256.0 & 0.3  \\
+        UCB          & ratio k    & random      & 10.0         & 0.0   & 1.4 & 10757     & 13697.3 & 1356.7 & 0.2  \\
+
+
+        \bottomrule
+    \end{longtable}
+\end{center}
