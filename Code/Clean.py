@@ -1,45 +1,32 @@
 import os
-import shutil
+import pickle
+import pandas as pd
 
+root_dir = "/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Pickle Instance 1"
 
-root_dir = "/Users/adslv/Documents/LU/Term 3/Kiwi_TSP_Challenge/Code/Flight connections dataset"
+# List to hold data from all pickles
+dataframes = []
 
-items = os.listdir(root_dir)
-for item in items:
-    item_path = os.path.join(root_dir, item)
-    if os.path.isdir(item_path) and item.startswith(
-        (
-            "1.in_",
-            "2.in_",
-            "3.in_",
-            "4.in_",
-            "5.in_",
-            "6.in_",
-            "7.in_",
-            "8.in_",
-            "9.in_",
-            "10.in_",
-            "11.in_",
-            "12.in_",
-            "13.in_",
-            "14.in_",
-        )
-    ):
-        prefix = item.split("_")[0]
-        destination_folder = os.path.join(root_dir, f"{prefix}_simulations")
+# Loop over all files in the directory
+for filename in os.listdir(root_dir):
+    if filename.endswith(".pkl"):
+        filepath = os.path.join(root_dir, filename)
+        print(f"Loading {filename}")
 
-        # Check if the destination folder exists or not
-        if not os.path.exists(destination_folder):
-            os.makedirs(destination_folder)
+        # Load the pickle file
+        with open(filepath, "rb") as file:
+            data = pickle.load(file)
 
-        destination_path = os.path.join(destination_folder, item)
+            # Assuming each pickle file contains a DataFrame
+            dataframes.append(data)
 
-        # Make sure we aren't moving the folder into itself
-        if item_path != destination_path:
-            shutil.move(item_path, destination_path)
-        else:
-            print(
-                f"Skipping move for '{item}' because it would result in moving the directory into itself."
-            )
+# Concatenate all DataFrames
+if dataframes:
+    final_df = pd.concat(dataframes, ignore_index=True)
 
-print("Folders have been successfully organized!")
+    # Save the final concatenated DataFrame as a pickle file
+    final_df_path = os.path.join(root_dir, "final_df.pkl")
+    with open(final_df_path, "wb") as final_file:
+        pickle.dump(final_df, final_file)
+
+    print(f"Final DataFrame saved to {final_df_path}")

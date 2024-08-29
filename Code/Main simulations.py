@@ -10,10 +10,10 @@ simulation_policies = ["random_policy"]
 selection_policies = ["UCB", "UCB1T"]
 
 
-instance = range(1, 2)
+instance = range(2, 3)
 c_p = [0, 1.41, 2 * 1.41]
-N_simulation = [5, 10, 15]
-N_children = [5, 10, 15]
+N_simulation = [10]
+N_children = [1]
 ratios = [0, 0.3, 0.5, 0.8, 1]
 
 # Calculate the total number of iterations
