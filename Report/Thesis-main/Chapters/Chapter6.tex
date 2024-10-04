@@ -2,17 +2,24 @@
 \label{Chapter6}
 \lhead{Chapter 6. \emph{Conclusion}}
 
-\todo{Explain what conclusions you have come to as a result of doing this work. Lessons learnt and what would you do different next time. Please summarise the key recommendations at the end of this section, in no more than 5 bullet points.}
+%\todo{Explain what conclusions you have come to as a result of doing this work. Lessons learnt and what would you do different next time. Please summarise the key recommendations at the end of this section, in no more than 5 bullet points.}
 
-\section{Summary of Work}
+\section{Summary}
 \label{section:Summary}
+In this dissertation, we implemented a Monte Carlo Tree Search (MCTS) solution for the Kiwi.com Traveling Salesman Problem 2.0, focusing on the first eight instances without imposing time constraints.
+Although MCTS is traditionally employed in board games, we adapted it to address this asymmetric, time-dependent, and generalized TSP variant proposed by Kiwi.com.
+In certain situations, the paper comes close to the state of the art solution, or achieves the state of the art solution, and finally, in certain situations, the paper beats the state of the art solutions.
 
-\section{Critics}
+Regarding the selection policy, the UCB1-Tuned outperformed the classic UCB, guiding the tree search more accurately by taking into account the variability of the simulations. Regarding the expansion ratio, for small instances $I_1, I_2, I_3$ a lower ratio was prefered because the problem is less complex. However, for other instances, a balanced ratio of 0.5 was effective in allowing new potential candidates within the solution space.
+We compared the greedy, tolerance and random simulation policies. The greedy approach is best suited for relatively straightforward problems with a low risk of the search getting stuck in local optima, while the tolerance policy provides a balance, introducing potential candidates to bypass these local optima. The random policy, although it sometimes reached acceptable solutions, never achieved a state-of-the-art result and is generally less favorable.
+Finally, we recommend developing parallelisation within the MCTS, which is particularly beneficial when employing random simulations to better estimate node values and guide the tree search more effectively.
+
+\section{Areas for expansion}
 \label{section:Critics}
 
-\section{Future Work}
-\label{section:finalDiscussion}
-
-
-\todo{The References section should include a full list of references. Avoid having a list of web sites. Examiners may mark you down very heavily if your references are mainly web sites.}
-
+After completing this work, here are a few suggestions for deepening our study.
+\begin{itemize}
+    \item \textbf{Code a solution in a faster programming language}: The problem with our implementation is the time taken to first, preprocess the data and then find solutions. One enhancement can be to speed up the code to preprocess the instances, where it can take up to 20 minutes to preprocess the data for $I_6, \ldots I_{14}$. An implementation in C or C++ could drastically enhance the performance of the code, hence allowing to test our implementation on $I_9, \ldots, I_{14}$.
+    \item \textbf{Implement efficient paralelisation}: We demonstrated that a leaf paralelisation method enhanced the guidance of the tree search, however it was not integrated across all simulations for the parameters in the grid search. One can explore other parallelisations methods such as multi-tree MCTS (as defined in Section \ref{sub:parralelisation}).
+    \item \textbf{Redefine parameters of the MCTS}: Other parameters can be considered, for example instead of having a number of children $N_c=(5,10,15)$ one could have used adaptive parameters, such as setting the number of children $N_c$ based on a percentage of available actions (e.g., 50\%). The search process could thus be better adapted to the specifics of the problem at different stages.
+\end{itemize}
