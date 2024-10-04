@@ -2,7 +2,12 @@
 
 \abstract{\addtocontents{toc}{\vspace{1em}}
 
-\todo{Give a short (1 page) overview of the work. This should summarise (not advertise) your research project. After reading the abstract the reader should know what problem you are tackling, the techniques you are using, the results you have achieved.}
+    %    \todo{Give a short (1 page) overview of the work. This should summarise (not advertise) your research project. After reading the abstract the reader should know what problem you are tackling, the techniques you are using, the results you have achieved.}
 }
 
+Kiwi.com has proposed a real-world NP-hard optimisation problem, focused on air transport services, which involves determining the cheapest connection between specific zones. Despite some similarities with the classic TSP problem, the problem is more complex. It is an asymmetric, time-constrained and generalised (i.e. it involves zones that contain sets of cities, only one of which is visited) TSP. In addition, infeasibility adds further complexity to the problem as there are no flights available between specific points in the network on certain days. Exact methods often fail in solving these computationally difficult problems, particularly as the size of the problem instance increases; alternative approaches, such as heuristics, are therefore preferred in solving the problems.
+
+To tackle this challenge, we implemented a Monte Carlo Tree Search (MCTS), a tree search algorithm typically used in board games. We adapted and tuned it with various parameters and functions, successfully solving six out of eight instances and establishing a new state-of-the-art solution.
+
 \clearpage
+
