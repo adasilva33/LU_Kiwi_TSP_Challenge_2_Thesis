@@ -13,7 +13,7 @@ selection_policy = ["UCB", "UCB1T"]
 
 
 instance_number = 4
-root_dir = "Flight connections dataset" - save instances in this folder
+root_dir = "Flight connections dataset"  # save instances in this folder
 instances = f"insert_your_path_to_root_dir/{root_dir}"
 instance_path = f"{instances}/{instance_number}.in"
 
