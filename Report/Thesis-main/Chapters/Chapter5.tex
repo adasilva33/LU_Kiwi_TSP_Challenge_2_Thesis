@@ -2,16 +2,16 @@
 \label{Chapter5}
 \lhead{Chapter 5. \emph{Results and performance}}
 
-\todo{Present the results and discuss any differences between the findings and your initial predictions/hypothesis}
+%\todo{Present the results and discuss any differences between the findings and your initial predictions/hypothesis}
 
-\todo{Interpret your experimental results - do not just present lots of data and expect the reader to understand it.
-    Evaluate what you have achieved against the aims and objectives you outlined in the introduction}
+%\todo{Interpret your experimental results - do not just present lots of data and expect the reader to understand it.
+%Evaluate what you have achieved against the aims and objectives you outlined in the introduction}
 
 \section{Hypothesis}
-As mentionned in Section \ref{section:research_obj}, the primary objective was to implement a new algorithm in order to find solutions without imposing time constraints. Only instances ($I_1 \ldots I_8$) are studied because they represent realistic scenarios.
+As mentionned in Section \ref{section:research_obj}, the primary objective was to implement a new algorithm to find solutions without imposing time constraints. Only instances ($I_1, \ldots, I_8$) are studied because they represent realistic scenarios.
 
 Hence, simulations for every instances have been conducted, testing different combinations of parameters in what is called a grid search. Each combination of parameters was run 10 times to ensure the reliability and consistency of the results.
-One challenge, is that the computational budget is limited when using Python. Especially for the more complex instance, ($I_7 \ldots I_{14}$) where the time to find a solution for a given set of parameters is more than 20 minutes. It becomes practically impossible to perform for each instance, 10 simulations for every combination of parameters in the grid search. Hence, the size of the grid search for the more complex instances were reduced as shown in Table \ref{table:Grid search}.
+One challenge, is that the computational budget is limited when using Python. Especially for the more complex instances, ($I_7 \ldots I_{14}$) where the time to find a solution for a given set of parameters is more than 20 minutes. It becomes practically impossible to perform for each instance, 10 simulations for every combination of parameters in the grid search. Hence, the size of the grid search for the more complex instances were reduced as shown in Table \ref{table:Grid search}.
 
 \begin{table}[!ht]
     \centering
@@ -22,14 +22,14 @@ One challenge, is that the computational budget is limited when using Python. Es
             >{\centering\arraybackslash}p{3.5cm}
             >{\centering\arraybackslash}p{2cm}||}
             \toprule
-                                          & ($I_1 \ldots I_6$)        & ($I_7 \ldots I_8$) & ($I_9 \ldots I_{14}$) \\ [1ex]
+                                        & ($I_1 \ldots I_6$)        & ($I_7 \ldots I_8$) & ($I_9 \ldots I_{14}$) \\ [1ex]
             \midrule
-            \textit{selection\_policies}  & top\_k, ratio\_k          & top\_k, ratio\_k   & -                     \\
-            \textit{simulation\_policies} & random, greedy, tolerance & greedy             & -                     \\
-            \textit{selection\_policies}  & UCB, UCB1T                & UCB, UCB1T         & -                     \\
-            \textit{c\_p}                 & 0, 1.4, 2.8               & 1.4                & -                     \\
-            \textit{N\_children}          & 5, 10, 15                 & 10                 & -                     \\
-            \textit{Ratio}                & 0, .3, .5, .8, 1          & .5                 & -                     \\
+            \textit{selection\_policy}  & top\_k, ratio\_k          & top\_k, ratio\_k   & -                     \\
+            \textit{simulation\_policy} & random, greedy, tolerance & greedy             & -                     \\
+            \textit{selection\_policy}  & UCB, UCB1T                & UCB, UCB1T         & -                     \\
+            \textit{C\_p}               & 0, 1.4, 2.8               & 1.4                & -                     \\
+            \textit{N\_children}        & 5, 10, 15                 & 10                 & -                     \\
+            \textit{Ratio c}            & 0, .3, .5, .8, 1          & .5                 & -                     \\
             \bottomrule
         \end{tabular}
     }
@@ -39,7 +39,7 @@ One challenge, is that the computational budget is limited when using Python. Es
 \section{Results analysis}
 \subsection{Overview}
 
-After running the various simulations with the search grid parameters defined in Table \ref{table:Grid search}, our results were compared with those of Kiwi and RL (Reinforcement Learning) \cite{reinforcement_learning_yaro} - the only two official publications on this challenge.
+After running the various simulations with the grid search parameters defined in Table \ref{table:Grid search}, our results were compared with those of Kiwi and RL (Reinforcement Learning) \cite{reinforcement_learning_yaro} - the only two official publications about this challenge.
 
 \begin{table}[!ht]
     \centering
@@ -50,36 +50,29 @@ After running the various simulations with the search grid parameters defined in
             >{\centering\arraybackslash}p{1.5cm}
             >{\centering\arraybackslash}p{1.5cm}
             >{\centering\arraybackslash}p{1.5cm}
-            >{\centering\arraybackslash}p{1.5cm}
             >{\centering\arraybackslash}p{1.5cm} ||}
             \toprule
-            Instance & Kiwi's & RL     & Best known & Best found    & Mean    & Std   \\ [1ex]
+            Instance & Best known & Best found    & Gap (\%) & Mean & Std   \\ [1ex]
             \midrule
-            I1       & 1396   & 1396   & 1396       & \textbf{1396} & 1396    & 0     \\
-            I2       & 1498   & 1498   & 1498       & \textbf{1498} &         &       \\
-            I3       & 7672   & 7672   & 7672       & \textbf{7672} &         &       \\
-            I4       & 14024  & 13952  & 13952      & 15101         & 16208.8 & 520.8 \\
-            I5       & 698    & 690    & 690        & -             & -       & -     \\
-            I6       & 2159   & 2610   & 2159       & -             & -       & -     \\
-            I7       & 31681  & 30937  & 30937      & -             &         &       \\
-            I8       & 4052   & 4081   & 4052       & \textbf{4037} & -       &       \\
-            I9       & 76372  & 75604  & 75604      & -             & -       & -     \\
-            I10      & 21667  & 58304  & 21667      & -             & -       & -     \\
-            I11      & 44153  & 59361  & 44153      & -             & -       & -     \\
-            I12      & 65447  & 86074  & 65447      & -             & -       & -     \\
-            I13      & 97859  & 166543 & 97859      & -             & -       & -     \\
-            I14      & 118811 & 198787 & 118811     & -             & -       & -     \\ [1ex]
+            $I_1$    & 1396       & \textbf{1396} & 0        & 0    & 0     \\
+            $I_2$    & 1498       & \textbf{1498} & 0        &      &       \\
+            $I_3$    & 7672       & \textbf{7672} & 0        &      &       \\
+            $I_4$    & 13952      & 15101         & 8.24     &      & 520.8 \\
+            $I_5$    & 690        & -             & -        &      & -     \\
+            $I_6$    & 2159       & -             & -        &      & -     \\
+            $I_7$    & 30937      & -             &          &      &       \\
+            $I_8$    & 4052       & \textbf{4037} & -0.52    &      &       \\
             \bottomrule
         \end{tabular}
     }
     \label{table:Best result vs state of the art}
 \end{table}
 
-A solution was found for $I_1, \ldots, I_4$ and $I_7, I_8$. The results shown in table \ref{table:Best result vs state of the art} are the best found costs' solution within the grid search. The results of the simulations for $I_1,\ldots I_4$ are displayed in Section \ref{AppendixC} and the detailed path-solution for these instances can be found in Section \ref{AppendixD}.
+A solution was found for $I_1, I_2, I_3, I_4,I_7$ and $I_8$. The results shown in table \ref{table:Best result vs state of the art} are the best found costs' solution within the grid search. The results of the simulations for $I_1, I_2, I_3$ are displayed in Section \ref{AppendixC} and the detailed path-solution for $I_1,\ldots, I_8$ (except $I_5, I_6$) can be found in Section \ref{AppendixD}.
 \newpage
 \subsection{Analysis}
-\subsubsection{I1, I2 and I3}
-For these three instances, the best known solutions were found and the various simulations were carried out successfully. Therefore, the influence of the parameters on the final solution was investigated. For $I_3$, the analysis focuses on the $C_p$ parameter, the influence of the expansion ratio and finally the study will investigate the overall correlation matrix.
+\subsubsection{$I_1$, $I_2$, $I_3$ and $I_4$}
+For these instances, solutions were found and the various simulations were carried out successfully. Therefore, the influence of the parameters on the $\mathcal{MCTS}$ function and final solution was investigated. For $I_3$, the analysis focuses on the $C_p$ parameter, the influence of the expansion ratio and finally, the study will investigate the overall correlation matrix.
 
 \subsubsection*{Analysis on $C_p$}
 \begin{figure}[!ht]
@@ -89,34 +82,30 @@ For these three instances, the best known solutions were found and the various s
     \label{fig:cp_vs_selection_3}
 \end{figure}
 
-On Figure \ref{fig:cp_vs_cost_3} the box plots illustrate the relationship between the exploration constant \( C_p \) and the number of selection phases under the UCB and UCB1T selection policies:
+In Figure \ref{fig:cp_vs_cost_3}, the box plots illustrate the relationship between the exploration constant \( C_p \) and the number of selection phases under the UCB and UCB1T selection policies:
 
 \begin{itemize}
     \item \textbf{\( C_p = 0 \) lead to the same performance:}
-          When the $C_p=0$, the selection policy of the UCB and the UCB1T are the same (cf equation \ref{eq:UCB} and \ref{eq:UCB1T}).
+          When the $C_p=0$, the selection policy of the UCB and the UCB1T are equal (cf equation \ref{eq:UCB} and \ref{eq:UCB1T}).
     \item \textbf{Higher \( C_p \) values lead to faster convergence for UCB:}
-          As \( C_p \) increases from $0.0$ to $2.82$, the median number of selection phases under UCB policy decreases. A higher number of selection for the UCB policy could be expected, as $C_p$ increases but for small instances it convergences faster.
+          As \( C_p \) increases from $0.0$ to $2.82$, the median number of selection phases under the UCB policy decreases.
 
-    \item \textbf{UCB1T Encourages More Exploration:}
+    \item \textbf{UCB1T encourages more exploration:}
           UCB1T consistently results in a higher number of selection phases compared to UCB, especially at higher \( C_p \) values. This is consistent with UCB1T's definition to promote broader exploration before converging.
-
-    \item \textbf{Balance Between Exploration and Exploitation:}
-          The choice of \( C_p \) should be based on the specific problem, balancing the need for exploration (higher \( C_p \)) with the desire for quicker convergence (lower \( C_p \)).
 \end{itemize}
 
-Although a higher exploration parameter $C_p$ may lead to faster convergence under the UCB selection policy, it often results in worse outcomes compared to the UCB1T algorithm, as shown on Figure \ref{fig:cp_vs_cost_3}.
+Although a higher exploration parameter $C_p$ may lead to faster convergence under the UCB selection policy, it often results in worse outcomes compared to the UCB1T algorithm, as shown in Figure \ref{fig:cp_vs_cost_3}.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=\textwidth]{Figures/3 - cp_vs_cost.png}
     \caption{$C_p$ vs Total cost}
     \label{fig:cp_vs_cost_3}
 \end{figure}
-While UCB1T may require more time to converge, it generally explores the search tree more effectively, leading to better overall performance.
+While UCB1T may require more time to converge, it generally explores the search tree more effectively, leading to better overall performance. One can notice that $C_p$'s correlation with the UCB1T selection policy for $I_3$ is low.
 
 
 
-
-
+\newpage
 \subsubsection*{Analysis of Expansion ratio}
 
 \begin{figure}[!ht]
@@ -129,33 +118,163 @@ While UCB1T may require more time to converge, it generally explores the search 
 The box plots show the relationship between ratio expansion (the proportion of expanded child nodes that has the cheapest flight connection over the chosen number of children) and the time to find a solution for the UCB and UCB1T policies:
 
 \begin{itemize}
-    \item \textbf{UCB is More Time-Efficient:}
+    \item \textbf{UCB finds solution faster than UCB1T:}
           Across all ratio expansion values, the UCB policy consistently finds solutions more quickly than UCB1T. This suggests that UCB, being less aggressive in exploration, converges on solutions faster.
 
           %\item \textbf{UCB1T Takes Longer Due to Extensive Exploration:}
           %      UCB1T shows higher and more variable times to find solutions, especially at lower ratio expansions (e.g., $0.0$). This reflects UCB1T's property to explore more than UCB.
 
-    \item \textbf{Higher Ratio Expansions Lead to Quicker Solutions:}
-          For both policies, the time to find a solution generally decreases as the ratio expansion increases, indicating a more efficient search process when more expanded nodes lead to solutions. However, in more complex instances, it is crucial to have a ratio $r \in [0.3,0.7]$ to escape potential leaf node.
+    \item \textbf{Higher ratios lead to a faster convergence:}
+          For both policies, the time to find a solution generally decreases as the ratio expansion increases, indicating a more efficient search process when expanded nodes are less chosen randomly from the set of available actions. However, in more complex instances, it is crucial to have a ratio $r \in [0.3,0.7]$ to escape potential leaf node.
 \end{itemize}
 
-Finally, the UCB policy is more correlated to the expansion ratio than the UCB1T as shown on Figure \ref{fig:ratio_vs_cost_3}.
+Finally, the UCB policy is more correlated to the expansion ratio than the UCB1T as shown in Figure \ref{fig:ratio_vs_cost_3}. UCB's overall performance is worst than UCB1T because it relies heavily on the exploitation compared to UCB1T that even if it converges slower gives better results.
+
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=\textwidth]{Figures/3 - ratio_vs_cost.png}
     \caption{Expansion ratio vs Total cost}
     \label{fig:ratio_vs_cost_3}
 \end{figure}
+\newpage
+\newpage
+\subsubsection*{Analysis of simulations performances}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/3 - Simulation performance.png}
+    \caption{Simulation performance - Instance 3}
+    \label{fig:sim_perf_3}
+\end{figure}
 
-UCB's overall performance is worst than UCB1T because it relies heavily on the exploitation compared to UCB1T that even if it converges slower gives better result.
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/4 - Simulation performance - CP=0.png}
+    \caption{Simulation performance $C_p=0$ - Instance 4}
+    \label{fig:sim_perf_4_cp_zero}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/3 - Simulation performance vs Expansion ratio.png}
+    \caption{Simulation performance vs Expansion Ratio - Instance 3}
+    \label{fig:sim_perf_vs_c_3}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/4 - Simulation performance vs Expansion ratio.png}
+    \caption{Simulation performance vs Expansion Ratio - Instance 4}
+    \label{fig:sim_perf_vs_c_4}
+\end{figure}
+\subsection{Parrelisation}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/4 - Paralelised vs 5 CPU paralelised.png}
+    \caption{Performance Parrelisation vs no - Instance 4}
+    \label{fig:sim_perf_parral_4}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/Distribution stats tests P vs NP.png}
+    \caption{Stats test Performance Parrelisation vs no - Instance 4}
+    \label{fig:stats test parralel}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/4 - 5 CPU Paralelised vs 10 CPU paralelised.png}
+    \caption{test Performance 5 and 10 Parrelisation vs no - Instance 4}
+    \label{fig:parralel (5 vs 10)}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/4 - Distribution stats tests 5P vs 10P.png}
+    \caption{Stats test Performance 5 and 10 Parrelisation vs no - Instance 4}
+    \label{fig:Stats test 5 VS 10 Parall}
+\end{figure}
 
 
-\subsubsection{I5 and I6}
 
-The challenge faced with these two instances is that the defined selection, simulation and expansion policy were not robust enough to explore the tree effectively.
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/4 - Simulation performance - CP=0.png}
+    \caption{Simulation performance $C_p=0$ - Instance 4}
+    \label{fig:sim_perf_4_cp_zero}
+\end{figure}
+The parametrisation of this MCTS is not efficient for the considered instance, hence the search process do not converge towards the minimum found cost. These two distributions have a similar behavior, having $C_p=0$ indicates a similar decision-making process when using the UCB and UCB1T selection policy.
 
-After all the simulations, some nodes in the tree—under the random policy, were able to simulate until reaching a final state. However, due to the randomness of the policy, the tree was pruned at each further iteration where a solution could not be found.
+In Figure \ref{fig:sim_perf_vs_c_3}, the median distributions for the different scenarios have been plotted. One can observe that having a value $c$ too close to 1, does not on average converge to this minimum-cost solution. A contrario, lower $c$ values appears to guide the tree search more effectively during the first days of simulations, which is crucial to not overexpand the size of the tree, which can lead to an inefficient and time-consuming MCTS.
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/3 - Simulation performance vs Expansion ratio.png}
+    \caption{Simulation performance vs Expansion Ratio - Instance 3}
+    \label{fig:sim_perf_vs_c_3}
+\end{figure}
 
-\subsubsection{I4, I7 and I8}
+These conclusions can be drawn for small instances, however for $I_4$, we can clearly see in Figure \ref{fig:sim_perf_vs_c_4} that having $c=0$ for a greedy selection policy is inefficient in this tree search because it diverges from the min-simulated cost. The tree search is therefore unable to find a solution after 10 minutes. Based on the median comparison, $c=1$ is a more optimal parameter for guiding the tree search (for $I_3$).
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/4 - Simulation performance vs Expansion ratio.png}
+    \caption{Simulation performance vs Expansion Ratio - Instance 4}
+    \label{fig:sim_perf_vs_c_4}
+\end{figure}
+
+\subsubsection*{Correlation}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/3 - correlation_matrix.png}
+    \caption{Correlation matrix - Instance 3}
+    \label{fig:corr_3}
+\end{figure}
+\newpage
+\newpage
+\subsection{Parallelisation}
+As discussed in Section \ref{sub:parralelisation}, parallelisation can be implemented to better estimate one selected node's value.
+In our implementation, for $I_4$, we parallelisation a $\mathcal{MCTS}(S_p(C_p=0)="UCB",E_p(c=0)="ratio\_k",R_p="random",N_c=10)$ on five cores. The set of parameters has been chosen to represent the behavior of parallelisation in a stochastic environment.  The parralelisation has been implemented during the simulation process. Therefore, we chose the minimum outcome of the five simulations.
+
+In Figure \ref{fig:sim_perf_parral_4}, the five cores parallelised's distribution better performs than the non-parralelised approach. It confirms that parallelisation guides the MCTS more effectively in the first days of the tree search.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/4 - Paralelised vs 5 CPU paralelised.png}
+    \caption{Performance Parrelisation vs no - Instance 4}
+    \label{fig:sim_perf_parral_4}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/Distribution stats tests P vs NP.png}
+    \caption{Stats test Performance Parrelisation vs no - Instance 4}
+    \label{fig:stats test parralel}
+\end{figure}
+The Mann-Whitney and the Kolmogorov-Smirnov statistical tests have been implemented. These tests compute p-values that test the null hypothesis that the two groups have the same distribution. Hence, from Figure \ref{fig:stats test parralel} there is enough statistical evidence to say that a five core parallelised MCTS with a stochastic simulation policy better performs with parralelisation at a 5\% level.
+
+A comparison between five-core and ten-core parallelisations of the considered Monte Carlo Tree Search (MCTS) is shown in Figure \ref{fig:parralel (5 vs 10)} and \ref{fig:Stats test 5 VS 10 Parall}. There are no statistical improvments in increasing the number of cores. As discussed in \cite{different_selection_policies}, too many modifications to the MCTS can lead to undesirable behaviour.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/4 - 5 CPU Paralelised vs 10 CPU paralelised.png}
+    \caption{test Performance 5 and 10 Parrelisation vs no - Instance 4}
+    \label{fig:parralel (5 vs 10)}
+\end{figure}
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/4 - Distribution stats tests 5P vs 10P.png}
+    \caption{Stats test Performance 5 and 10 Parrelisation vs no - Instance 4}
+    \label{fig:Stats test 5 VS 10 Parall}
+\end{figure}
+
+\newpage
+\subsubsection{$I_5$ and $I_6$}
+
+The challenge faced with these two instances is that with the defined grid search, the $\mathcal{MCTS}$ function was not able to conduct the tree search effectively.
+
+Chosen nodes for the simulation that reached final states, under random or tolerance policies, failed to progress further the expansion of the tree because of the randomness of these simulations. Hence, as decided during the implementation of the algorithm, if a simulation from a node cannot reach a final state, this node would be deleted.
+\subsubsection{$I7$ and $I_8$}
 
 For these instances we have found
