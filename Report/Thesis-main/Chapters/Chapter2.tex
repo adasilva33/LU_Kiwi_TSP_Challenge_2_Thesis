@@ -1,11 +1,11 @@
 \chapter{Literature Review}
 \label{Chapter2}
 \lhead{Chapter 2. \emph{Literature Review}}
-\todo{Present a survey of your main approach and an overview of the approaches proposed previously for solving the problem dealt with in this work}
+%\todo{Present a survey of your main approach and an overview of the approaches proposed previously for solving the problem dealt with in this work}
 
-\todo{Identify the practical and research motivation of this work and the literature gaps}
+%\todo{Identify the practical and research motivation of this work and the literature gaps}
 
-\todo{How convincing is the authors' argument? (Critical response - comparisons with other research, strengths or weaknesses but in relation to your research)}
+%\todo{How convincing is the authors' argument? (Critical response - comparisons with other research, strengths or weaknesses but in relation to your research)}
 \section{Optimisation in Air Travel}
 
 In this section, we discuss some common challenges faced by airline companies and demonstrate the importance of optimisation in decision-making for the success and competitiveness of airline companies.
@@ -71,7 +71,7 @@ This problem is characterised as $\mathcal{NP}$-Hard \cite{np_hardness}. This me
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=1.2\textwidth]{Figures/NP-hardness - time complexity.png}
+    \includegraphics[width=1\textwidth]{Figures/Time_complexities.png}
     \caption{Time complexity of different functions}
     \label{fig:time_complexity_comparisons}
 \end{figure}
@@ -408,6 +408,7 @@ This is the fourth iteration $I4$ represented on Figure \ref{fig:Selection - Sim
 
         \node[target_node, below=of S5, yshift=-1.7cm](Target){14};
 
+
         \draw[->] (Root) -- (S1) node[midway, above, xshift=-2mm] {$a_1$};
         \draw[->] (Root) -- (S2) node[midway, above, xshift=2mm] {$a_2$};
         \draw[->] (S1) -- (S3)   node[midway, above, xshift=-2mm] {$a_3$};
@@ -416,6 +417,10 @@ This is the fourth iteration $I4$ represented on Figure \ref{fig:Selection - Sim
         \draw[->] (S2) -- (S6) node[midway, above, xshift=2mm] {$a_6$};
 
         \draw[->, very thick, decorate, decoration={snake, amplitude=.7mm, segment length=3mm}] (S5) -- (Target);
+
+
+
+
     \end{tikzpicture}
     \caption{Selection - Simulation - Backpropagation - I4}
     \label{fig:Selection - Simulation - Backpropagation - I4}
@@ -454,12 +459,60 @@ Where:
 The UCB balances its exploration with the coefficient $C_p$, empirically $C_p=\sqrt2$. The term \( C_p \sqrt{\frac{2 \ln N}{n_i}} \) adds a confidence interval to the average reward, which encourages exploring less-visited nodes when $C_p>0$. When $C_p=0$, the tree search explores less but exploits more of the known part that seems promising for the problem in the tree.
 The UCB1-Tuned balances its exploration with \( \min\left(\frac{1}{4}, \mathrm{Var}(X_i) + \sqrt{\frac{2 \ln N}{n_i}}\right) \), making the UCB1-Tuned more adaptable to environments with varying reward distributions. The $C_p$ coefficient can also be considered in the UCB1-Tuned's formula. Hence in stochastic environments the UCB1-Tuned is more likely to have a better overall performance.
 
-Other selection policies, such as the Beta policy or Single Player MCTS, also play significant roles in various applications of the Monte Carlo Tree Search. However, these policies will not be the focus of this study due to their probabilistic nature, which does not align well with our specific problem context.
+Other selection policies, such as the Beta policy or Single Player MCTS \cite{different_selection_policies}, also play significant roles in various applications of the Monte Carlo Tree Search. However, these policies will not be the focus of this study due to their probabilistic nature, which does not align well with our specific problem context.
+\newpage
+\subsection{Parallelisation}
+\label{sub:parralelisation}
+In computer science, parallelisation is a technique that divides a number of tasks into sub-tasks that can be both independently and simultaneously run on mutiple cores of a computer.
+Due to the nature of the MCTS and its four phases, this algorithm is a good candidate for parallelisation.
 
-\section{Previous study on this challenge}
+For instance, after selecting a node to explore, rather than conducting a single simulation based on the one simulation policy, you can either run simulations using multiple different simulation policies and select the best outcome, or perform multiple simulations using the same policy (if it is stochastic).
+Then, going back to the fourth iteration of our example in Figure \ref{fig:Selection - Simulation - Backpropagation - I4}, if we parallelise simulations on three cores then instead of having $\mathcal{R}(S^{0,0}_{5})=14$ you have a list of simulation results $\mathcal{R}(S^{0,0}_{5})=(\mathcal{R}_1(S^{0,0}_{5}),\mathcal{R}_2(S^{0,0}_{5}),\mathcal{R}_3(S^{0,0}_{5}))=(13,14,25)$ and one decision policy could be to pick the maximum of this simulation, hence $\max(\mathcal{R}(S^{0,0}_{5}))=\mathcal{R}_3(S^{0,0}_{5})=25$.
 
-More than 500 teams registered for Kiwi.com TSP 2.0 challenge, and only 100 teams developed algorithms that were robust to go to the second phase of the challenge.
-The literature on the methods used by the participants is relatively sparse compared to the number of competitors. On the \href{hhttps://code.kiwi.com/articles/travelling-salesman-challenge-2-0-wrap-up/}{Kiwi.com website}, the best instances are showcased. The winners explained their approach during the award ceremony \cite{tsp2_award}, they implemented a Breadth-first search (BFS) algorithm in C++. Other participants employed well-known heuristic such as modified Simulated Annealing, Genetic Algorithms and Reinforcement Learning hyper-heuristics.
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[
+            root_node/.style={circle, draw=orange!60, fill=orange!5, very thick, minimum size=40},
+            visited_node/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=40},
+            unvisited_node/.style={circle, draw=gray!60, fill=gray!5, very thick, minimum size=40},
+            target_node/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=40},
+        ]
+
+        \node[root_node](Root){$S^{\mathbf{4,55}}_0$};
+        \node[unvisited_node, below left=of Root](S1){$S^{2,20}_1$};
+        \node[unvisited_node, below right=of Root](S2){$S^{\mathbf{2},\mathbf{35}}_2$};
+        \node[unvisited_node, below left=of S1](S3){$S^{1,0}_3$};
+        \node[unvisited_node, below=of S1](S4){$S^{0,0}_4$};
+        \node[unvisited_node, below left=of S2](S5){$S^{\mathbf{1},\mathbf{25}}_5$};
+        \node[unvisited_node, below right=of S2](S6){$S^{0,0}_6$};
+
+
+        \node[target_node, below=of S5, yshift=-1.7cm](Target){14};
+        \node[target_node, right=of Target](Target2){13};
+        \node[target_node, left=of Target](Target3){$\mathbf{25}$};
+
+        \draw[->] (Root) -- (S1) node[midway, above, xshift=-2mm] {$a_1$};
+        \draw[->] (Root) -- (S2) node[midway, above, xshift=2mm] {$a_2$};
+        \draw[->] (S1) -- (S3)   node[midway, above, xshift=-2mm] {$a_3$};
+        \draw[->] (S1) -- (S4)   node[midway, above, xshift=3mm] {$a_4$};
+        \draw[->] (S2) -- (S5) node[midway, above, xshift=-2mm] {$a_5$};
+        \draw[->] (S2) -- (S6) node[midway, above, xshift=2mm] {$a_6$};
+
+        \draw[->, very thick, decorate, decoration={snake, amplitude=.7mm, segment length=3mm}] (S5) -- (Target);
+        \draw[->, very thick, decorate, decoration={snake, amplitude=.7mm, segment length=3mm}] (S5) -- (Target2);
+        \draw[->, very thick, decorate, decoration={snake, amplitude=.7mm, segment length=3mm}] (S5) -- (Target3);
+
+    \end{tikzpicture}
+    \caption{Example of parrelisation- I4}
+    \label{fig:Selection - Simulation - Backpropagation - I4 - P}
+\end{figure}
+
+Multiple parallelisation can be applied in the MCTS. For instance, the multi-tree MCTS aims to build parallelised tree from the root node or the leaf parralelisation where multiple simulations are executed at the same time to get better estimates of the node's value (what is done on Figure \ref{fig:Selection - Simulation - Backpropagation - I4 - P}). However, too many modifications of the MCTS can be unproductive and lead to worst results \cite{different_selection_policies}.
+
+\section{Litterature gaps}
+
+More than 500 teams registered for Kiwi.com TSP 2.0 challenge, and only 100 teams developed algorithms that were robust enough to go to the second phase of the challenge.
+The literature on the methods used by the participants is relatively sparse compared to the number of competitors. On the \href{hhttps://code.kiwi.com/articles/travelling-salesman-challenge-2-0-wrap-up/}{Kiwi.com website}, the best instances are showcased. The winners explained their approach during the award ceremony \cite{tsp2_award}, they implemented a Breadth-first search (BFS) algorithm in C++. Other participants employed well-known heuristics such as modified Simulated Annealing, Genetic Algorithms and Reinforcement Learning hyper-heuristics.
 Two papers were published on this challenge, \cite{reinforcement_learning_yaro} and \cite{local_search_yaro} where a Local Search and a Reinforcement Learning (RL) hyper-heuristics algorithms are implemented.
 The algorithms used by the known participants to solve this challenge are summarised on Table \ref{table:Kiwi TSP 2.0 - State of the chosen algorithm}.
 \begin{table}[!ht]
@@ -478,7 +531,6 @@ The algorithms used by the known participants to solve this challenge are summar
     \label{table:Kiwi TSP 2.0 - State of the chosen algorithm}
 \end{table}
 
-Furthermore, Table \ref{table:Kiwi TSP 2.0 - State of the chosen algorithm} summarises the state of the art solutions.
 \begin{table}[!ht]
     \centering
     \caption{Kiwi TSP 2.0 - State of the art solution}
@@ -491,24 +543,25 @@ Furthermore, Table \ref{table:Kiwi TSP 2.0 - State of the chosen algorithm} summ
             \toprule
             Instance & Kiwi's & Local Search & Reinforcement learning & Best known \\ [1ex]
             \midrule
-            I1       & 1396   & 1396         & 1396                   & 1396       \\
-            I2       & 1498   & 1498         & 1498                   & 1498       \\
-            I3       & 7672   & 7672         & 7672                   & 7672       \\
-            I4       & 14024  & 14045        & 13952                  & 13952      \\
-            I5       & 698    & 837          & 690                    & 690        \\
-            I6       & 2159   & 3021         & 2610                   & 2159       \\
-            I7       & 31681  & 32354        & 30937                  & 30937      \\
-            I8       & 4052   & 4041         & 4081                   & 4041       \\
-            I9       & 76372  & 82242        & 75604                  & 75604      \\
-            I10      & 21667  & 87462        & 58304                  & 21667      \\
-            I11      & 44153  & 49453        & 59361                  & 44153      \\
-            I12      & 65447  & 70082        & 86074                  & 65447      \\
-            I13      & 97859  & -            & 166543                 & 97859      \\
-            I14      & 118811 & -            & 198787                 & 118811     \\ [1ex]
+            $I_1 $   & 1396   & 1396         & 1396                   & 1396       \\
+            $I_2 $   & 1498   & 1498         & 1498                   & 1498       \\
+            $I_3 $   & 7672   & 7672         & 7672                   & 7672       \\
+            $I_4 $   & 14024  & 14045        & 13952                  & 13952      \\
+            $I_5 $   & 698    & 837          & 690                    & 690        \\
+            $I_6 $   & 2159   & 3021         & 2610                   & 2159       \\
+            $I_7 $   & 31681  & 32354        & 30937                  & 30937      \\
+            $I_8 $   & 4052   & 4041         & 4081                   & 4041       \\
+            $I_9 $   & 76372  & 82242        & 75604                  & 75604      \\
+            $I_{10}$ & 21667  & 87462        & 58304                  & 21667      \\
+            $I_{11}$ & 44153  & 49453        & 59361                  & 44153      \\
+            $I_{12}$ & 65447  & 70082        & 86074                  & 65447      \\
+            $I_{13}$ & 97859  & -            & 166543                 & 97859      \\
+            $I_{14}$ & 118811 & -            & 198787                 & 118811     \\ [1ex]
             \bottomrule
         \end{tabular}
     }
     \label{table:State of the art solutions}
 \end{table}
+Furthermore, Table \ref{table:State of the art solutions} summarises the state of the art solutions.
 
-These points motivate our selection of Monte Carlo Tree Search as a suitable approach for this challenge.
+These points motivate our selection of the Monte Carlo Tree Search as a suitable approach because it has never been implemented for this challenge.
