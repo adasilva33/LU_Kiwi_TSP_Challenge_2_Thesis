@@ -1,9 +1,32 @@
-\begin{thebibliography}{41}
+\begin{thebibliography}{44}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Verstreken and Xanthopoulos(January 8, 2024)]{flight_seasonnality_challenges}
+Jaap Bouwer Ludwig Hausmann Nina Lind~Christophe Verstreken and Stavros Xanthopoulos.
+\newblock Air travel is becoming more seasonal. what steps can airlines take to adapt to the new shape of demand.
+\newblock \emph{McKinsey}, January 8, 2024.
+\newblock URL \url{https://www.mckinsey.com/industries/travel-logistics-and-infrastructure/our-insights/how-airlines-can-handle-busier-summers-and-comparatively-quiet-winters#/}.
+
+\bibitem[Baier and Drake(2010)]{mcts_assymetrical_growth}
+Hendrik Baier and Peter~D. Drake.
+\newblock The power of forgetting: Improving the last-good-reply policy in monte carlo go.
+\newblock \emph{IEEE Transactions on Computational Intelligence and AI in Games}, 2:\penalty0 303--309, 2010.
+\newblock URL \url{https://api.semanticscholar.org/CorpusID:13578069}.
+
+\bibitem[mentionned(2024{\natexlab{a}})]{statista_flights_year}
+Not mentionned.
+\newblock Number of flights performed by the global airline industry from 2004 to 2023, with a forecasts for 2024.
+\newblock \url{https://www.statista.com/statistics/564769/airline-industry-number-of-flights/}, 2024{\natexlab{a}}.
+
+\bibitem[Pylyavskyy et~al.(2020)Pylyavskyy, Kheiri, and Ahmed]{reinforcement_learning_yaro}
+Yaroslav Pylyavskyy, Ahmed Kheiri, and Leena Ahmed.
+\newblock A reinforcement learning hyper-heuristic for the optimisation of flight connections.
+\newblock pages 1--8, 07 2020.
+\newblock \doi{10.1109/CEC48606.2020.9185803}.
 
 \bibitem[Sherali et~al.(2006)Sherali, Bish, and Zhu]{airline_fleet_assignement}
 Hanif~D. Sherali, Ebru~K. Bish, and Xiaomei Zhu.
@@ -47,36 +70,25 @@ Allison Hope.
 \newblock \emph{CNTraveler}, 2017.
 \newblock URL \url{https://www.cntraveler.com/story/the-complex-process-behind-your-flights-schedule#:~:text=Flight%20schedules%20are%20mapped%20out,affect%20departure%20and%20arrival%20times.}
 
-\bibitem[None(2024{\natexlab{a}})]{inform_software}
-None.
+\bibitem[mentionned(2024{\natexlab{b}})]{inform_software}
+Not mentionned.
 \newblock Advanced decision support for aviation disruption management.
-\newblock \url{https://www.inform-software.com/en/lp/aviation-disruption-management#:~:text=Proper%20aviation%20disruption%20management%20means,the%20schedule%2C%20while%20minimizing%20costs.}, 2024{\natexlab{a}}.
+\newblock \url{https://www.inform-software.com/en/lp/aviation-disruption-management#:~:text=Proper%20aviation%20disruption%20management%20means,the%20schedule%2C%20while%20minimizing%20costs.}, 2024{\natexlab{b}}.
 
-\bibitem[None(2024{\natexlab{b}})]{ibs_software}
-None.
+\bibitem[mentionned(2024{\natexlab{c}})]{ibs_software}
+Not mentionned.
 \newblock A modern cloud platform to optimize end-to-end airline operations and crew management. iflight drives unmatched efficiencies, cost-savings, and productivity for the world's top airlines.
-\newblock \url{https://www.ibsplc.com/product/airline-operations-solutions/iflight}, 2024{\natexlab{b}}.
+\newblock \url{https://www.ibsplc.com/product/airline-operations-solutions/iflight}, 2024{\natexlab{c}}.
 
-\bibitem[Verstreken and Xanthopoulos(January 8, 2024)]{flight_seasonnality_challenges}
-Jaap Bouwer Ludwig Hausmann Nina Lind~Christophe Verstreken and Stavros Xanthopoulos.
-\newblock Air travel is becoming more seasonal. what steps can airlines take to adapt to the new shape of demand.
-\newblock \emph{McKinsey}, January 8, 2024.
-\newblock URL \url{https://www.mckinsey.com/industries/travel-logistics-and-infrastructure/our-insights/how-airlines-can-handle-busier-summers-and-comparatively-quiet-winters#/}.
-
-\bibitem[None(2024{\natexlab{c}})]{acmi_def}
-None.
+\bibitem[mentionned(2024{\natexlab{d}})]{acmi_def}
+Not mentionned.
 \newblock What is acmi leasing?
-\newblock ACC Aviation, 2024{\natexlab{c}}.
+\newblock ACC Aviation, 2024{\natexlab{d}}.
 
 \bibitem[Team(26 December, 2023)]{np_hardness}
 Lark~Editorial Team.
 \newblock Np hard definition of np hardness.
 \newblock \emph{Lark}, 26 December, 2023.
-
-\bibitem[de~Harder(August 17, 2023)]{time_complexity}
-Hennie de~Harder.
-\newblock Np-what? complexity types of optimization problems explained.
-\newblock \emph{Towards Data Science}, August 17, 2023.
 
 \bibitem[Jonker and Volgenant(1983)]{ASTP}
 Roy Jonker and Ton Volgenant.
@@ -244,10 +256,10 @@ Google DeepMind.
 \newblock Alphago - the movie / full award-winning documentary.
 \newblock Youtube, 2020.
 
-\bibitem[mentionned(2024)]{mcts_alpha_go_algorithm}
+\bibitem[mentionned(2024{\natexlab{e}})]{mcts_alpha_go_algorithm}
 Not mentionned.
 \newblock Explain the role of monte carlo tree search (mcts) in alphago and how it integrates with policy and value networks.
-\newblock EITCA, 2024.
+\newblock EITCA, 2024{\natexlab{e}}.
 
 \bibitem[Browne et~al.(2012{\natexlab{a}})Browne, Powley, Whitehouse, Lucas, Cowling, Rohlfshagen, Tavener, Perez~Liebana, Samothrakis, and Colton]{mcts_various_policies}
 Cameron Browne, Edward Powley, Daniel Whitehouse, Simon Lucas, Peter Cowling, Philipp Rohlfshagen, Stephen Tavener, Diego Perez~Liebana, Spyridon Samothrakis, and Simon Colton.
@@ -255,16 +267,21 @@ Cameron Browne, Edward Powley, Daniel Whitehouse, Simon Lucas, Peter Cowling, Ph
 \newblock \emph{IEEE Transactions on Computational Intelligence and AI in Games}, 4:1:\penalty0 1--43, 03 2012{\natexlab{a}}.
 \newblock \doi{10.1109/TCIAIG.2012.2186810}.
 
-\bibitem[Baier and Drake(2010)]{mcts_assymetrical_growth}
-Hendrik Baier and Peter~D. Drake.
-\newblock The power of forgetting: Improving the last-good-reply policy in monte carlo go.
-\newblock \emph{IEEE Transactions on Computational Intelligence and AI in Games}, 2:\penalty0 303--309, 2010.
-\newblock URL \url{https://api.semanticscholar.org/CorpusID:13578069}.
+\bibitem[John Levine for his class CS310: Foundations~of Artificial~Intelligence(2017)]{example_youtube_mcts}
+at~the University of~Strathclyde John Levine for his class CS310: Foundations~of Artificial~Intelligence.
+\newblock Monte carlo tree search, 2017.
+\newblock URL \url{https://www.youtube.com/watch?v=UXW2yZndl7U&t=385s}.
+\newblock Accessed: June, 2024.
 
 \bibitem[Browne et~al.(2012{\natexlab{b}})Browne, Powley, Whitehouse, Lucas, Cowling, Rohlfshagen, Tavener, Perez, Samothrakis, and Colton]{different_selection_policies}
 Cameron Browne, Edward~J. Powley, Daniel Whitehouse, Simon~M. Lucas, Peter~I. Cowling, Philipp Rohlfshagen, S.~Tavener, Diego Perez, Spyridon Samothrakis, and Simon Colton.
 \newblock A survey of monte carlo tree search methods.
 \newblock \emph{IEEE Transactions on Computational Intelligence and AI in Games}, 4\penalty0 (1):\penalty0 1--43, 2012{\natexlab{b}}.
 \newblock \doi{10.1109/TCIAIG.2012.2186810}.
+
+\bibitem[Abdelnasser(June 6, 2023)]{camel_case}
+Rowaina Abdelnasser.
+\newblock Python naming conventions: 10 essential guidelines for clean and readable code.
+\newblock \url{https://medium.com/@rowainaabdelnasser/python-naming-conventions-10-essential-guidelines-for-clean-and-readable-code-fe80d2057bc9#:~:text=For%20class%20names%20in%20Python,or%20behavior%20of%20the%20class.}, June 6, 2023.
 
 \end{thebibliography}

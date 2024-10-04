@@ -5,9 +5,34 @@
     %    \todo{Give a short (1 page) overview of the work. This should summarise (not advertise) your research project. After reading the abstract the reader should know what problem you are tackling, the techniques you are using, the results you have achieved.}
 }
 
-Kiwi.com has proposed a real-world NP-hard optimisation problem, focused on air transport services, which involves determining the cheapest connection between specific zones. Despite some similarities with the classic TSP problem, the problem is more complex. It is an asymmetric, time-constrained and generalised (i.e. it involves zones that contain sets of cities, only one of which is visited) TSP. In addition, infeasibility adds further complexity to the problem as there are no flights available between specific points in the network on certain days. Exact methods often fail in solving these computationally difficult problems, particularly as the size of the problem instance increases; alternative approaches, such as heuristics, are therefore preferred in solving the problems.
+This dissertation addresses the challenge posed by Kiwi.com, the Traveling Salesman problem 2.0. Despite some similarities with the classic Traveling Salesman Problem
+(TSP), the problem is more complex. It can be characterised as an asymmetric, time-
+constrained and generalised TSP. Moreover, infeasibility adds further complexity as
+there are no ﬂights available between speciﬁc airports at speciﬁc days. Exact methods
+often fail in solving these $\mathcal{NP}$-Hard problems. Therefore, alternative approaches, such
+as heuristics, are preferred to face these cases. A Monte Carlo Tree Search (MCTS)
+was implemented to tackle Kiwi’s challenge, an algorithm traditionnaly used in board
+games, but here adapted to solve an air travel optimisation problem.
 
-To tackle this challenge, we implemented a Monte Carlo Tree Search (MCTS), a tree search algorithm typically used in board games. We adapted and tuned it with various parameters and functions, successfully solving six out of eight instances and establishing a new state-of-the-art solution.
+The focus of this paper is on the first eight instances of the problem, without taking into
+account the time constraints set by Kiwi.com. The MCTS has been chosen for its proven
+efectiveness in handling complex and high dimensionnal search spaces, therefore well
+suited for this modified TSP. The most notable results of the thesis include the successful
+implementation of Monte Carlo Tree Search (MCTS) to solve six out of eight problem
+instances, achieving results that match or closely approximate the best-known solutions.
+One new best solution have been found for instance eight. A thorough analysis of the
+algorithm’s parameters, such as the selection, expansion, simulation and parralelisation
+policies have been conducted, providing insights into their influence on the algorithm’s
+performance. It is recommended to implement MCTS using a greedy simulation policy
+and UCB1-Tuned selection policy for smaller instances, while employing UCB for more
+complex scenarios. Regarding the expansion policy, the top k function found better
+solutions accross all instances. Furthermore, a five cores leaf parrelisation is to consider
+when using stochastic simulation policies. All these parameters guide eciently the tree
+search towards the best solutions.
+\\
+\\
+\textit{Keywords: Optimisation, Travelling Salesman Problem, Monte Carlo Tree Search, Air
+Travel Optimisation.}
 
 \clearpage
 
